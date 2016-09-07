@@ -36,7 +36,6 @@ public class AnalizadorLexico {
         matEstados[0][25] = 17;
         matEstados[0][26] = 17;
         matEstados[0][27] = FINAL;
-        matEstados[0][27] = FINAL;
         matEstados[0][DEFAULT_CHAR] = ERROR;
 
         matEstados[1][0] = FINAL;
