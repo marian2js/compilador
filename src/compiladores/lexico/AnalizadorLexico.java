@@ -530,7 +530,7 @@ public class AnalizadorLexico {
         matEstados[17][27] = FINAL;
     }
 
-    private int getColumn(char c) {
+    private int getColumn(String c) {
         switch (c) {
             case "a":  return 26; case "b":  return 26; case "c":  return 26; case "d":  return 26;
             case "e":  return 26; case "f":  return 24; case "g":  return 26; case "h":  return 26;
