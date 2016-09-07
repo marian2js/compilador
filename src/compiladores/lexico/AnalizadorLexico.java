@@ -5,6 +5,7 @@ public class AnalizadorLexico {
     AccionSemantica accionesSemanticas[][];
     private final static int FINAL = -1;
     private final static int ERROR = -2;
+    private final static int DEFAULT_CHAR = 28;
 
     AnalizadorLexico() {
         matEstados[0][0] = 1;
@@ -35,9 +36,11 @@ public class AnalizadorLexico {
         matEstados[0][25] = 17;
         matEstados[0][26] = 17;
         matEstados[0][27] = FINAL;
+        matEstados[0][27] = FINAL;
+        matEstados[0][DEFAULT_CHAR] = ERROR;
 
-        matEstados[1][1] = FINAL;
         matEstados[1][0] = FINAL;
+        matEstados[1][1] = FINAL;
         matEstados[1][2] = FINAL;
         matEstados[1][3] = FINAL;
         matEstados[1][4] = FINAL;
@@ -64,6 +67,7 @@ public class AnalizadorLexico {
         matEstados[1][25] = FINAL;
         matEstados[1][26] = FINAL;
         matEstados[1][27] = FINAL;
+        matEstados[1][DEFAULT_CHAR] = FINAL;
 
         matEstados[2][0] = FINAL;
         matEstados[2][1] = FINAL;
@@ -93,6 +97,7 @@ public class AnalizadorLexico {
         matEstados[2][25] = FINAL;
         matEstados[2][26] = FINAL;
         matEstados[2][27] = FINAL;
+        matEstados[2][DEFAULT_CHAR] = FINAL;
 
         matEstados[3][0] = 3;
         matEstados[3][1] = 3;
@@ -121,7 +126,9 @@ public class AnalizadorLexico {
         matEstados[3][24] = 3;
         matEstados[3][25] = 3;
         matEstados[3][26] = 3;
-        matEstados27[15] = 3;
+        matEstados[3][26] = 3;
+        matEstados[3][27] = 3;
+        matEstados[3][DEFAULT_CHAR] = 3;
 
         matEstados[4][0] = 3;
         matEstados[4][1] = 3;
@@ -150,7 +157,8 @@ public class AnalizadorLexico {
         matEstados[4][24] = 3;
         matEstados[4][25] = 3;
         matEstados[4][26] = 3;
-        matEstados27[15] = 3;
+        matEstados[4][27] = 3;
+        matEstados[4][DEFAULT_CHAR] = 3;
 
         matEstados[5][0] = ERROR;
         matEstados[5][1] = ERROR;
@@ -180,6 +188,7 @@ public class AnalizadorLexico {
         matEstados[5][25] = ERROR;
         matEstados[5][26] = ERROR;
         matEstados[5][27] = ERROR;
+        matEstados[5][DEFAULT_CHAR] = ERROR;
 
         matEstados[6][0] = 6;
         matEstados[6][1] = 6;
@@ -208,7 +217,8 @@ public class AnalizadorLexico {
         matEstados[6][24] = 6;
         matEstados[6][25] = 6;
         matEstados[6][26] = 6;
-        matEstados27[15] = 6;
+        matEstados[6][27] = 6;
+        matEstados[6][DEFAULT_CHAR] = 6;
 
         matEstados[7][0] = ERROR;
         matEstados[7][1] = ERROR;
@@ -238,6 +248,7 @@ public class AnalizadorLexico {
         matEstados[7][25] = ERROR;
         matEstados[7][26] = ERROR;
         matEstados[7][27] = ERROR;
+        matEstados[7][DEFAULT_CHAR] = ERROR;
 
         matEstados[8][0] = 8;
         matEstados[8][1] = 8;
@@ -266,7 +277,8 @@ public class AnalizadorLexico {
         matEstados[8][24] = 8;
         matEstados[8][25] = 8;
         matEstados[8][26] = 8;
-        matEstados27[15] = 8;
+        matEstados[8][27] = 8;
+        matEstados[8][DEFAULT_CHAR] = 8;
 
         matEstados[9][0] = ERROR;
         matEstados[9][1] = ERROR;
@@ -296,6 +308,7 @@ public class AnalizadorLexico {
         matEstados[9][25] = ERROR;
         matEstados[9][26] = ERROR;
         matEstados[9][27] = ERROR;
+        matEstados[9][DEFAULT_CHAR] = ERROR;
 
         matEstados[10][0] = 11;
         matEstados[10][1] = 11;
@@ -325,8 +338,9 @@ public class AnalizadorLexico {
         matEstados[10][25] = ERROR;
         matEstados[10][26] = ERROR;
         matEstados[10][27] = ERROR;
+        matEstados[10][DEFAULT_CHAR] = ERROR;
 
-        matEstados[11][11] = FINAL;
+        matEstados[11][0] = FINAL;
         matEstados[11][1] = FINAL;
         matEstados[11][2] = FINAL;
         matEstados[11][3] = FINAL;
@@ -354,6 +368,7 @@ public class AnalizadorLexico {
         matEstados[11][25] = FINAL;
         matEstados[11][26] = FINAL;
         matEstados[11][27] = FINAL;
+        matEstados[11][DEFAULT_CHAR] = FINAL;
 
         matEstados[12][0] = 13;
         matEstados[12][1] = 13;
@@ -383,6 +398,7 @@ public class AnalizadorLexico {
         matEstados[12][25] = ERROR;
         matEstados[12][26] = ERROR;
         matEstados[12][27] = ERROR;
+        matEstados[12][DEFAULT_CHAR] = ERROR;
 
         matEstados[13][0] = ERROR;
         matEstados[13][1] = ERROR;
@@ -412,8 +428,9 @@ public class AnalizadorLexico {
         matEstados[13][25] = ERROR;
         matEstados[13][26] = ERROR;
         matEstados[13][27] = ERROR;
+        matEstados[13][DEFAULT_CHAR] = ERROR;
 
-        matEstados[14][14] = FINAL;
+        matEstados[14][0] = FINAL;
         matEstados[14][1] = FINAL;
         matEstados[14][2] = FINAL;
         matEstados[14][3] = FINAL;
@@ -441,6 +458,7 @@ public class AnalizadorLexico {
         matEstados[14][25] = 15;
         matEstados[14][26] = FINAL;
         matEstados[14][27] = FINAL;
+        matEstados[14][DEFAULT_CHAR] = FINAL;
 
         matEstados[15][0] = 16;
         matEstados[15][1] = 16;
@@ -469,9 +487,10 @@ public class AnalizadorLexico {
         matEstados[15][24] = ERROR;
         matEstados[15][25] = ERROR;
         matEstados[15][26] = ERROR;
+        matEstados[15][27] = ERROR;
+        matEstados[15][DEFAULT_CHAR] = ERROR;
 
         matEstados[16][0] = FINAL;
-        matEstados[15][27] = ERROR;
         matEstados[16][1] = FINAL;
         matEstados[16][2] = FINAL;
         matEstados[16][3] = FINAL;
@@ -499,6 +518,7 @@ public class AnalizadorLexico {
         matEstados[16][25] = FINAL;
         matEstados[16][26] = FINAL;
         matEstados[16][27] = FINAL;
+        matEstados[16][DEFAULT_CHAR] = FINAL;
 
         matEstados[17][0] = FINAL;
         matEstados[17][1] = FINAL;
@@ -528,6 +548,7 @@ public class AnalizadorLexico {
         matEstados[17][25] = 17;
         matEstados[17][26] = 17;
         matEstados[17][27] = FINAL;
+        matEstados[17][DEFAULT_CHAR] = FINAL;
     }
 
     private int getColumn(char c) {
@@ -559,7 +580,7 @@ public class AnalizadorLexico {
             case ".": return 16; case "/n": return 20; case " ": return 23; case "!": return 9;
             case "#" : return 5; case "{" : return 12; case "}": return 13; 
                 
-            default: return 255;
+            default: return DEFAULT_CHAR;
         }
     }
 
