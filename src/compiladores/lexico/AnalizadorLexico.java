@@ -530,6 +530,39 @@ public class AnalizadorLexico {
         matEstados[17][27] = FINAL;
     }
 
+    private int getColumn(char c) {
+        switch (c) {
+            case "a":  return 26; case "b":  return 26; case "c":  return 26; case "d":  return 26;
+            case "e":  return 26; case "f":  return 24; case "g":  return 26; case "h":  return 26;
+            case "i":  return 23; case "j":  return 26; case "k":  return 26; case "l":  return 26;
+            case "m":  return 26; case "n":  return 26; case "o":  return 26; case "p":  return 26;
+            case "q":  return 26; case "r":  return 26; case "s":  return 26; case "t":  return 26;
+            case "u":  return 26; case "v":  return 26; case "w":  return 26; case "x":  return 26;
+            case "y":  return 26; case "z":  return 26;
+                
+            case "A": return 26; case "B": return 26; case "C": return 26; case "D": return 26;
+            case "E": return 25; case "F": return 26; case "G": return 26; case "H": return 26;
+            case "I": return 26; case "J": return 26; case "K": return 26; case "L": return 26;
+            case "M": return 26; case "N": return 26; case "O": return 26; case "P": return 26;
+            case "Q": return 26; case "R": return 26; case "S": return 26; case "T": return 26;
+            case "U": return 26; case "V": return 26; case "W": return 26; case "X": return 26;
+            case "Y": return 26; case "Z": return 26; 
+            
+            case "0": return 18;  case "1": return 18;  case "2": return 19;  case "3": return 19;
+            case "4": return 19;  case "5": return 19;  case "6": return 19;  case "7": return 19;
+            case "8": return 19;  case "9": return 19;  
+                
+            case "@": return 2;  case "+": return 0;  case "/": return 3;  case "*": return 27;
+            case "-": return 1;  case "<": return 6; case ">": return 7; case "=": return 8;
+            case "_": return 22; case "(": return 10; case ")": return 11; case "\"":return 17;
+            case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
+            case ".": return 16; case "/n": return 20; case " ": return 23; case "!": return 9;
+            case "#" : return 5; case "{" : return 12; case "}": return 13; case ":": return 4;
+                
+            default: return 255;
+        }
+    }
+
     void ejecutar() {
         
     }
