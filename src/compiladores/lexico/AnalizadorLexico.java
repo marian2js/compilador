@@ -554,10 +554,10 @@ public class AnalizadorLexico {
                 
             case "@": return 2;  case "+": return 0;  case "/": return 3;  case "*": return 27;
             case "-": return 1;  case "<": return 6; case ">": return 7; case "=": return 8;
-            case "_": return 22; case "(": return 10; case ")": return 11; case "\"":return 17;
+            case "_": return 22; case "(": return 10; case ")": return 11; case ":": return 4;
             case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
             case ".": return 16; case "/n": return 20; case " ": return 23; case "!": return 9;
-            case "#" : return 5; case "{" : return 12; case "}": return 13; case ":": return 4;
+            case "#" : return 5; case "{" : return 12; case "}": return 13; 
                 
             default: return 255;
         }
