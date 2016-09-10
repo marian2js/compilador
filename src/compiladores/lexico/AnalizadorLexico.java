@@ -1,13 +1,19 @@
 package compiladores.lexico;
 
+import compiladores.TablaSimbolos;
+import compiladores.lexico.accionessemanticas.AccionSemantica;
+import compiladores.lexico.accionessemanticas.AccionSemantica1;
+
 public class AnalizadorLexico {
-    int matEstados[][];
-    AccionSemantica accionesSemanticas[][];
     private final static int FINAL = -1;
     private final static int ERROR = -2;
     private final static int DEFAULT_CHAR = 28;
+    private int matEstados[][];
+    private AccionSemantica accionesSemanticas[][];
+    private TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
     AnalizadorLexico() {
+        // Iniciar Matriz de Estados
         matEstados[0][0] = 1;
         matEstados[0][1] = FINAL;
         matEstados[0][2] = ERROR;
@@ -548,9 +554,12 @@ public class AnalizadorLexico {
         matEstados[17][26] = 17;
         matEstados[17][27] = FINAL;
         matEstados[17][DEFAULT_CHAR] = FINAL;
+        
+        // Matriz Acciones Semanticas
+        
     }
 
-    private int getColumn(String c) {
+    private int getColumna(String c) {
         switch (c) {
             case "a":  return 26; case "b":  return 26; case "c":  return 26; case "d":  return 26;
             case "e":  return 26; case "f":  return 24; case "g":  return 26; case "h":  return 26;
@@ -583,7 +592,19 @@ public class AnalizadorLexico {
         }
     }
 
-    void ejecutar() {
+    void ejecutar(String text) {
+        // Iniciar Acciones Semanticas
+        AccionSemantica1 as1 = new AccionSemantica1();
         
+        String buffer = "";
+        int estadoActual = 0;
+        text = "myVar = _i123;";
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            buffer += c;
+            int estado = getColumna("" + c);
+            int nuevoEstado = matEstados[estadoActual][estado];
+            as1.ejecutar(tablaSimbolos, buffer);
+        }
     }
 }
