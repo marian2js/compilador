@@ -11,6 +11,7 @@ public class AnalizadorLexico {
     private int matEstados[][];
     private AccionSemantica accionesSemanticas[][];
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
+    private int posicion = 0;
 
     AnalizadorLexico() {
         // Iniciar Matriz de Estados
@@ -599,12 +600,21 @@ public class AnalizadorLexico {
         String buffer = "";
         int estadoActual = 0;
         text = "myVar = _i123;";
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
+        while (posicion < 100) { // TODO end of file
+            char c = text.charAt(posicion);
             buffer += c;
             int estado = getColumna("" + c);
             int nuevoEstado = matEstados[estadoActual][estado];
-            as1.ejecutar(tablaSimbolos, buffer);
+            as1.ejecutar(this, buffer);
         }
+    }
+    
+    void consumir() {
+        posicion++;
+        // TODO verificar end of line
+    }
+
+    public TablaSimbolos getTablaSimbolos() {
+        return tablaSimbolos;
     }
 }

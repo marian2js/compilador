@@ -1,9 +1,9 @@
 package compiladores.lexico.accionessemanticas;
 
 import compiladores.Token;
-import compiladores.TablaSimbolos;
+import compiladores.lexico.AnalizadorLexico;
 
 public abstract class AccionSemantica {
     
-    public abstract Token ejecutar(TablaSimbolos ts, String buffer);
+    public abstract Token ejecutar(AnalizadorLexico al, String buffer);
 }
