@@ -7,9 +7,9 @@ import compiladores.lexico.accionessemanticas.*;
 public class AnalizadorLexico {
     private final static int FINAL = -1;
     private final static int ERROR = -2;
-    private final static int DEFAULT_CHAR = 28;
-    private int matEstados[][] = new int[18][29];
-    private AccionSemantica accionesSemanticas[][] = new AccionSemantica[18][29];
+    private final static int DEFAULT_CHAR = 30;
+    private int matEstados[][] = new int[18][DEFAULT_CHAR + 1];
+    private AccionSemantica accionesSemanticas[][] = new AccionSemantica[18][DEFAULT_CHAR + 1];
     private AccionSemantica0 accionSemantica0 = new AccionSemantica0();
     private AccionSemantica1 accionSemantica1 = new AccionSemantica1();
     private AccionSemantica2 accionSemantica2 = new AccionSemantica2();
@@ -55,6 +55,8 @@ public class AnalizadorLexico {
         matEstados[0][25] = 17;
         matEstados[0][26] = 17;
         matEstados[0][27] = FINAL;
+        matEstados[0][28] = FINAL;
+        matEstados[0][29] = FINAL;
         matEstados[0][DEFAULT_CHAR] = ERROR;
 
         matEstados[1][0] = FINAL;
@@ -85,6 +87,8 @@ public class AnalizadorLexico {
         matEstados[1][25] = FINAL;
         matEstados[1][26] = FINAL;
         matEstados[1][27] = FINAL;
+        matEstados[1][28] = FINAL;
+        matEstados[1][29] = FINAL;
         matEstados[1][DEFAULT_CHAR] = FINAL;
 
         matEstados[2][0] = FINAL;
@@ -115,6 +119,8 @@ public class AnalizadorLexico {
         matEstados[2][25] = FINAL;
         matEstados[2][26] = FINAL;
         matEstados[2][27] = FINAL;
+        matEstados[2][28] = FINAL;
+        matEstados[2][29] = FINAL;
         matEstados[2][DEFAULT_CHAR] = FINAL;
 
         matEstados[3][0] = 3;
@@ -146,6 +152,8 @@ public class AnalizadorLexico {
         matEstados[3][26] = 3;
         matEstados[3][26] = 3;
         matEstados[3][27] = 3;
+        matEstados[3][28] = 3;
+        matEstados[3][29] = 3;
         matEstados[3][DEFAULT_CHAR] = 3;
 
         matEstados[4][0] = 3;
@@ -176,6 +184,8 @@ public class AnalizadorLexico {
         matEstados[4][25] = 3;
         matEstados[4][26] = 3;
         matEstados[4][27] = 3;
+        matEstados[4][28] =  3;
+        matEstados[4][29] =  3;
         matEstados[4][DEFAULT_CHAR] = 3;
 
         matEstados[5][0] = ERROR;
@@ -206,6 +216,8 @@ public class AnalizadorLexico {
         matEstados[5][25] = ERROR;
         matEstados[5][26] = ERROR;
         matEstados[5][27] = ERROR;
+        matEstados[5][28] = ERROR;
+        matEstados[5][29] = ERROR;
         matEstados[5][DEFAULT_CHAR] = ERROR;
 
         matEstados[6][0] = 6;
@@ -236,6 +248,8 @@ public class AnalizadorLexico {
         matEstados[6][25] = 6;
         matEstados[6][26] = 6;
         matEstados[6][27] = 6;
+        matEstados[6][28] = 6;
+        matEstados[6][29] = 6;
         matEstados[6][DEFAULT_CHAR] = 6;
 
         matEstados[7][0] = ERROR;
@@ -266,6 +280,8 @@ public class AnalizadorLexico {
         matEstados[7][25] = ERROR;
         matEstados[7][26] = ERROR;
         matEstados[7][27] = ERROR;
+        matEstados[7][28] = ERROR;
+        matEstados[7][29] = ERROR;
         matEstados[7][DEFAULT_CHAR] = ERROR;
 
         matEstados[8][0] = 8;
@@ -296,6 +312,8 @@ public class AnalizadorLexico {
         matEstados[8][25] = 8;
         matEstados[8][26] = 8;
         matEstados[8][27] = 8;
+        matEstados[8][28] = 8;
+        matEstados[8][29] = 8;
         matEstados[8][DEFAULT_CHAR] = 8;
 
         matEstados[9][0] = ERROR;
@@ -326,6 +344,8 @@ public class AnalizadorLexico {
         matEstados[9][25] = ERROR;
         matEstados[9][26] = ERROR;
         matEstados[9][27] = ERROR;
+        matEstados[9][28] = ERROR;
+        matEstados[9][29] = ERROR;
         matEstados[9][DEFAULT_CHAR] = ERROR;
 
         matEstados[10][0] = 11;
@@ -356,6 +376,8 @@ public class AnalizadorLexico {
         matEstados[10][25] = ERROR;
         matEstados[10][26] = ERROR;
         matEstados[10][27] = ERROR;
+        matEstados[10][28] = ERROR;
+        matEstados[10][29] = ERROR;
         matEstados[10][DEFAULT_CHAR] = ERROR;
 
         matEstados[11][0] = FINAL;
@@ -386,6 +408,8 @@ public class AnalizadorLexico {
         matEstados[11][25] = FINAL;
         matEstados[11][26] = FINAL;
         matEstados[11][27] = FINAL;
+        matEstados[11][28] = FINAL;
+        matEstados[11][29] = FINAL;
         matEstados[11][DEFAULT_CHAR] = FINAL;
 
         matEstados[12][0] = 13;
@@ -416,6 +440,8 @@ public class AnalizadorLexico {
         matEstados[12][25] = ERROR;
         matEstados[12][26] = ERROR;
         matEstados[12][27] = ERROR;
+        matEstados[12][28] = ERROR;
+        matEstados[12][29] = ERROR;
         matEstados[12][DEFAULT_CHAR] = ERROR;
 
         matEstados[13][0] = ERROR;
@@ -446,6 +472,8 @@ public class AnalizadorLexico {
         matEstados[13][25] = ERROR;
         matEstados[13][26] = ERROR;
         matEstados[13][27] = ERROR;
+        matEstados[13][28] = ERROR;
+        matEstados[13][29] = ERROR;
         matEstados[13][DEFAULT_CHAR] = ERROR;
 
         matEstados[14][0] = FINAL;
@@ -476,6 +504,8 @@ public class AnalizadorLexico {
         matEstados[14][25] = 15;
         matEstados[14][26] = FINAL;
         matEstados[14][27] = FINAL;
+        matEstados[14][28] = FINAL;
+        matEstados[14][29] = FINAL;
         matEstados[14][DEFAULT_CHAR] = FINAL;
 
         matEstados[15][0] = 16;
@@ -506,6 +536,8 @@ public class AnalizadorLexico {
         matEstados[15][25] = ERROR;
         matEstados[15][26] = ERROR;
         matEstados[15][27] = ERROR;
+        matEstados[15][28] = ERROR;
+        matEstados[15][29] = ERROR;
         matEstados[15][DEFAULT_CHAR] = ERROR;
 
         matEstados[16][0] = FINAL;
@@ -536,6 +568,8 @@ public class AnalizadorLexico {
         matEstados[16][25] = FINAL;
         matEstados[16][26] = FINAL;
         matEstados[16][27] = FINAL;
+        matEstados[16][28] = FINAL;
+        matEstados[16][29] = FINAL;
         matEstados[16][DEFAULT_CHAR] = FINAL;
 
         matEstados[17][0] = FINAL;
@@ -566,6 +600,8 @@ public class AnalizadorLexico {
         matEstados[17][25] = 17;
         matEstados[17][26] = 17;
         matEstados[17][27] = FINAL;
+        matEstados[17][28] = FINAL;
+        matEstados[17][29] = FINAL;
         matEstados[17][DEFAULT_CHAR] = FINAL;
         
 
@@ -599,6 +635,8 @@ public class AnalizadorLexico {
         accionesSemanticas[0][25] = accionSemantica0;
         accionesSemanticas[0][26] = accionSemantica0;
         accionesSemanticas[0][27] = accionSemantica40;
+        accionesSemanticas[0][28] = accionSemantica40;
+        accionesSemanticas[0][29] = accionSemantica40;
         accionesSemanticas[0][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[1][0] = accionSemantica41;
@@ -629,6 +667,8 @@ public class AnalizadorLexico {
         accionesSemanticas[1][25] = accionSemantica41;
         accionesSemanticas[1][26] = accionSemantica41;
         accionesSemanticas[1][27] = accionSemantica41;
+        accionesSemanticas[1][28] = accionSemantica41;
+        accionesSemanticas[1][29] = accionSemantica41;
         accionesSemanticas[1][DEFAULT_CHAR] = accionSemantica41;
 
         accionesSemanticas[2][0] = accionSemantica40;
@@ -659,6 +699,8 @@ public class AnalizadorLexico {
         accionesSemanticas[2][25] = accionSemantica40;
         accionesSemanticas[2][26] = accionSemantica40;
         accionesSemanticas[2][27] = accionSemantica40;
+        accionesSemanticas[2][28] = accionSemantica40;
+        accionesSemanticas[2][29] = accionSemantica40;
         accionesSemanticas[2][DEFAULT_CHAR] = accionSemantica40;
 
         accionesSemanticas[3][0] = accionSemantica0;
@@ -690,6 +732,8 @@ public class AnalizadorLexico {
         accionesSemanticas[3][26] = accionSemantica0;
         accionesSemanticas[3][26] = accionSemantica0;
         accionesSemanticas[3][27] = accionSemantica0;
+        accionesSemanticas[3][28] = accionSemantica0;
+        accionesSemanticas[3][29] = accionSemantica0;
         accionesSemanticas[3][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[4][0] = accionSemantica0;
@@ -720,6 +764,8 @@ public class AnalizadorLexico {
         accionesSemanticas[4][25] = accionSemantica0;
         accionesSemanticas[4][26] = accionSemantica0;
         accionesSemanticas[4][27] = accionSemantica0;
+        accionesSemanticas[5][28] = accionSemantica0;
+        accionesSemanticas[5][29] = accionSemantica0;
         accionesSemanticas[4][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[5][0] = accionSemantica0;
@@ -750,6 +796,8 @@ public class AnalizadorLexico {
         accionesSemanticas[5][25] = accionSemantica0;
         accionesSemanticas[5][26] = accionSemantica0;
         accionesSemanticas[5][27] = accionSemantica0;
+        accionesSemanticas[5][28] = accionSemantica0;
+        accionesSemanticas[5][29] = accionSemantica0;
         accionesSemanticas[5][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[6][0] = accionSemantica0;
@@ -780,6 +828,8 @@ public class AnalizadorLexico {
         accionesSemanticas[6][25] = accionSemantica0;
         accionesSemanticas[6][26] = accionSemantica0;
         accionesSemanticas[6][27] = accionSemantica0;
+        accionesSemanticas[6][28] = accionSemantica0;
+        accionesSemanticas[6][29] = accionSemantica0;
         accionesSemanticas[6][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[7][0] = accionSemantica0;
@@ -810,6 +860,8 @@ public class AnalizadorLexico {
         accionesSemanticas[7][25] = accionSemantica0;
         accionesSemanticas[7][26] = accionSemantica0;
         accionesSemanticas[7][27] = accionSemantica0;
+        accionesSemanticas[7][28] = accionSemantica0;
+        accionesSemanticas[7][29] = accionSemantica0;
         accionesSemanticas[7][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[8][0] = accionSemantica0;
@@ -840,6 +892,8 @@ public class AnalizadorLexico {
         accionesSemanticas[8][25] = accionSemantica0;
         accionesSemanticas[8][26] = accionSemantica0;
         accionesSemanticas[8][27] = accionSemantica0;
+        accionesSemanticas[8][28] = accionSemantica0;
+        accionesSemanticas[8][29] = accionSemantica0;
         accionesSemanticas[8][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[9][0] = accionSemantica0;
@@ -870,6 +924,8 @@ public class AnalizadorLexico {
         accionesSemanticas[9][25] = accionSemantica0;
         accionesSemanticas[9][26] = accionSemantica0;
         accionesSemanticas[9][27] = accionSemantica0;
+        accionesSemanticas[9][28] = accionSemantica0;
+        accionesSemanticas[9][29] = accionSemantica0;
         accionesSemanticas[9][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[10][0] = accionSemantica0;
@@ -900,6 +956,8 @@ public class AnalizadorLexico {
         accionesSemanticas[10][25] = accionSemantica0;
         accionesSemanticas[10][26] = accionSemantica0;
         accionesSemanticas[10][27] = accionSemantica0;
+        accionesSemanticas[10][28] = accionSemantica0;
+        accionesSemanticas[10][29] = accionSemantica0;
         accionesSemanticas[10][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[11][0] = accionSemantica100;
@@ -930,6 +988,8 @@ public class AnalizadorLexico {
         accionesSemanticas[11][25] = accionSemantica100;
         accionesSemanticas[11][26] = accionSemantica100;
         accionesSemanticas[11][27] = accionSemantica100;
+        accionesSemanticas[11][28] = accionSemantica100;
+        accionesSemanticas[11][29] = accionSemantica100;
         accionesSemanticas[11][DEFAULT_CHAR] = accionSemantica100;
 
         accionesSemanticas[12][0] = accionSemantica0;
@@ -960,6 +1020,8 @@ public class AnalizadorLexico {
         accionesSemanticas[12][25] = accionSemantica0;
         accionesSemanticas[12][26] = accionSemantica0;
         accionesSemanticas[12][27] = accionSemantica0;
+        accionesSemanticas[12][28] = accionSemantica0;
+        accionesSemanticas[12][29] = accionSemantica0;
         accionesSemanticas[12][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[13][0] = accionSemantica0;
@@ -990,6 +1052,8 @@ public class AnalizadorLexico {
         accionesSemanticas[13][25] = accionSemantica0;
         accionesSemanticas[13][26] = accionSemantica0;
         accionesSemanticas[13][27] = accionSemantica0;
+        accionesSemanticas[13][28] = accionSemantica0;
+        accionesSemanticas[13][29] = accionSemantica0;
         accionesSemanticas[13][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[14][0] = accionSemantica101;
@@ -1020,6 +1084,8 @@ public class AnalizadorLexico {
         accionesSemanticas[14][25] = accionSemantica101;
         accionesSemanticas[14][26] = accionSemantica101;
         accionesSemanticas[14][27] = accionSemantica101;
+        accionesSemanticas[14][28] = accionSemantica101;
+        accionesSemanticas[14][29] = accionSemantica101;
         accionesSemanticas[14][DEFAULT_CHAR] = accionSemantica101;
 
         accionesSemanticas[15][0] = accionSemantica101;
@@ -1050,6 +1116,8 @@ public class AnalizadorLexico {
         accionesSemanticas[15][25] = accionSemantica101;
         accionesSemanticas[15][26] = accionSemantica101;
         accionesSemanticas[15][27] = accionSemantica101;
+        accionesSemanticas[15][28] = accionSemantica101;
+        accionesSemanticas[15][29] = accionSemantica101;
         accionesSemanticas[15][DEFAULT_CHAR] = accionSemantica101;
 
         accionesSemanticas[16][0] = accionSemantica0;
@@ -1080,6 +1148,8 @@ public class AnalizadorLexico {
         accionesSemanticas[16][25] = accionSemantica0;
         accionesSemanticas[16][26] = accionSemantica0;
         accionesSemanticas[16][27] = accionSemantica0;
+        accionesSemanticas[16][28] = accionSemantica0;
+        accionesSemanticas[16][29] = accionSemantica0;
         accionesSemanticas[16][DEFAULT_CHAR] = accionSemantica0;
 
         accionesSemanticas[17][0] = accionSemantica1;
@@ -1110,6 +1180,8 @@ public class AnalizadorLexico {
         accionesSemanticas[17][25] = accionSemantica0;
         accionesSemanticas[17][26] = accionSemantica0;
         accionesSemanticas[17][27] = accionSemantica1;
+        accionesSemanticas[17][28] = accionSemantica1;
+        accionesSemanticas[17][29] = accionSemantica1;
         accionesSemanticas[17][DEFAULT_CHAR] = accionSemantica1;
 
 
@@ -1142,7 +1214,8 @@ public class AnalizadorLexico {
             case "_": return 22; case "(": return 10; case ")": return 11; case ":": return 4;
             case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
             case ".": return 16; case "\n": return 20; case " ": return 23; case "!": return 9;
-            case "#" : return 5; case "{" : return 12; case "}": return 13;
+            case "#" : return 5; case "{" : return 12; case "}": return 13; case "[": return 28;
+            case "]": return 29;
 
             default: return DEFAULT_CHAR;
         }
