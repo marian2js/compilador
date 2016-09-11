@@ -1112,7 +1112,6 @@ public class AnalizadorLexico {
         accionesSemanticas[17][27] = accionSemantica1;
         accionesSemanticas[17][DEFAULT_CHAR] = accionSemantica1;
 
-        ejecutar("");
 
     }
 
@@ -1149,7 +1148,7 @@ public class AnalizadorLexico {
         }
     }
 
-    void ejecutar(String text) {
+    public void ejecutar(String text) {
         // Iniciar Acciones Semanticas
 
         int estadoActual = 0;
