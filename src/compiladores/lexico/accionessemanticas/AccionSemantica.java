@@ -5,5 +5,5 @@ import compiladores.lexico.AnalizadorLexico;
 
 public abstract class AccionSemantica {
     
-    public abstract Token ejecutar(AnalizadorLexico al, char c);
+    public abstract Token ejecutar(AnalizadorLexico analizadorLexico, char c);
 }

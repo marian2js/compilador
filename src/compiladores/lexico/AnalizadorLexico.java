@@ -767,7 +767,7 @@ public class AnalizadorLexico {
         accionesSemanticas[6][17] = accionSemantica0;
         accionesSemanticas[6][18] = accionSemantica0;
         accionesSemanticas[6][19] = accionSemantica0;
-        accionesSemanticas[6][20] = accionSemantica0;
+        accionesSemanticas[6][20] = accionSemantica2;
         accionesSemanticas[6][21] = accionSemantica0;
         accionesSemanticas[6][22] = accionSemantica0;
         accionesSemanticas[6][23] = accionSemantica0;
@@ -1148,7 +1148,7 @@ public class AnalizadorLexico {
         // Iniciar Acciones Semanticas
 
         int estadoActual = 0;
-        text = "_i123;";
+        text = "a/#sdasd#/";
         while (posicion < text.length()) { // TODO end of file
             char c = text.charAt(posicion);
             int estado = getColumna("" + c);
