@@ -1,6 +1,7 @@
 package compiladores.lexico;
 
 import compiladores.TablaSimbolos;
+import compiladores.Token;
 import compiladores.lexico.accionessemanticas.*;
 
 public class AnalizadorLexico {
@@ -12,6 +13,7 @@ public class AnalizadorLexico {
     private AccionSemantica0 accionSemantica0 = new AccionSemantica0();
     private AccionSemantica1 accionSemantica1 = new AccionSemantica1();
     private AccionSemantica2 accionSemantica2 = new AccionSemantica2();
+    private AccionSemantica3 accionSemantica3 = new AccionSemantica3();
     private AccionSemantica100 accionSemantica100 = new AccionSemantica100();
     private AccionSemantica101 accionSemantica101 = new AccionSemantica101();
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
@@ -19,6 +21,7 @@ public class AnalizadorLexico {
     private int posicion = 0;
 
     private String buffer = "";
+    private int linea;
 
     public AnalizadorLexico() {
         // Iniciar Matriz de Estados
@@ -767,7 +770,7 @@ public class AnalizadorLexico {
         accionesSemanticas[6][17] = accionSemantica0;
         accionesSemanticas[6][18] = accionSemantica0;
         accionesSemanticas[6][19] = accionSemantica0;
-        accionesSemanticas[6][20] = accionSemantica2;
+        accionesSemanticas[6][20] = accionSemantica3;
         accionesSemanticas[6][21] = accionSemantica0;
         accionesSemanticas[6][22] = accionSemantica0;
         accionesSemanticas[6][23] = accionSemantica0;
@@ -1137,7 +1140,7 @@ public class AnalizadorLexico {
             case "-": return 1;  case "<": return 6; case ">": return 7; case "=": return 8;
             case "_": return 22; case "(": return 10; case ")": return 11; case ":": return 4;
             case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
-            case ".": return 16; case "/n": return 20; case " ": return 23; case "!": return 9;
+            case ".": return 16; case "\n": return 20; case " ": return 23; case "!": return 9;
             case "#" : return 5; case "{" : return 12; case "}": return 13;
 
             default: return DEFAULT_CHAR;
@@ -1148,13 +1151,13 @@ public class AnalizadorLexico {
         // Iniciar Acciones Semanticas
 
         int estadoActual = 0;
-        text = "a/#sdasd#/";
+        text = "a/#@1asd\n";
         while (posicion < text.length()) { // TODO end of file
             char c = text.charAt(posicion);
             int estado = getColumna("" + c);
             int nuevoEstado = matEstados[estadoActual][estado];
             AccionSemantica as = accionesSemanticas[estadoActual][estado];
-            as.ejecutar(this, c);
+            Token token = as.ejecutar(this, c);
             if (nuevoEstado == -1) {
                 //TODO checkear
                 nuevoEstado = 0;
@@ -1174,6 +1177,10 @@ public class AnalizadorLexico {
 
     public void addBuffer(char c) {
         this.buffer += c;
+    }
+    
+    public int getLinea(){
+        return linea;
     }
     
     public void consumir() {
