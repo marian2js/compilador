@@ -1213,7 +1213,7 @@ public class AnalizadorLexico {
             case "-": return 1;  case "<": return 6; case ">": return 7; case "=": return 8;
             case "_": return 22; case "(": return 10; case ")": return 11; case ":": return 4;
             case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
-            case ".": return 16; case "\n": return 20; case " ": return 23; case "!": return 9;
+            case ".": return 16; case "\n": return 20; case " ": return 21; case "!": return 9;
             case "#" : return 5; case "{" : return 12; case "}": return 13; case "[": return 28;
             case "]": return 29;
 
@@ -1225,7 +1225,7 @@ public class AnalizadorLexico {
         // Iniciar Acciones Semanticas
 
         int estadoActual = 0;
-        text = "hola; := a;";
+        text = "hola if\t\t";
         while (posicion < text.length()) { // TODO end of file
             char c = text.charAt(posicion);
             int estado = getColumna("" + c);
