@@ -1,9 +1,7 @@
 package compiladores.lexico;
 
 import compiladores.TablaSimbolos;
-import compiladores.lexico.accionessemanticas.AccionSemantica;
-import compiladores.lexico.accionessemanticas.AccionSemantica0;
-import compiladores.lexico.accionessemanticas.AccionSemantica1;
+import compiladores.lexico.accionessemanticas.*;
 
 public class AnalizadorLexico {
     private final static int FINAL = -1;
@@ -13,6 +11,7 @@ public class AnalizadorLexico {
     private AccionSemantica accionesSemanticas[][] = new AccionSemantica[18][29];
     private AccionSemantica0 accionSemantica0 = new AccionSemantica0();
     private AccionSemantica1 accionSemantica1 = new AccionSemantica1();
+    private AccionSemantica2 accionSemantica2 = new AccionSemantica2();
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
     private int posicion = 0;
@@ -689,7 +688,7 @@ public class AnalizadorLexico {
         accionesSemanticas[4][0] = accionSemantica0;
         accionesSemanticas[4][1] = accionSemantica0;
         accionesSemanticas[4][2] = accionSemantica0;
-        accionesSemanticas[4][3] = accionSemantica0;
+        accionesSemanticas[4][3] = accionSemantica2;
         accionesSemanticas[4][4] = accionSemantica0;
         accionesSemanticas[4][5] = accionSemantica0;
         accionesSemanticas[4][6] = accionSemantica0;
