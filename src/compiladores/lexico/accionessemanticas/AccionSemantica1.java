@@ -5,9 +5,12 @@ import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
 
 public class AccionSemantica1 extends AccionSemantica {
-
+    
     @Override
-    public Token ejecutar(AnalizadorLexico analizadorLexico, String buffer) {        
+    public Token ejecutar(AnalizadorLexico analizadorLexico,
+            char c) {
+        String buffer = analizadorLexico.getBuffer();
+        
         // Palabra reservada
         if (analizadorLexico.getTablaSimbolos().esPalabraReservada(buffer)) {
             return analizadorLexico.getTablaSimbolos().get(buffer);

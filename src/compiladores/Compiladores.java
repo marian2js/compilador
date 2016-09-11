@@ -1,9 +1,11 @@
 package compiladores;
 
+import compiladores.lexico.AnalizadorLexico;
+
 public class Compiladores {
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        AnalizadorLexico aLexico = new AnalizadorLexico();
     }
     
 }

@@ -2,18 +2,24 @@ package compiladores.lexico;
 
 import compiladores.TablaSimbolos;
 import compiladores.lexico.accionessemanticas.AccionSemantica;
+import compiladores.lexico.accionessemanticas.AccionSemantica0;
 import compiladores.lexico.accionessemanticas.AccionSemantica1;
 
 public class AnalizadorLexico {
     private final static int FINAL = -1;
     private final static int ERROR = -2;
     private final static int DEFAULT_CHAR = 28;
-    private int matEstados[][];
-    private AccionSemantica accionesSemanticas[][];
+    private int matEstados[][] = new int[18][29];
+    private AccionSemantica accionesSemanticas[][] = new AccionSemantica[18][29];
+    private AccionSemantica0 accionSemantica0 = new AccionSemantica0();
+    private AccionSemantica1 accionSemantica1 = new AccionSemantica1();
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
+
     private int posicion = 0;
 
-    AnalizadorLexico() {
+    private String buffer = "";
+
+    public AnalizadorLexico() {
         // Iniciar Matriz de Estados
         matEstados[0][0] = 1;
         matEstados[0][1] = FINAL;
@@ -479,7 +485,7 @@ public class AnalizadorLexico {
         matEstados[15][10] = ERROR;
         matEstados[15][11] = ERROR;
         matEstados[15][12] = ERROR;
-        matEstados[15][13] = ERROR;
+        matEstados[15][13] = ERROR;        
         matEstados[15][14] = ERROR;
         matEstados[15][15] = ERROR;
         matEstados[15][16] = ERROR;
@@ -556,8 +562,552 @@ public class AnalizadorLexico {
         matEstados[17][27] = FINAL;
         matEstados[17][DEFAULT_CHAR] = FINAL;
         
+
+
         // Matriz Acciones Semanticas
-        
+        accionesSemanticas[0][0] = accionSemantica0;
+        accionesSemanticas[0][1] = accionSemantica0;
+        accionesSemanticas[0][2] = accionSemantica0;
+        accionesSemanticas[0][3] = accionSemantica0;
+        accionesSemanticas[0][4] = accionSemantica0;
+        accionesSemanticas[0][5] = accionSemantica0;
+        accionesSemanticas[0][6] = accionSemantica0;
+        accionesSemanticas[0][7] = accionSemantica0;
+        accionesSemanticas[0][8] = accionSemantica0;
+        accionesSemanticas[0][9] = accionSemantica0;
+        accionesSemanticas[0][10] = accionSemantica0;
+        accionesSemanticas[0][11] = accionSemantica0;
+        accionesSemanticas[0][12] = accionSemantica0;
+        accionesSemanticas[0][13] = accionSemantica0;
+        accionesSemanticas[0][14] = accionSemantica0;
+        accionesSemanticas[0][15] = accionSemantica0;
+        accionesSemanticas[0][16] = accionSemantica0;
+        accionesSemanticas[0][17] = accionSemantica0;
+        accionesSemanticas[0][18] = accionSemantica0;
+        accionesSemanticas[0][19] = accionSemantica0;
+        accionesSemanticas[0][20] = accionSemantica0;
+        accionesSemanticas[0][21] = accionSemantica0;
+        accionesSemanticas[0][22] = accionSemantica0;
+        accionesSemanticas[0][23] = accionSemantica0;
+        accionesSemanticas[0][24] = accionSemantica0;
+        accionesSemanticas[0][25] = accionSemantica0;
+        accionesSemanticas[0][26] = accionSemantica0;
+        accionesSemanticas[0][27] = accionSemantica0;
+        accionesSemanticas[0][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[1][0] = accionSemantica0;
+        accionesSemanticas[1][1] = accionSemantica0;
+        accionesSemanticas[1][2] = accionSemantica0;
+        accionesSemanticas[1][3] = accionSemantica0;
+        accionesSemanticas[1][4] = accionSemantica0;
+        accionesSemanticas[1][5] = accionSemantica0;
+        accionesSemanticas[1][6] = accionSemantica0;
+        accionesSemanticas[1][7] = accionSemantica0;
+        accionesSemanticas[1][8] = accionSemantica0;
+        accionesSemanticas[1][9] = accionSemantica0;
+        accionesSemanticas[1][10] = accionSemantica0;
+        accionesSemanticas[1][11] = accionSemantica0;
+        accionesSemanticas[1][12] = accionSemantica0;
+        accionesSemanticas[1][13] = accionSemantica0;
+        accionesSemanticas[1][14] = accionSemantica0;
+        accionesSemanticas[1][15] = accionSemantica0;
+        accionesSemanticas[1][16] = accionSemantica0;
+        accionesSemanticas[1][17] = accionSemantica0;
+        accionesSemanticas[1][18] = accionSemantica0;
+        accionesSemanticas[1][19] = accionSemantica0;
+        accionesSemanticas[1][20] = accionSemantica0;
+        accionesSemanticas[1][21] = accionSemantica0;
+        accionesSemanticas[1][22] = accionSemantica0;
+        accionesSemanticas[1][23] = accionSemantica0;
+        accionesSemanticas[1][24] = accionSemantica0;
+        accionesSemanticas[1][25] = accionSemantica0;
+        accionesSemanticas[1][26] = accionSemantica0;
+        accionesSemanticas[1][27] = accionSemantica0;
+        accionesSemanticas[1][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[2][0] = accionSemantica0;
+        accionesSemanticas[2][1] = accionSemantica0;
+        accionesSemanticas[2][2] = accionSemantica0;
+        accionesSemanticas[2][3] = accionSemantica0;
+        accionesSemanticas[2][4] = accionSemantica0;
+        accionesSemanticas[2][5] = accionSemantica0;
+        accionesSemanticas[2][6] = accionSemantica0;
+        accionesSemanticas[2][7] = accionSemantica0;
+        accionesSemanticas[2][8] = accionSemantica0;
+        accionesSemanticas[2][9] = accionSemantica0;
+        accionesSemanticas[2][10] = accionSemantica0;
+        accionesSemanticas[2][11] = accionSemantica0;
+        accionesSemanticas[2][12] = accionSemantica0;
+        accionesSemanticas[2][13] = accionSemantica0;
+        accionesSemanticas[2][14] = accionSemantica0;
+        accionesSemanticas[2][15] = accionSemantica0;
+        accionesSemanticas[2][16] = accionSemantica0;
+        accionesSemanticas[2][17] = accionSemantica0;
+        accionesSemanticas[2][18] = accionSemantica0;
+        accionesSemanticas[2][19] = accionSemantica0;
+        accionesSemanticas[2][20] = accionSemantica0;
+        accionesSemanticas[2][21] = accionSemantica0;
+        accionesSemanticas[2][22] = accionSemantica0;
+        accionesSemanticas[2][23] = accionSemantica0;
+        accionesSemanticas[2][24] = accionSemantica0;
+        accionesSemanticas[2][25] = accionSemantica0;
+        accionesSemanticas[2][26] = accionSemantica0;
+        accionesSemanticas[2][27] = accionSemantica0;
+        accionesSemanticas[2][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[3][0] = accionSemantica0;
+        accionesSemanticas[3][1] = accionSemantica0;
+        accionesSemanticas[3][2] = accionSemantica0;
+        accionesSemanticas[3][3] = accionSemantica0;
+        accionesSemanticas[3][4] = accionSemantica0;
+        accionesSemanticas[3][5] = accionSemantica0;
+        accionesSemanticas[3][6] = accionSemantica0;
+        accionesSemanticas[3][7] = accionSemantica0;
+        accionesSemanticas[3][8] = accionSemantica0;
+        accionesSemanticas[3][9] = accionSemantica0;
+        accionesSemanticas[3][10] = accionSemantica0;
+        accionesSemanticas[3][11] = accionSemantica0;
+        accionesSemanticas[3][12] = accionSemantica0;
+        accionesSemanticas[3][13] = accionSemantica0;
+        accionesSemanticas[3][14] = accionSemantica0;
+        accionesSemanticas[3][15] = accionSemantica0;
+        accionesSemanticas[3][16] = accionSemantica0;
+        accionesSemanticas[3][17] = accionSemantica0;
+        accionesSemanticas[3][18] = accionSemantica0;
+        accionesSemanticas[3][19] = accionSemantica0;
+        accionesSemanticas[3][20] = accionSemantica0;
+        accionesSemanticas[3][21] = accionSemantica0;
+        accionesSemanticas[3][22] = accionSemantica0;
+        accionesSemanticas[3][23] = accionSemantica0;
+        accionesSemanticas[3][24] = accionSemantica0;
+        accionesSemanticas[3][25] = accionSemantica0;
+        accionesSemanticas[3][26] = accionSemantica0;
+        accionesSemanticas[3][26] = accionSemantica0;
+        accionesSemanticas[3][27] = accionSemantica0;
+        accionesSemanticas[3][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[4][0] = accionSemantica0;
+        accionesSemanticas[4][1] = accionSemantica0;
+        accionesSemanticas[4][2] = accionSemantica0;
+        accionesSemanticas[4][3] = accionSemantica0;
+        accionesSemanticas[4][4] = accionSemantica0;
+        accionesSemanticas[4][5] = accionSemantica0;
+        accionesSemanticas[4][6] = accionSemantica0;
+        accionesSemanticas[4][7] = accionSemantica0;
+        accionesSemanticas[4][8] = accionSemantica0;
+        accionesSemanticas[4][9] = accionSemantica0;
+        accionesSemanticas[4][10] = accionSemantica0;
+        accionesSemanticas[4][11] = accionSemantica0;
+        accionesSemanticas[4][12] = accionSemantica0;
+        accionesSemanticas[4][13] = accionSemantica0;
+        accionesSemanticas[4][14] = accionSemantica0;
+        accionesSemanticas[4][15] = accionSemantica0;
+        accionesSemanticas[4][16] = accionSemantica0;
+        accionesSemanticas[4][17] = accionSemantica0;
+        accionesSemanticas[4][18] = accionSemantica0;
+        accionesSemanticas[4][19] = accionSemantica0;
+        accionesSemanticas[4][20] = accionSemantica0;
+        accionesSemanticas[4][21] = accionSemantica0;
+        accionesSemanticas[4][22] = accionSemantica0;
+        accionesSemanticas[4][23] = accionSemantica0;
+        accionesSemanticas[4][24] = accionSemantica0;
+        accionesSemanticas[4][25] = accionSemantica0;
+        accionesSemanticas[4][26] = accionSemantica0;
+        accionesSemanticas[4][27] = accionSemantica0;
+        accionesSemanticas[4][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[5][0] = accionSemantica0;
+        accionesSemanticas[5][1] = accionSemantica0;
+        accionesSemanticas[5][2] = accionSemantica0;
+        accionesSemanticas[5][3] = accionSemantica0;
+        accionesSemanticas[5][4] = accionSemantica0;
+        accionesSemanticas[5][5] = accionSemantica0;
+        accionesSemanticas[5][6] = accionSemantica0;
+        accionesSemanticas[5][7] = accionSemantica0;
+        accionesSemanticas[5][8] = accionSemantica0;
+        accionesSemanticas[5][9] = accionSemantica0;
+        accionesSemanticas[5][10] = accionSemantica0;
+        accionesSemanticas[5][11] = accionSemantica0;
+        accionesSemanticas[5][12] = accionSemantica0;
+        accionesSemanticas[5][13] = accionSemantica0;
+        accionesSemanticas[5][14] = accionSemantica0;
+        accionesSemanticas[5][15] = accionSemantica0;
+        accionesSemanticas[5][16] = accionSemantica0;
+        accionesSemanticas[5][17] = accionSemantica0;
+        accionesSemanticas[5][18] = accionSemantica0;
+        accionesSemanticas[5][19] = accionSemantica0;
+        accionesSemanticas[5][20] = accionSemantica0;
+        accionesSemanticas[5][21] = accionSemantica0;
+        accionesSemanticas[5][22] = accionSemantica0;
+        accionesSemanticas[5][23] = accionSemantica0;
+        accionesSemanticas[5][24] = accionSemantica0;
+        accionesSemanticas[5][25] = accionSemantica0;
+        accionesSemanticas[5][26] = accionSemantica0;
+        accionesSemanticas[5][27] = accionSemantica0;
+        accionesSemanticas[5][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[6][0] = accionSemantica0;
+        accionesSemanticas[6][1] = accionSemantica0;
+        accionesSemanticas[6][2] = accionSemantica0;
+        accionesSemanticas[6][3] = accionSemantica0;
+        accionesSemanticas[6][4] = accionSemantica0;
+        accionesSemanticas[6][5] = accionSemantica0;
+        accionesSemanticas[6][6] = accionSemantica0;
+        accionesSemanticas[6][7] = accionSemantica0;
+        accionesSemanticas[6][8] = accionSemantica0;
+        accionesSemanticas[6][9] = accionSemantica0;
+        accionesSemanticas[6][10] = accionSemantica0;
+        accionesSemanticas[6][11] = accionSemantica0;
+        accionesSemanticas[6][12] = accionSemantica0;
+        accionesSemanticas[6][13] = accionSemantica0;
+        accionesSemanticas[6][14] = accionSemantica0;
+        accionesSemanticas[6][15] = accionSemantica0;
+        accionesSemanticas[6][16] = accionSemantica0;
+        accionesSemanticas[6][17] = accionSemantica0;
+        accionesSemanticas[6][18] = accionSemantica0;
+        accionesSemanticas[6][19] = accionSemantica0;
+        accionesSemanticas[6][20] = accionSemantica0;
+        accionesSemanticas[6][21] = accionSemantica0;
+        accionesSemanticas[6][22] = accionSemantica0;
+        accionesSemanticas[6][23] = accionSemantica0;
+        accionesSemanticas[6][24] = accionSemantica0;
+        accionesSemanticas[6][25] = accionSemantica0;
+        accionesSemanticas[6][26] = accionSemantica0;
+        accionesSemanticas[6][27] = accionSemantica0;
+        accionesSemanticas[6][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[7][0] = accionSemantica0;
+        accionesSemanticas[7][1] = accionSemantica0;
+        accionesSemanticas[7][2] = accionSemantica0;
+        accionesSemanticas[7][3] = accionSemantica0;
+        accionesSemanticas[7][4] = accionSemantica0;
+        accionesSemanticas[7][5] = accionSemantica0;
+        accionesSemanticas[7][6] = accionSemantica0;
+        accionesSemanticas[7][7] = accionSemantica0;
+        accionesSemanticas[7][8] = accionSemantica0;
+        accionesSemanticas[7][9] = accionSemantica0;
+        accionesSemanticas[7][10] = accionSemantica0;
+        accionesSemanticas[7][11] = accionSemantica0;
+        accionesSemanticas[7][12] = accionSemantica0;
+        accionesSemanticas[7][13] = accionSemantica0;
+        accionesSemanticas[7][14] = accionSemantica0;
+        accionesSemanticas[7][15] = accionSemantica0;
+        accionesSemanticas[7][16] = accionSemantica0;
+        accionesSemanticas[7][17] = accionSemantica0;
+        accionesSemanticas[7][18] = accionSemantica0;
+        accionesSemanticas[7][19] = accionSemantica0;
+        accionesSemanticas[7][20] = accionSemantica0;
+        accionesSemanticas[7][21] = accionSemantica0;
+        accionesSemanticas[7][22] = accionSemantica0;
+        accionesSemanticas[7][23] = accionSemantica0;
+        accionesSemanticas[7][24] = accionSemantica0;
+        accionesSemanticas[7][25] = accionSemantica0;
+        accionesSemanticas[7][26] = accionSemantica0;
+        accionesSemanticas[7][27] = accionSemantica0;
+        accionesSemanticas[7][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[8][0] = accionSemantica0;
+        accionesSemanticas[8][1] = accionSemantica0;
+        accionesSemanticas[8][2] = accionSemantica0;
+        accionesSemanticas[8][3] = accionSemantica0;
+        accionesSemanticas[8][4] = accionSemantica0;
+        accionesSemanticas[8][5] = accionSemantica0;
+        accionesSemanticas[8][6] = accionSemantica0;
+        accionesSemanticas[8][7] = accionSemantica0;
+        accionesSemanticas[8][8] = accionSemantica0;
+        accionesSemanticas[8][9] = accionSemantica0;
+        accionesSemanticas[8][10] = accionSemantica0;
+        accionesSemanticas[8][11] = accionSemantica0;
+        accionesSemanticas[8][12] = accionSemantica0;
+        accionesSemanticas[8][13] = accionSemantica0;
+        accionesSemanticas[8][14] = accionSemantica0;
+        accionesSemanticas[8][15] = accionSemantica0;
+        accionesSemanticas[8][16] = accionSemantica0;
+        accionesSemanticas[8][17] = accionSemantica0;
+        accionesSemanticas[8][18] = accionSemantica0;
+        accionesSemanticas[8][19] = accionSemantica0;
+        accionesSemanticas[8][20] = accionSemantica0;
+        accionesSemanticas[8][21] = accionSemantica0;
+        accionesSemanticas[8][22] = accionSemantica0;
+        accionesSemanticas[8][23] = accionSemantica0;
+        accionesSemanticas[8][24] = accionSemantica0;
+        accionesSemanticas[8][25] = accionSemantica0;
+        accionesSemanticas[8][26] = accionSemantica0;
+        accionesSemanticas[8][27] = accionSemantica0;
+        accionesSemanticas[8][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[9][0] = accionSemantica0;
+        accionesSemanticas[9][1] = accionSemantica0;
+        accionesSemanticas[9][2] = accionSemantica0;
+        accionesSemanticas[9][3] = accionSemantica0;
+        accionesSemanticas[9][4] = accionSemantica0;
+        accionesSemanticas[9][5] = accionSemantica0;
+        accionesSemanticas[9][6] = accionSemantica0;
+        accionesSemanticas[9][7] = accionSemantica0;
+        accionesSemanticas[9][8] = accionSemantica0;
+        accionesSemanticas[9][9] = accionSemantica0;
+        accionesSemanticas[9][10] = accionSemantica0;
+        accionesSemanticas[9][11] = accionSemantica0;
+        accionesSemanticas[9][12] = accionSemantica0;
+        accionesSemanticas[9][13] = accionSemantica0;
+        accionesSemanticas[9][14] = accionSemantica0;
+        accionesSemanticas[9][15] = accionSemantica0;
+        accionesSemanticas[9][16] = accionSemantica0;
+        accionesSemanticas[9][17] = accionSemantica0;
+        accionesSemanticas[9][18] = accionSemantica0;
+        accionesSemanticas[9][19] = accionSemantica0;
+        accionesSemanticas[9][20] = accionSemantica0;
+        accionesSemanticas[9][21] = accionSemantica0;
+        accionesSemanticas[9][22] = accionSemantica0;
+        accionesSemanticas[9][23] = accionSemantica0;
+        accionesSemanticas[9][24] = accionSemantica0;
+        accionesSemanticas[9][25] = accionSemantica0;
+        accionesSemanticas[9][26] = accionSemantica0;
+        accionesSemanticas[9][27] = accionSemantica0;
+        accionesSemanticas[9][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[10][0] = accionSemantica0;
+        accionesSemanticas[10][1] = accionSemantica0;
+        accionesSemanticas[10][2] = accionSemantica0;
+        accionesSemanticas[10][3] = accionSemantica0;
+        accionesSemanticas[10][4] = accionSemantica0;
+        accionesSemanticas[10][5] = accionSemantica0;
+        accionesSemanticas[10][6] = accionSemantica0;
+        accionesSemanticas[10][7] = accionSemantica0;
+        accionesSemanticas[10][8] = accionSemantica0;
+        accionesSemanticas[10][9] = accionSemantica0;
+        accionesSemanticas[10][10] = accionSemantica0;
+        accionesSemanticas[10][11] = accionSemantica0;
+        accionesSemanticas[10][12] = accionSemantica0;
+        accionesSemanticas[10][13] = accionSemantica0;
+        accionesSemanticas[10][14] = accionSemantica0;
+        accionesSemanticas[10][15] = accionSemantica0;
+        accionesSemanticas[10][16] = accionSemantica0;
+        accionesSemanticas[10][17] = accionSemantica0;
+        accionesSemanticas[10][18] = accionSemantica0;
+        accionesSemanticas[10][19] = accionSemantica0;
+        accionesSemanticas[10][20] = accionSemantica0;
+        accionesSemanticas[10][21] = accionSemantica0;
+        accionesSemanticas[10][22] = accionSemantica0;
+        accionesSemanticas[10][23] = accionSemantica0;
+        accionesSemanticas[10][24] = accionSemantica0;
+        accionesSemanticas[10][25] = accionSemantica0;
+        accionesSemanticas[10][26] = accionSemantica0;
+        accionesSemanticas[10][27] = accionSemantica0;
+        accionesSemanticas[10][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[11][0] = accionSemantica0;
+        accionesSemanticas[11][1] = accionSemantica0;
+        accionesSemanticas[11][2] = accionSemantica0;
+        accionesSemanticas[11][3] = accionSemantica0;
+        accionesSemanticas[11][4] = accionSemantica0;
+        accionesSemanticas[11][5] = accionSemantica0;
+        accionesSemanticas[11][6] = accionSemantica0;
+        accionesSemanticas[11][7] = accionSemantica0;
+        accionesSemanticas[11][8] = accionSemantica0;
+        accionesSemanticas[11][9] = accionSemantica0;
+        accionesSemanticas[11][10] = accionSemantica0;
+        accionesSemanticas[11][11] = accionSemantica0;
+        accionesSemanticas[11][12] = accionSemantica0;
+        accionesSemanticas[11][13] = accionSemantica0;
+        accionesSemanticas[11][14] = accionSemantica0;
+        accionesSemanticas[11][15] = accionSemantica0;
+        accionesSemanticas[11][16] = accionSemantica0;
+        accionesSemanticas[11][17] = accionSemantica0;
+        accionesSemanticas[11][18] = accionSemantica0;
+        accionesSemanticas[11][19] = accionSemantica0;
+        accionesSemanticas[11][20] = accionSemantica0;
+        accionesSemanticas[11][21] = accionSemantica0;
+        accionesSemanticas[11][22] = accionSemantica0;
+        accionesSemanticas[11][23] = accionSemantica0;
+        accionesSemanticas[11][24] = accionSemantica0;
+        accionesSemanticas[11][25] = accionSemantica0;
+        accionesSemanticas[11][26] = accionSemantica0;
+        accionesSemanticas[11][27] = accionSemantica0;
+        accionesSemanticas[11][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[12][0] = accionSemantica0;
+        accionesSemanticas[12][1] = accionSemantica0;
+        accionesSemanticas[12][2] = accionSemantica0;
+        accionesSemanticas[12][3] = accionSemantica0;
+        accionesSemanticas[12][4] = accionSemantica0;
+        accionesSemanticas[12][5] = accionSemantica0;
+        accionesSemanticas[12][6] = accionSemantica0;
+        accionesSemanticas[12][7] = accionSemantica0;
+        accionesSemanticas[12][8] = accionSemantica0;
+        accionesSemanticas[12][9] = accionSemantica0;
+        accionesSemanticas[12][10] = accionSemantica0;
+        accionesSemanticas[12][11] = accionSemantica0;
+        accionesSemanticas[12][12] = accionSemantica0;
+        accionesSemanticas[12][13] = accionSemantica0;
+        accionesSemanticas[12][14] = accionSemantica0;
+        accionesSemanticas[12][15] = accionSemantica0;
+        accionesSemanticas[12][16] = accionSemantica0;
+        accionesSemanticas[12][17] = accionSemantica0;
+        accionesSemanticas[12][18] = accionSemantica0;
+        accionesSemanticas[12][19] = accionSemantica0;
+        accionesSemanticas[12][20] = accionSemantica0;
+        accionesSemanticas[12][21] = accionSemantica0;
+        accionesSemanticas[12][22] = accionSemantica0;
+        accionesSemanticas[12][23] = accionSemantica0;
+        accionesSemanticas[12][24] = accionSemantica0;
+        accionesSemanticas[12][25] = accionSemantica0;
+        accionesSemanticas[12][26] = accionSemantica0;
+        accionesSemanticas[12][27] = accionSemantica0;
+        accionesSemanticas[12][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[13][0] = accionSemantica0;
+        accionesSemanticas[13][1] = accionSemantica0;
+        accionesSemanticas[13][2] = accionSemantica0;
+        accionesSemanticas[13][3] = accionSemantica0;
+        accionesSemanticas[13][4] = accionSemantica0;
+        accionesSemanticas[13][5] = accionSemantica0;
+        accionesSemanticas[13][6] = accionSemantica0;
+        accionesSemanticas[13][7] = accionSemantica0;
+        accionesSemanticas[13][8] = accionSemantica0;
+        accionesSemanticas[13][9] = accionSemantica0;
+        accionesSemanticas[13][10] = accionSemantica0;
+        accionesSemanticas[13][11] = accionSemantica0;
+        accionesSemanticas[13][12] = accionSemantica0;
+        accionesSemanticas[13][13] = accionSemantica0;
+        accionesSemanticas[13][14] = accionSemantica0;
+        accionesSemanticas[13][15] = accionSemantica0;
+        accionesSemanticas[13][16] = accionSemantica0;
+        accionesSemanticas[13][17] = accionSemantica0;
+        accionesSemanticas[13][18] = accionSemantica0;
+        accionesSemanticas[13][19] = accionSemantica0;
+        accionesSemanticas[13][20] = accionSemantica0;
+        accionesSemanticas[13][21] = accionSemantica0;
+        accionesSemanticas[13][22] = accionSemantica0;
+        accionesSemanticas[13][23] = accionSemantica0;
+        accionesSemanticas[13][24] = accionSemantica0;
+        accionesSemanticas[13][25] = accionSemantica0;
+        accionesSemanticas[13][26] = accionSemantica0;
+        accionesSemanticas[13][27] = accionSemantica0;
+        accionesSemanticas[13][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[14][0] = accionSemantica0;
+        accionesSemanticas[14][1] = accionSemantica0;
+        accionesSemanticas[14][2] = accionSemantica0;
+        accionesSemanticas[14][3] = accionSemantica0;
+        accionesSemanticas[14][4] = accionSemantica0;
+        accionesSemanticas[14][5] = accionSemantica0;
+        accionesSemanticas[14][6] = accionSemantica0;
+        accionesSemanticas[14][7] = accionSemantica0;
+        accionesSemanticas[14][8] = accionSemantica0;
+        accionesSemanticas[14][9] = accionSemantica0;
+        accionesSemanticas[14][10] = accionSemantica0;
+        accionesSemanticas[14][11] = accionSemantica0;
+        accionesSemanticas[14][12] = accionSemantica0;
+        accionesSemanticas[14][13] = accionSemantica0;
+        accionesSemanticas[14][14] = accionSemantica0;
+        accionesSemanticas[14][15] = accionSemantica0;
+        accionesSemanticas[14][16] = accionSemantica0;
+        accionesSemanticas[14][17] = accionSemantica0;
+        accionesSemanticas[14][18] = accionSemantica0;
+        accionesSemanticas[14][19] = accionSemantica0;
+        accionesSemanticas[14][20] = accionSemantica0;
+        accionesSemanticas[14][21] = accionSemantica0;
+        accionesSemanticas[14][22] = accionSemantica0;
+        accionesSemanticas[14][23] = accionSemantica0;
+        accionesSemanticas[14][24] = accionSemantica0;
+        accionesSemanticas[14][25] = accionSemantica0;
+        accionesSemanticas[14][26] = accionSemantica0;
+        accionesSemanticas[14][27] = accionSemantica0;
+        accionesSemanticas[14][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[15][0] = accionSemantica0;
+        accionesSemanticas[15][1] = accionSemantica0;
+        accionesSemanticas[15][2] = accionSemantica0;
+        accionesSemanticas[15][3] = accionSemantica0;
+        accionesSemanticas[15][4] = accionSemantica0;
+        accionesSemanticas[15][5] = accionSemantica0;
+        accionesSemanticas[15][6] = accionSemantica0;
+        accionesSemanticas[15][7] = accionSemantica0;
+        accionesSemanticas[15][8] = accionSemantica0;
+        accionesSemanticas[15][9] = accionSemantica0;
+        accionesSemanticas[15][10] = accionSemantica0;
+        accionesSemanticas[15][11] = accionSemantica0;
+        accionesSemanticas[15][12] = accionSemantica0;
+        accionesSemanticas[15][13] = accionSemantica0;
+        accionesSemanticas[15][14] = accionSemantica0;
+        accionesSemanticas[15][15] = accionSemantica0;
+        accionesSemanticas[15][16] = accionSemantica0;
+        accionesSemanticas[15][17] = accionSemantica0;
+        accionesSemanticas[15][18] = accionSemantica0;
+        accionesSemanticas[15][19] = accionSemantica0;
+        accionesSemanticas[15][20] = accionSemantica0;
+        accionesSemanticas[15][21] = accionSemantica0;
+        accionesSemanticas[15][22] = accionSemantica0;
+        accionesSemanticas[15][23] = accionSemantica0;
+        accionesSemanticas[15][24] = accionSemantica0;
+        accionesSemanticas[15][25] = accionSemantica0;
+        accionesSemanticas[15][26] = accionSemantica0;
+        accionesSemanticas[15][27] = accionSemantica0;
+        accionesSemanticas[15][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[16][0] = accionSemantica0;
+        accionesSemanticas[16][1] = accionSemantica0;
+        accionesSemanticas[16][2] = accionSemantica0;
+        accionesSemanticas[16][3] = accionSemantica0;
+        accionesSemanticas[16][4] = accionSemantica0;
+        accionesSemanticas[16][5] = accionSemantica0;
+        accionesSemanticas[16][6] = accionSemantica0;
+        accionesSemanticas[16][7] = accionSemantica0;
+        accionesSemanticas[16][8] = accionSemantica0;
+        accionesSemanticas[16][9] = accionSemantica0;
+        accionesSemanticas[16][10] = accionSemantica0;
+        accionesSemanticas[16][11] = accionSemantica0;
+        accionesSemanticas[16][12] = accionSemantica0;
+        accionesSemanticas[16][13] = accionSemantica0;
+        accionesSemanticas[16][14] = accionSemantica0;
+        accionesSemanticas[16][15] = accionSemantica0;
+        accionesSemanticas[16][16] = accionSemantica0;
+        accionesSemanticas[16][17] = accionSemantica0;
+        accionesSemanticas[16][18] = accionSemantica0;
+        accionesSemanticas[16][19] = accionSemantica0;
+        accionesSemanticas[16][20] = accionSemantica0;
+        accionesSemanticas[16][21] = accionSemantica0;
+        accionesSemanticas[16][22] = accionSemantica0;
+        accionesSemanticas[16][23] = accionSemantica0;
+        accionesSemanticas[16][24] = accionSemantica0;
+        accionesSemanticas[16][25] = accionSemantica0;
+        accionesSemanticas[16][26] = accionSemantica0;
+        accionesSemanticas[16][27] = accionSemantica0;
+        accionesSemanticas[16][DEFAULT_CHAR] = accionSemantica0;
+
+        accionesSemanticas[17][0] = accionSemantica1;
+        accionesSemanticas[17][1] = accionSemantica1;
+        accionesSemanticas[17][2] = accionSemantica1;
+        accionesSemanticas[17][3] = accionSemantica1;
+        accionesSemanticas[17][4] = accionSemantica1;
+        accionesSemanticas[17][5] = accionSemantica1;
+        accionesSemanticas[17][6] = accionSemantica1;
+        accionesSemanticas[17][7] = accionSemantica1;
+        accionesSemanticas[17][8] = accionSemantica1;
+        accionesSemanticas[17][9] = accionSemantica1;
+        accionesSemanticas[17][10] = accionSemantica1;
+        accionesSemanticas[17][11] = accionSemantica1;
+        accionesSemanticas[17][12] = accionSemantica1;
+        accionesSemanticas[17][13] = accionSemantica1;
+        accionesSemanticas[17][14] = accionSemantica1;
+        accionesSemanticas[17][15] = accionSemantica1;
+        accionesSemanticas[17][16] = accionSemantica1;
+        accionesSemanticas[17][17] = accionSemantica1;
+        accionesSemanticas[17][18] = accionSemantica1;
+        accionesSemanticas[17][19] = accionSemantica1;
+        accionesSemanticas[17][20] = accionSemantica1;
+        accionesSemanticas[17][21] = accionSemantica1;
+        accionesSemanticas[17][22] = accionSemantica0;
+        accionesSemanticas[17][23] = accionSemantica0;
+        accionesSemanticas[17][24] = accionSemantica0;
+        accionesSemanticas[17][25] = accionSemantica0;
+        accionesSemanticas[17][26] = accionSemantica0;
+        accionesSemanticas[17][27] = accionSemantica1;
+        accionesSemanticas[17][DEFAULT_CHAR] = accionSemantica1;
+
+        ejecutar("");
+
     }
 
     private int getColumna(String c) {
@@ -569,47 +1119,63 @@ public class AnalizadorLexico {
             case "q":  return 26; case "r":  return 26; case "s":  return 26; case "t":  return 26;
             case "u":  return 26; case "v":  return 26; case "w":  return 26; case "x":  return 26;
             case "y":  return 26; case "z":  return 26;
-                
+
             case "A": return 26; case "B": return 26; case "C": return 26; case "D": return 26;
             case "E": return 25; case "F": return 26; case "G": return 26; case "H": return 26;
             case "I": return 26; case "J": return 26; case "K": return 26; case "L": return 26;
             case "M": return 26; case "N": return 26; case "O": return 26; case "P": return 26;
             case "Q": return 26; case "R": return 26; case "S": return 26; case "T": return 26;
             case "U": return 26; case "V": return 26; case "W": return 26; case "X": return 26;
-            case "Y": return 26; case "Z": return 26; 
-            
+            case "Y": return 26; case "Z": return 26;
+
             case "0": return 18;  case "1": return 18;  case "2": return 19;  case "3": return 19;
             case "4": return 19;  case "5": return 19;  case "6": return 19;  case "7": return 19;
-            case "8": return 19;  case "9": return 19;  
-                
+            case "8": return 19;  case "9": return 19;
+
             case "@": return 2;  case "+": return 0;  case "/": return 3;  case "*": return 27;
             case "-": return 1;  case "<": return 6; case ">": return 7; case "=": return 8;
             case "_": return 22; case "(": return 10; case ")": return 11; case ":": return 4;
             case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
             case ".": return 16; case "/n": return 20; case " ": return 23; case "!": return 9;
-            case "#" : return 5; case "{" : return 12; case "}": return 13; 
-                
+            case "#" : return 5; case "{" : return 12; case "}": return 13;
+
             default: return DEFAULT_CHAR;
         }
     }
 
     void ejecutar(String text) {
         // Iniciar Acciones Semanticas
-        AccionSemantica1 as1 = new AccionSemantica1();
-        
-        String buffer = "";
+
         int estadoActual = 0;
-        text = "myVar = _i123;";
-        while (posicion < 100) { // TODO end of file
+        text = "my=_i123;";
+        while (posicion < text.length()) { // TODO end of file
             char c = text.charAt(posicion);
-            buffer += c;
             int estado = getColumna("" + c);
             int nuevoEstado = matEstados[estadoActual][estado];
-            as1.ejecutar(this, buffer);
+            AccionSemantica as = accionesSemanticas[estadoActual][estado];
+            as.ejecutar(this, c);
+            if (nuevoEstado == -1) {
+                //TODO checkear
+                nuevoEstado = 0;
+                buffer = "";
+            }
+            estadoActual = nuevoEstado;
         }
     }
+
+    public String getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(String buffer) {
+        this.buffer = buffer;
+    }
+
+    public void addBuffer(char c) {
+        this.buffer += c;
+    }
     
-    void consumir() {
+    public void consumir() {
         posicion++;
         // TODO verificar end of line
     }
