@@ -627,8 +627,8 @@ public class AnalizadorLexico {
         accionesSemanticas[0][17] = accionSemantica0;
         accionesSemanticas[0][18] = accionSemantica0;
         accionesSemanticas[0][19] = accionSemantica0;
-        accionesSemanticas[0][20] = accionSemantica0;
-        accionesSemanticas[0][21] = accionSemantica0;
+        accionesSemanticas[0][20] = accionSemantica2;
+        accionesSemanticas[0][21] = accionSemantica2;
         accionesSemanticas[0][22] = accionSemantica0;
         accionesSemanticas[0][23] = accionSemantica0;
         accionesSemanticas[0][24] = accionSemantica0;
