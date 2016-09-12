@@ -14,6 +14,7 @@ public class AnalizadorLexico {
     private AccionSemantica1 accionSemantica1 = new AccionSemantica1();
     private AccionSemantica2 accionSemantica2 = new AccionSemantica2();
     private AccionSemantica3 accionSemantica3 = new AccionSemantica3();
+    private AccionSemantica4 accionSemantica4 = new AccionSemantica4();
     private AccionSemantica40 accionSemantica40 = new AccionSemantica40();
     private AccionSemantica41 accionSemantica41 = new AccionSemantica41();
     private AccionSemantica100 accionSemantica100 = new AccionSemantica100();
@@ -304,7 +305,7 @@ public class AnalizadorLexico {
         matEstados[8][17] = FINAL;
         matEstados[8][18] = 8;
         matEstados[8][19] = 8;
-        matEstados[8][20] = 8;
+        matEstados[8][20] = ERROR;
         matEstados[8][21] = 8;
         matEstados[8][22] = 8;
         matEstados[8][23] = 8;
@@ -881,10 +882,10 @@ public class AnalizadorLexico {
         accionesSemanticas[8][14] = accionSemantica0;
         accionesSemanticas[8][15] = accionSemantica0;
         accionesSemanticas[8][16] = accionSemantica0;
-        accionesSemanticas[8][17] = accionSemantica0;
+        accionesSemanticas[8][17] = accionSemantica40;
         accionesSemanticas[8][18] = accionSemantica0;
         accionesSemanticas[8][19] = accionSemantica0;
-        accionesSemanticas[8][20] = accionSemantica0;
+        accionesSemanticas[8][20] = accionSemantica4;
         accionesSemanticas[8][21] = accionSemantica0;
         accionesSemanticas[8][22] = accionSemantica0;
         accionesSemanticas[8][23] = accionSemantica0;
@@ -1222,8 +1223,10 @@ public class AnalizadorLexico {
     }
 
     public void ejecutar(String text) {
+        // Iniciar Acciones Semanticas
+
         int estadoActual = 0;
-        text = "hola if\t\t";
+        text = "'h a \n asd' a:=b";
         while (posicion < text.length()) { // TODO end of file
             char c = text.charAt(posicion);
             int estado = getColumna("" + c);
@@ -1234,6 +1237,9 @@ public class AnalizadorLexico {
                 //TODO checkear
                 nuevoEstado = 0;
                 buffer = "";
+            }
+            if (nuevoEstado == -2) {
+                nuevoEstado = 0;
             }
             estadoActual = nuevoEstado;
         }
