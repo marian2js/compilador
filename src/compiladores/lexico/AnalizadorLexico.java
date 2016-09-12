@@ -1081,15 +1081,15 @@ public class AnalizadorLexico {
         accionesSemanticas[14][22] = accionSemantica101;
         accionesSemanticas[14][23] = accionSemantica101;
         accionesSemanticas[14][24] = accionSemantica101;
-        accionesSemanticas[14][25] = accionSemantica101;
+        accionesSemanticas[14][25] = accionSemantica0;
         accionesSemanticas[14][26] = accionSemantica101;
         accionesSemanticas[14][27] = accionSemantica101;
         accionesSemanticas[14][28] = accionSemantica101;
         accionesSemanticas[14][29] = accionSemantica101;
         accionesSemanticas[14][DEFAULT_CHAR] = accionSemantica101;
 
-        accionesSemanticas[15][0] = accionSemantica101;
-        accionesSemanticas[15][1] = accionSemantica101;
+        accionesSemanticas[15][0] = accionSemantica0;
+        accionesSemanticas[15][1] = accionSemantica0;
         accionesSemanticas[15][2] = accionSemantica101;
         accionesSemanticas[15][3] = accionSemantica101;
         accionesSemanticas[15][4] = accionSemantica101;
@@ -1120,37 +1120,37 @@ public class AnalizadorLexico {
         accionesSemanticas[15][29] = accionSemantica101;
         accionesSemanticas[15][DEFAULT_CHAR] = accionSemantica101;
 
-        accionesSemanticas[16][0] = accionSemantica0;
-        accionesSemanticas[16][1] = accionSemantica0;
-        accionesSemanticas[16][2] = accionSemantica0;
-        accionesSemanticas[16][3] = accionSemantica0;
-        accionesSemanticas[16][4] = accionSemantica0;
-        accionesSemanticas[16][5] = accionSemantica0;
-        accionesSemanticas[16][6] = accionSemantica0;
-        accionesSemanticas[16][7] = accionSemantica0;
-        accionesSemanticas[16][8] = accionSemantica0;
-        accionesSemanticas[16][9] = accionSemantica0;
-        accionesSemanticas[16][10] = accionSemantica0;
-        accionesSemanticas[16][11] = accionSemantica0;
-        accionesSemanticas[16][12] = accionSemantica0;
-        accionesSemanticas[16][13] = accionSemantica0;
-        accionesSemanticas[16][14] = accionSemantica0;
-        accionesSemanticas[16][15] = accionSemantica0;
-        accionesSemanticas[16][16] = accionSemantica0;
-        accionesSemanticas[16][17] = accionSemantica0;
+        accionesSemanticas[16][0] = accionSemantica101;
+        accionesSemanticas[16][1] = accionSemantica101;
+        accionesSemanticas[16][2] = accionSemantica101;
+        accionesSemanticas[16][3] = accionSemantica101;
+        accionesSemanticas[16][4] = accionSemantica101;
+        accionesSemanticas[16][5] = accionSemantica101;
+        accionesSemanticas[16][6] = accionSemantica101;
+        accionesSemanticas[16][7] = accionSemantica101;
+        accionesSemanticas[16][8] = accionSemantica101;
+        accionesSemanticas[16][9] = accionSemantica101;
+        accionesSemanticas[16][10] = accionSemantica101;
+        accionesSemanticas[16][11] = accionSemantica101;
+        accionesSemanticas[16][12] = accionSemantica101;
+        accionesSemanticas[16][13] = accionSemantica101;
+        accionesSemanticas[16][14] = accionSemantica101;
+        accionesSemanticas[16][15] = accionSemantica101;
+        accionesSemanticas[16][16] = accionSemantica101;
+        accionesSemanticas[16][17] = accionSemantica101;
         accionesSemanticas[16][18] = accionSemantica0;
         accionesSemanticas[16][19] = accionSemantica0;
-        accionesSemanticas[16][20] = accionSemantica0;
-        accionesSemanticas[16][21] = accionSemantica0;
-        accionesSemanticas[16][22] = accionSemantica0;
-        accionesSemanticas[16][23] = accionSemantica0;
-        accionesSemanticas[16][24] = accionSemantica0;
-        accionesSemanticas[16][25] = accionSemantica0;
-        accionesSemanticas[16][26] = accionSemantica0;
-        accionesSemanticas[16][27] = accionSemantica0;
-        accionesSemanticas[16][28] = accionSemantica0;
-        accionesSemanticas[16][29] = accionSemantica0;
-        accionesSemanticas[16][DEFAULT_CHAR] = accionSemantica0;
+        accionesSemanticas[16][20] = accionSemantica101;
+        accionesSemanticas[16][21] = accionSemantica101;
+        accionesSemanticas[16][22] = accionSemantica101;
+        accionesSemanticas[16][23] = accionSemantica101;
+        accionesSemanticas[16][24] = accionSemantica101;
+        accionesSemanticas[16][25] = accionSemantica101;
+        accionesSemanticas[16][26] = accionSemantica101;
+        accionesSemanticas[16][27] = accionSemantica101;
+        accionesSemanticas[16][28] = accionSemantica101;
+        accionesSemanticas[16][29] = accionSemantica101;
+        accionesSemanticas[16][DEFAULT_CHAR] = accionSemantica101;
 
         accionesSemanticas[17][0] = accionSemantica1;
         accionesSemanticas[17][1] = accionSemantica1;
@@ -1222,8 +1222,6 @@ public class AnalizadorLexico {
     }
 
     public void ejecutar(String text) {
-        // Iniciar Acciones Semanticas
-
         int estadoActual = 0;
         text = "hola if\t\t";
         while (posicion < text.length()) { // TODO end of file
@@ -1256,7 +1254,7 @@ public class AnalizadorLexico {
     public int getLinea(){
         return linea;
     }
-    
+
     public void consumir() {
         posicion++;
         // TODO verificar end of line
