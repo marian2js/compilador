@@ -14,6 +14,9 @@ public class Compiladores {
         Token prInteger = new PalabraReservada("integer");
         Token prMatrix = new PalabraReservada("matrix");
         Token prFor = new PalabraReservada("for");
+        Token prFloat = new PalabraReservada("float");
+        Token prAllow = new PalabraReservada("allow");
+        Token prTo = new PalabraReservada("to");
         aLexico.getTablaSimbolos().addSimbolo(prIf);
         aLexico.getTablaSimbolos().addSimbolo(prElse);
         aLexico.getTablaSimbolos().addSimbolo(prEndif);
