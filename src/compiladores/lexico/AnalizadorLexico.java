@@ -1223,7 +1223,6 @@ public class AnalizadorLexico {
 
     public void ejecutar(String text) {
         int estadoActual = 0;
-        text = "hola if\t\t";
         while (posicion < text.length()) { // TODO end of file
             char c = text.charAt(posicion);
             int estado = getColumna("" + c);

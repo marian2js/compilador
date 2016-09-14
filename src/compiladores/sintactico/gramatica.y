@@ -1,7 +1,9 @@
 %{
-
+package compiladores.sintactico;
+import compiladores.lexico.*;
 %}
 
+/* Declaraciones YACC */
 %token ID CTE CTE_ENTERA IF ELSE THEN ENDIF FOR PRINT INTEGER FLOAT MATRIX CADENA ANOTACION ALLOW TO
 %left '-'
 %left '+'
@@ -10,6 +12,7 @@
 
 %start programa
 
+/* Gramatica */
 %%
 programa: grupo_declaraciones bloque_de_sentencias;
 grupo_declaraciones: declaracion';' | declaracion';'grupo_declaraciones;
@@ -43,3 +46,18 @@ bloque_for: FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' 
 actualizacion_de_vble_control: ID '+=' factor_entero;
 bloque_print: PRINT'('CADENA')';
 %%
+
+/* Parser.java */
+public Parser(String codigo) {
+    AnalizadorLexico analizadorLexico = new AnalizadorLexico();
+    analizadorLexico.ejecutar(codigo);
+}
+
+private int yylex() {
+    return 0;
+}
+
+
+private void yyerror(String error) {
+    // TODO
+}
