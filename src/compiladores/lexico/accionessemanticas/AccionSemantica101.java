@@ -46,6 +46,6 @@ public class AccionSemantica101 extends AccionSemantica {
             val += "E" + Integer.toString(e);
         }
         
-        return new Token("_f" + val, ParserTokens.CTE);
+        return new Token("_f" + val, ParserTokens.CTE_FLOAT);
     }
 }

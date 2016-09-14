@@ -4,7 +4,7 @@ import compiladores.*;
 import java.io.File;
 %}
 
-%token ID CTE CTE_ENTERA IF ELSE ENDIF FOR PRINT INTEGER FLOAT MATRIX CADENA ANOTACION ALLOW TO ASIGNACION MASIGUAL COMPARADOR
+%token ID CTE_ENTERA CTE_FLOAT IF ELSE ENDIF FOR PRINT INTEGER FLOAT MATRIX CADENA ANOTACION ALLOW TO ASIGNACION MASIGUAL COMPARADOR
 %left '-'
 %left '+'
 %left '*'
@@ -37,8 +37,8 @@ columna:
         fila
         | columna';' fila;
 fila:
-     CTE
-     | fila',' CTE;
+     CTE_FLOAT
+     | fila',' CTE_FLOAT;
 declaracion_allow:
                   ALLOW tipo TO tipo;
 
@@ -53,7 +53,8 @@ termino:
         | factor;
 factor:
        ID
-       | CTE;
+       | CTE_ENTERA;
+       | CTE_FLOAT;
 
 expresion_entera:
                   expresion_entera '+' termino_entero
@@ -96,20 +97,26 @@ actualizacion_de_vble_control:
 bloque_print:
               PRINT'('CADENA')';
 %%
-private AnalizadorLexico analizadorLexico;
+
 /* Parser.java */
+private AnalizadorLexico analizadorLexico;
+
 public Parser(File file) {
     analizadorLexico = new AnalizadorLexico(file);
-    analizadorLexico.yylex();
+    yydebug = true;
 }
 
 private int yylex() {
     Token token = analizadorLexico.yylex();
-    
-    return 0;
+    int val = token.getValue();
+    yylval = new ParserVal(token.getLexema());
+    //yylval.ival = analizadorLexico.getLinea();
+    System.out.println("=== Value: " + val + " ===");
+    System.out.println("=== Lexema: " + token.getLexema() + " ===");
+    return val;
 }
 
 
 private void yyerror(String error) {
-    // TODO
+    System.out.println("Error: " + error);
 }
