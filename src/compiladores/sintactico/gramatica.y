@@ -1,6 +1,7 @@
 %{
-package compiladores.sintactico;
 import compiladores.lexico.*;
+import compiladores.*;
+import java.io.File;
 %}
 
 /* Declaraciones YACC */
@@ -46,14 +47,16 @@ bloque_for: FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' 
 actualizacion_de_vble_control: ID '+=' factor_entero;
 bloque_print: PRINT'('CADENA')';
 %%
-
+private AnalizadorLexico analizadorLexico;
 /* Parser.java */
-public Parser(String codigo) {
-    AnalizadorLexico analizadorLexico = new AnalizadorLexico();
-    analizadorLexico.ejecutar(codigo);
+public Parser(String codigo,File file) {
+    analizadorLexico = new AnalizadorLexico(file);
+    analizadorLexico.yylex();
 }
 
 private int yylex() {
+    Token token = analizadorLexico.yylex();
+    
     return 0;
 }
 

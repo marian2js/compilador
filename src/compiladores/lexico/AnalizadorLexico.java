@@ -4,6 +4,13 @@ import compiladores.PalabraReservada;
 import compiladores.TablaSimbolos;
 import compiladores.Token;
 import compiladores.lexico.accionessemanticas.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AnalizadorLexico {
     private final static int FINAL = -1;
@@ -21,13 +28,21 @@ public class AnalizadorLexico {
     private AccionSemantica100 accionSemantica100 = new AccionSemantica100();
     private AccionSemantica101 accionSemantica101 = new AccionSemantica101();
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
+    private BufferedReader bufferedReader;
 
     private int posicion = 0;
 
     private String buffer = "";
     private int linea;
 
-    public AnalizadorLexico() {
+    public AnalizadorLexico(File file) {
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(file.getAbsolutePath());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        bufferedReader = new BufferedReader(fileReader);
         // Iniciar Matriz de Estados
         matEstados[0][0] = 1;
         matEstados[0][1] = FINAL;
@@ -1243,24 +1258,28 @@ public class AnalizadorLexico {
         }
     }
 
-    public void ejecutar(String text) {
+    public Token yylex() {
         int estadoActual = 0;
-        while (posicion < text.length()) { // TODO end of file
-            char c = text.charAt(posicion);
-            int estado = getColumna("" + c);
-            int nuevoEstado = matEstados[estadoActual][estado];
-            AccionSemantica as = accionesSemanticas[estadoActual][estado];
-            Token token = as.ejecutar(this, c);
-            if (nuevoEstado == -1) {
-                //TODO checkear
-                nuevoEstado = 0;
-                buffer = "";
-            }
-            if (nuevoEstado == -2) {
-                nuevoEstado = 0;
-            }
-            estadoActual = nuevoEstado;
+        char c = 0;
+        try {
+            c = (char) bufferedReader.read();
+        } catch (IOException ex) {
+            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
         }
+        int estado = getColumna("" + c);
+        int nuevoEstado = matEstados[estadoActual][estado];
+        AccionSemantica as = accionesSemanticas[estadoActual][estado];
+        Token token = as.ejecutar(this, c);
+        if (nuevoEstado == -1) {
+            //TODO checkear
+            nuevoEstado = 0;
+            buffer = "";
+        }
+        if (nuevoEstado == -2) {
+            nuevoEstado = 0;
+        }
+        estadoActual = nuevoEstado;
+        return token;
     }
 
     public String getBuffer() {
