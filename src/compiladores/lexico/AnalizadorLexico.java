@@ -1,5 +1,6 @@
 package compiladores.lexico;
 
+import compiladores.PalabraReservada;
 import compiladores.TablaSimbolos;
 import compiladores.Token;
 import compiladores.lexico.accionessemanticas.*;
@@ -1185,7 +1186,27 @@ public class AnalizadorLexico {
         accionesSemanticas[17][29] = accionSemantica1;
         accionesSemanticas[17][DEFAULT_CHAR] = accionSemantica1;
 
-
+        //Agregar Palabras Reservadas
+        Token prIf = new PalabraReservada("if");
+        Token prElse = new PalabraReservada("else");
+        Token prEndif = new PalabraReservada("endif");
+        Token prPrint = new PalabraReservada("print");
+        Token prInteger = new PalabraReservada("integer");
+        Token prMatrix = new PalabraReservada("matrix");
+        Token prFor = new PalabraReservada("for");
+        Token prFloat = new PalabraReservada("float");
+        Token prAllow = new PalabraReservada("allow");
+        Token prTo = new PalabraReservada("to");
+        this.getTablaSimbolos().addSimbolo(prIf);
+        this.getTablaSimbolos().addSimbolo(prElse);
+        this.getTablaSimbolos().addSimbolo(prEndif);
+        this.getTablaSimbolos().addSimbolo(prPrint);
+        this.getTablaSimbolos().addSimbolo(prInteger);
+        this.getTablaSimbolos().addSimbolo(prMatrix);
+        this.getTablaSimbolos().addSimbolo(prFloat);
+        this.getTablaSimbolos().addSimbolo(prAllow);
+        this.getTablaSimbolos().addSimbolo(prTo);
+        this.getTablaSimbolos().addSimbolo(prFor);
     }
 
     private int getColumna(String c) {
