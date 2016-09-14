@@ -1,8 +1,8 @@
 package compiladores.lexico.accionessemanticas;
 
-import compiladores.Identificador;
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
+import compiladores.sintactico.ParserTokens;
 
 public class AccionSemantica1 extends AccionSemantica {
     
@@ -24,7 +24,7 @@ public class AccionSemantica1 extends AccionSemantica {
         if (token != null) {
             return token;
         }
-        token = new Identificador(buffer);
+        token = new Token(buffer, ParserTokens.ID);
         analizadorLexico.getTablaSimbolos().addSimbolo(token);
         return token;
     }

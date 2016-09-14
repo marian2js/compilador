@@ -5,9 +5,9 @@
  */
 package compiladores.lexico.accionessemanticas;
 
-import compiladores.Anotacion;
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
+import compiladores.sintactico.ParserTokens;
 
 /**
  *
@@ -20,7 +20,7 @@ public class AccionSemantica3 extends AccionSemantica{
         analizadorLexico.consumir();
         String buffer = analizadorLexico.getBuffer();
         String anotacion = buffer.substring(0, 4);
-        Token token = new Anotacion(anotacion);
+        Token token = new Token(anotacion, ParserTokens.ANOTACION);
         return token;
     }
     

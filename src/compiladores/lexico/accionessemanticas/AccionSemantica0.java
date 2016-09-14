@@ -1,6 +1,5 @@
 package compiladores.lexico.accionessemanticas;
 
-import compiladores.Identificador;
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
 

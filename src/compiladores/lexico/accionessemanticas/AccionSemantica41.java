@@ -1,17 +1,18 @@
 package compiladores.lexico.accionessemanticas;
 
-import compiladores.Simbolo;
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
 
 public class AccionSemantica41 extends AccionSemantica {
 
-    //No consume el ultimo
+    //No consume el ultimo, simbolos simples
     
     @Override
     public Token ejecutar(AnalizadorLexico analizadorLexico, char c) {
         String buffer = analizadorLexico.getBuffer();
-        Token simbolo = new Simbolo(buffer);
+        char caracter = buffer.charAt(0);
+        int ascii = (int) caracter;
+        Token simbolo = new Token(buffer, ascii);
         return simbolo;
     }
     
