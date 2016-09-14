@@ -28,12 +28,14 @@ public class AnalizadorLexico {
     private AccionSemantica100 accionSemantica100 = new AccionSemantica100();
     private AccionSemantica101 accionSemantica101 = new AccionSemantica101();
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
+    char c = 0;
     private BufferedReader bufferedReader;
 
     private int posicion = 0;
 
     private String buffer = "";
-    private int linea;
+    private int linea = 0;
+    private int estadoActual;
 
     public AnalizadorLexico(File file) {
         FileReader fileReader = null;
@@ -1259,12 +1261,9 @@ public class AnalizadorLexico {
     }
 
     public Token yylex() {
-        int estadoActual = 0;
-        char c = 0;
-        try {
-            c = (char) bufferedReader.read();
-        } catch (IOException ex) {
-            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+        estadoActual = 0;
+        if(c == '\n'){
+            linea++;
         }
         int estado = getColumna("" + c);
         int nuevoEstado = matEstados[estadoActual][estado];
@@ -1299,7 +1298,11 @@ public class AnalizadorLexico {
     }
 
     public void consumir() {
-        posicion++;
+        try {
+            c = (char) bufferedReader.read();
+        } catch (IOException ex) {
+            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // TODO verificar end of line
     }
 

@@ -100,7 +100,8 @@ public class CompiladorGUI extends javax.swing.JFrame {
                 codigo += line;
                 jTextArea1.append("" + (++i) + ":   " + line);
             }
-            Parser parser = new Parser(codigo,file);
+            bufferedReader.close();
+            Parser parser = new Parser(file);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CompiladorGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

@@ -49,7 +49,7 @@ bloque_print: PRINT'('CADENA')';
 %%
 private AnalizadorLexico analizadorLexico;
 /* Parser.java */
-public Parser(String codigo,File file) {
+public Parser(File file) {
     analizadorLexico = new AnalizadorLexico(file);
     analizadorLexico.yylex();
 }
