@@ -1304,7 +1304,7 @@ public class AnalizadorLexico {
 
     public void consumir() {
         try {
-            int val = (char) bufferedReader.read();
+            int val = bufferedReader.read();
             c = (char) val;
             if(val == -1){
                 c = '\n';
