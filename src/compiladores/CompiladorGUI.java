@@ -91,13 +91,14 @@ public class CompiladorGUI extends javax.swing.JFrame {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String codigo =  "";
             String line;
+            int i = 0;
             while((line = bufferedReader.readLine()) != null) {
                 if (!codigo.equals("")) {
                     codigo += '\n';
                     jTextArea1.append("\n");
                 }
                 codigo += line;
-                jTextArea1.append(line);
+                jTextArea1.append("" + (++i) + ":   " + line);
             }
             Parser parser = new Parser(codigo);
         } catch (FileNotFoundException ex) {
