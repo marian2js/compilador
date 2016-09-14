@@ -48,6 +48,7 @@ public class AnalizadorLexico {
             Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
         }
         bufferedReader = new BufferedReader(fileReader);
+        consumir();
         // Iniciar Matriz de Estados
         matEstados[0][0] = 1;
         matEstados[0][1] = FINAL;
@@ -1273,16 +1274,9 @@ public class AnalizadorLexico {
             int nuevoEstado = matEstados[estadoActual][estado];
             AccionSemantica as = accionesSemanticas[estadoActual][estado];
             token = as.ejecutar(this, c);
-            if (nuevoEstado == -1) {
-                //TODO checkear
-                nuevoEstado = 0;
-                buffer = "";
-            }
-            if (nuevoEstado == -2) {
-                nuevoEstado = 0;
-            }
             estadoActual = nuevoEstado;
         }
+        buffer = "";
         return token;
     }
 
