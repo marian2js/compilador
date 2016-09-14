@@ -38,7 +38,7 @@ public class AnalizadorLexico {
 
     private String buffer = "";
     private int linea = 0;
-    private int estadoActual;
+    private int estadoActual=0;
 
     public AnalizadorLexico(File file) {
         FileReader fileReader = null;
