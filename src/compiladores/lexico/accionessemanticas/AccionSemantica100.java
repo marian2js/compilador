@@ -1,8 +1,8 @@
 package compiladores.lexico.accionessemanticas;
 
 import compiladores.Token;
-import compiladores.Number;
 import compiladores.lexico.AnalizadorLexico;
+import compiladores.sintactico.ParserTokens;
 
 public class AccionSemantica100 extends AccionSemantica {
     // Integers
@@ -17,8 +17,8 @@ public class AccionSemantica100 extends AccionSemantica {
         if (n > 32767) {
             n = 32767;
         }
-        Number number = new Number(Integer.toString(n));
-        number.setTipo("int");
+        Token number = new Token(Integer.toString(n), ParserTokens.CTE_ENTERA); //Integer
+        //number.setTipo("int");
         return number;
     }
 }

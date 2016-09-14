@@ -2,12 +2,12 @@ package compiladores;
 
 public class PalabraReservada extends Token {
 
-    public PalabraReservada(String lexema) {
-        super(lexema);
+    public PalabraReservada(String lexema, int valor) {
+        super(lexema, valor);
     }
 
     @Override
-    boolean esReservada() {
+    public boolean esReservada() {
         return true;
     }
    

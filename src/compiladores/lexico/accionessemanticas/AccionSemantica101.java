@@ -2,6 +2,7 @@ package compiladores.lexico.accionessemanticas;
 
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
+import compiladores.sintactico.ParserTokens;
 
 public class AccionSemantica101 extends AccionSemantica {
     // Floats
@@ -45,8 +46,8 @@ public class AccionSemantica101 extends AccionSemantica {
             val += "E" + Integer.toString(e);
         }
         
-        compiladores.Number number = new compiladores.Number(val);
-        number.setTipo("float");
+        Token number = new Token(val, ParserTokens.CTE);
+        //number.setTipo("float");
         return number;
     }
 }
