@@ -17,8 +17,6 @@ public class AccionSemantica100 extends AccionSemantica {
         if (n > 32767) {
             n = 32767;
         }
-        Token number = new Token(Integer.toString(n), ParserTokens.CTE_ENTERA); //Integer
-        //number.setTipo("int");
-        return number;
+        return new Token("_i" + Integer.toString(n), ParserTokens.CTE_ENTERA); //Integer
     }
 }
