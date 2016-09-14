@@ -1261,23 +1261,25 @@ public class AnalizadorLexico {
     }
 
     public Token yylex() {
-        estadoActual = 0;
-        if(c == '\n'){
-            linea++;
+        Token token = null;
+        while(estadoActual != -1 && estadoActual != -2){
+            if(c == '\n'){
+                linea++;
+            }
+            int estado = getColumna("" + c);
+            int nuevoEstado = matEstados[estadoActual][estado];
+            AccionSemantica as = accionesSemanticas[estadoActual][estado];
+            token = as.ejecutar(this, c);
+            if (nuevoEstado == -1) {
+                //TODO checkear
+                nuevoEstado = 0;
+                buffer = "";
+            }
+            if (nuevoEstado == -2) {
+                nuevoEstado = 0;
+            }
+            estadoActual = nuevoEstado;
         }
-        int estado = getColumna("" + c);
-        int nuevoEstado = matEstados[estadoActual][estado];
-        AccionSemantica as = accionesSemanticas[estadoActual][estado];
-        Token token = as.ejecutar(this, c);
-        if (nuevoEstado == -1) {
-            //TODO checkear
-            nuevoEstado = 0;
-            buffer = "";
-        }
-        if (nuevoEstado == -2) {
-            nuevoEstado = 0;
-        }
-        estadoActual = nuevoEstado;
         return token;
     }
 
@@ -1299,7 +1301,11 @@ public class AnalizadorLexico {
 
     public void consumir() {
         try {
-            c = (char) bufferedReader.read();
+            int val = (char) bufferedReader.read();
+            c = (char) val;
+            if(val == -1){
+                c = '\n';
+            }
         } catch (IOException ex) {
             Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
         }
