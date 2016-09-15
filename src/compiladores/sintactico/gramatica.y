@@ -89,7 +89,14 @@ bloque_if:
            IF'('condicion')' bloque_de_sentencias ENDIF
            | IF'('condicion')' bloque_de_sentencias ELSE bloque_de_sentencias ENDIF;
 condicion:
-           expresion COMPARADOR expresion;
+           expresion comparador expresion;
+
+comparador:
+            '='
+            | '<'
+            | '>'
+            | COMPARADOR;
+
 bloque_for:
             FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' bloque_de_sentencias;
 actualizacion_de_vble_control:
@@ -108,6 +115,9 @@ public Parser(File file) {
 
 private int yylex() {
     Token token = analizadorLexico.yylex();
+    if (token == null) {
+        return 0;
+    }
     int val = token.getValue();
     yylval = new ParserVal(token.getLexema());
     //yylval.ival = analizadorLexico.getLinea();
