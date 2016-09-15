@@ -39,6 +39,7 @@ public class AnalizadorLexico {
     private String buffer = "";
     private int linea = 0;
     private int estadoActual=0;
+    private int val;
 
     public AnalizadorLexico(File file) {
         FileReader fileReader = null;
@@ -1266,7 +1267,8 @@ public class AnalizadorLexico {
 
     public Token yylex() {
         Token token = null;
-        while(estadoActual != -1 && estadoActual != -2){
+        while(estadoActual != -1 && estadoActual != -2 && val != -1){
+            c = (char) val;
             if(c == '\n'){
                 linea++;
             }
@@ -1302,8 +1304,7 @@ public class AnalizadorLexico {
 
     public void consumir() {
         try {
-            int val = bufferedReader.read();
-            c = (char) val;
+            val = bufferedReader.read();
             if(val == -1){
                 c = '\n';
             }
