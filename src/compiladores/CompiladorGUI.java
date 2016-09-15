@@ -102,6 +102,7 @@ public class CompiladorGUI extends javax.swing.JFrame {
             }
             bufferedReader.close();
             Parser parser = new Parser(file);
+            parser.run();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CompiladorGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

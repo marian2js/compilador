@@ -1275,7 +1275,11 @@ public class AnalizadorLexico {
             AccionSemantica as = accionesSemanticas[estadoActual][estado];
             token = as.ejecutar(this, c);
             estadoActual = nuevoEstado;
+            if(estadoActual == -2){
+                estadoActual = 0;
+            }
         }
+        estadoActual = 0;
         buffer = "";
         return token;
     }
