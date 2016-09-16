@@ -15,12 +15,12 @@ public class AccionSemantica101 extends AccionSemantica {
         buffer = buffer.substring(2);
         int indexOfE = buffer.indexOf("E");
         float n;
-        int e = 1;
+        double e = 1;
 
         if (indexOfE != -1) {
             // Floats con exponente
             n = new Float(buffer.substring(0, indexOfE));
-            e = new Integer(buffer.substring(indexOfE + 1));
+            e = new Double(buffer.substring(indexOfE + 1));
         } else {
             // Floats sin exponente
             n = new Float(buffer);
@@ -53,7 +53,7 @@ public class AccionSemantica101 extends AccionSemantica {
 
         // Si el exponente es distinto a 1, lo incluimos
         if (e != 1) {
-            val += "E" + Integer.toString(e);
+            val += "E" + Double.toString(e);
         }
         
         return new Token("_f" + val, ParserTokens.CTE_FLOAT);

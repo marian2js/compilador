@@ -12,7 +12,7 @@ public class AccionSemantica100 extends AccionSemantica {
     @Override
     public Token ejecutar(AnalizadorLexico analizadorLexico, char c) {
         String buffer = analizadorLexico.getBuffer();
-        int n = Integer.parseInt(buffer.substring(2));
+        double n = Double.parseDouble(buffer.substring(2));
         if (n < -32768) {
             n = -32768;
             Warning w = new Warning("Integer fuera de rango. Transformado al mínimo.", analizadorLexico.getLinea(), "Lexico");
@@ -23,6 +23,6 @@ public class AccionSemantica100 extends AccionSemantica {
             Warning w = new Warning("Integer fuera de rango. Transformado al máximo.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
         }
-        return new Token("_i" + Integer.toString(n), ParserTokens.CTE_ENTERA); //Integer
+        return new Token("_i" + Double.toString(n), ParserTokens.CTE_ENTERA); //Integer
     }
 }
