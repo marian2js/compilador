@@ -1,0 +1,91 @@
+integer x, y;
+float w, z;
+{
+  /# Asignaciones #/
+  x := _i1;
+  y := x + _i2;
+  w := _f3.14;
+  z := w * _f.25;
+
+  /# Operaciones Básicas #/
+  x += _i2 * x - y;
+  w += z / _f2. + _f.3;
+
+  /# Floats #/
+  w := _f1.;
+  w := _f.1;
+  w := _f1.1;
+  w := _f2.E2;
+  w := _f2.E+2;
+  w := _f2.E-2;
+  w := _f+1.;
+  w := _f+.1;
+  w := _f+1.1;
+  w := _f+2.E2;
+  w := _f+2.E+2;
+  w := _f+2.E-2;
+  w := _f-1.;
+  w := _f-.1;
+  w := _f-1.1;
+  w := _f-2.E2;
+  w := _f-2.E+2;
+  w := _f-2.E-2;
+
+  /# Comparaciones #/
+  if (x = y) {
+    x := _i0;
+  }
+  endif;
+  if (x < y) {
+    x:= _i1;
+  }
+  endif;
+  if (x > y) {
+    x:= _i2;
+  }
+  endif;
+  if (x <= y) {
+    x:= _i3;
+  }
+  endif;
+  if (x >= y) {
+    x:= _i4;
+  }
+  endif;
+  if (x != y) {
+    x:= _i5;
+  }
+  endif;
+
+  /# Loops #/
+  for (i := _i0; i < _i100; i += _i1) {
+    x += _i1;
+  }
+
+  /# Imprimir cadena #/
+  print('Esto es una cadena');
+
+  /# Bloques anidados #/
+  if (x = y) {
+    if (x > _i1) {
+      if (y > _i1) {
+        x := _i1;
+      }
+      endif;
+    }
+    endif;
+  }
+  endif;
+  for (i := _i0; i < _i100; i += _i1) {
+    if (x = y) {
+      if (x > _i1) {
+        if (y > _i1) {
+          x := _i1;
+        }
+        endif;
+      }
+      endif;
+    }
+    endif;
+  }
+}
