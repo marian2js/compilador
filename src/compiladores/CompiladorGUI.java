@@ -123,7 +123,7 @@ public class CompiladorGUI extends javax.swing.JFrame {
             
             ArrayList<Mensaje> mensajes = Logger.getLog().getMensajes();
             for (Mensaje m : mensajes) {
-                jTextArea2.append("[" + m.getTipo() + "] - Linea " + m.getLinea() + ": " + m.getMensaje() + "\n");
+                jTextArea2.append(m.getLevel() + "::[" + m.getTipo() + "] - Linea " + m.getLinea() + ": " + m.getMensaje() + "\n");
             }
             
         } catch (FileNotFoundException ex) {
