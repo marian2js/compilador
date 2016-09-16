@@ -81,7 +81,9 @@ sentencia:
            | bloque_print';';
 asignacion:
             ID ASIGNACION expresion
-            | ID MASIGUAL expresion;
+            | ID MASIGUAL expresion
+            | ID '['expresion_entera']''['expresion_entera']' ASIGNACION expresion
+            | ID '['expresion_entera']''['expresion_entera']' MASIGUAL expresion;
 asignacion_for:
                 ID ASIGNACION expresion_entera;
 
