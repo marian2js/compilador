@@ -76,9 +76,9 @@ grupo_sentencias:
                   | sentencia grupo_sentencias;
 sentencia:
            asignacion';'
-           | bloque_if
+           | bloque_if';'
            | bloque_for
-           | bloque_print;
+           | bloque_print';';
 asignacion:
             ID ASIGNACION expresion
             | ID MASIGUAL expresion;
