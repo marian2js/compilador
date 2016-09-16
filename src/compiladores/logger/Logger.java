@@ -32,4 +32,8 @@ public class Logger {
     public ArrayList<Mensaje> getMensajes() {
         return mensajes;
     }
+
+    public void borrarMensajes() {
+        mensajes.clear();
+    }
 }

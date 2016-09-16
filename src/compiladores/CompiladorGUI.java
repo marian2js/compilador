@@ -102,6 +102,12 @@ public class CompiladorGUI extends javax.swing.JFrame {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String codigo =  "";
             String line;
+
+            // Limpiar datos ejecucion anterior
+            jTextArea1.setText("");
+            jTextArea2.setText("");
+            Logger.getLog().borrarMensajes();
+
             int i = 0;
             while((line = bufferedReader.readLine()) != null) {
                 if (!codigo.equals("")) {
