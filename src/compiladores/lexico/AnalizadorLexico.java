@@ -4,16 +4,16 @@ import compiladores.PalabraReservada;
 import compiladores.TablaSimbolos;
 import compiladores.Token;
 import compiladores.lexico.accionessemanticas.*;
+import compiladores.logger.Info;
+import compiladores.logger.Logger;
 import compiladores.sintactico.ParserTokens;
 
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AnalizadorLexico {
     private final static int FINAL = -1;
@@ -31,13 +31,11 @@ public class AnalizadorLexico {
     private AccionSemantica100 accionSemantica100 = new AccionSemantica100();
     private AccionSemantica101 accionSemantica101 = new AccionSemantica101();
     private TablaSimbolos tablaSimbolos = new TablaSimbolos();
-    char c = 0;
+    private char c = 0;
     private BufferedReader bufferedReader;
 
-    private int posicion = 0;
-
     private String buffer = "";
-    private int linea = 0;
+    private int linea = 1;
     private int estadoActual=0;
     private int val;
 
@@ -46,7 +44,7 @@ public class AnalizadorLexico {
         try {
             fileReader = new FileReader(file.getAbsolutePath());
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
         }
         bufferedReader = new BufferedReader(fileReader);
         consumir();
@@ -1281,6 +1279,10 @@ public class AnalizadorLexico {
                 estadoActual = 0;
             }
         }
+        if (token != null) {
+            Info i = new Info("Token detectado (" + token.getLexema() + ")", linea, "Lexico");
+            Logger.getLog().addMensaje(i);
+        }
         estadoActual = 0;
         buffer = "";
         return token;
@@ -1309,7 +1311,7 @@ public class AnalizadorLexico {
                 c = '\n';
             }
         } catch (IOException ex) {
-            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
         }
         // TODO verificar end of line
     }

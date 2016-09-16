@@ -6,8 +6,8 @@
 package compiladores.lexico.accionessemanticas;
 
 import compiladores.Token;
-import compiladores.Error;
-import compiladores.Logger;
+import compiladores.logger.Error;
+import compiladores.logger.Logger;
 import compiladores.lexico.AnalizadorLexico;
 
 /**
@@ -21,7 +21,7 @@ public class AccionSemantica4 extends AccionSemantica{
         int linea = analizadorLexico.getLinea();
         Error e = new Error("Error de caracter invalido",linea,"Lexico");
         Logger log = Logger.getLog();
-        log.addError(e);
+        log.addMensaje(e);
         analizadorLexico.consumir();
         analizadorLexico.setBuffer("");
         return null;

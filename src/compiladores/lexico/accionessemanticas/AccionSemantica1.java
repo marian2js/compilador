@@ -2,6 +2,8 @@ package compiladores.lexico.accionessemanticas;
 
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
+import compiladores.logger.Logger;
+import compiladores.logger.Warning;
 import compiladores.sintactico.ParserTokens;
 
 public class AccionSemantica1 extends AccionSemantica {
@@ -18,7 +20,9 @@ public class AccionSemantica1 extends AccionSemantica {
         
         // Identificador
         if (buffer.length() > 20) {
-           buffer = buffer.substring(20);
+            Warning w = new Warning("String truncado a 20 caracteres", analizadorLexico.getLinea(), "Lexico");
+            Logger.getLog().addMensaje(w);
+            buffer = buffer.substring(20);
         }
         Token token = analizadorLexico.getTablaSimbolos().get(buffer);
         if (token != null) {

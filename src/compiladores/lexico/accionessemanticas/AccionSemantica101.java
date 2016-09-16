@@ -2,6 +2,8 @@ package compiladores.lexico.accionessemanticas;
 
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
+import compiladores.logger.Logger;
+import compiladores.logger.Warning;
 import compiladores.sintactico.ParserTokens;
 
 public class AccionSemantica101 extends AccionSemantica {
@@ -28,15 +30,23 @@ public class AccionSemantica101 extends AccionSemantica {
         if (Math.pow(n, e) < -Math.pow(3.40282347, 38)) {
             n = -3.40282347f;
             e = 38;
+            Warning w = new Warning("Float fuera de rango. Transformado al mínimo.", analizadorLexico.getLinea(), "Lexico");
+            Logger.getLog().addMensaje(w);
         } else if (Math.pow(n, e) < 0 && Math.pow(n, e) > -Math.pow(1.17549435, -38)) {
             n = 0;
             e = 1;
+            Warning w = new Warning("Float demasiado chico. Transformado a cero.", analizadorLexico.getLinea(), "Lexico");
+            Logger.getLog().addMensaje(w);
         } else if (Math.pow(n, e) > Math.pow(3.40282347, 38)) {
             n = 3.40282347f;
             e = 38;
+            Warning w = new Warning("Float fuera de rango. Transformado al máximo.", analizadorLexico.getLinea(), "Lexico");
+            Logger.getLog().addMensaje(w);
         } else if (Math.pow(n, e) > 0 && Math.pow(n, e) < Math.pow(1.17549435, -38)) {
             n = 0;
             e = 1;
+            Warning w = new Warning("Float demasiado chico. Transformado a cero.", analizadorLexico.getLinea(), "Lexico");
+            Logger.getLog().addMensaje(w);
         }
         
         String val = Float.toString(n);

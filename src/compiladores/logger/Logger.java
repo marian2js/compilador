@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compiladores;
+package compiladores.logger;
 
 import java.util.ArrayList;
 
@@ -13,19 +13,23 @@ import java.util.ArrayList;
  */
 public class Logger {
     public static Logger log = null;
-    private ArrayList<Error> errors;
+    private ArrayList<Mensaje> mensajes;
     private Logger(){
-        this.errors = new ArrayList<Error>();
+        this.mensajes = new ArrayList<>();
     }
-    
+
     public static Logger getLog(){
         if(log == null){
             log = new Logger();
         }
         return log;
     }
-    
-    public void addError (Error e){
-        this.errors.add(e);
+
+    public void addMensaje (Mensaje e){
+        this.mensajes.add(e);
+    }
+
+    public ArrayList<Mensaje> getMensajes() {
+        return mensajes;
     }
 }
