@@ -37,7 +37,7 @@ public class AnalizadorLexico {
     private String buffer = "";
     private int linea = 1;
     private int estadoActual=0;
-    private int val;
+    private int val=0;
 
     public AnalizadorLexico(File file) {
         FileReader fileReader = null;
@@ -1267,9 +1267,6 @@ public class AnalizadorLexico {
         Token token = null;
         while(estadoActual != -1 && estadoActual != -2 && val != -1){
             c = (char) val;
-            if(c == '\n'){
-                linea++;
-            }
             int estado = getColumna("" + c);
             int nuevoEstado = matEstados[estadoActual][estado];
             AccionSemantica as = accionesSemanticas[estadoActual][estado];
@@ -1306,6 +1303,9 @@ public class AnalizadorLexico {
 
     public void consumir() {
         try {
+            if(val == 10){ //codigo de salto de linea
+                linea++;
+            }
             val = bufferedReader.read();
             if(val == -1){
                 c = '\n';

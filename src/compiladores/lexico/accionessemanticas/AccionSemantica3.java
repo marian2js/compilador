@@ -17,7 +17,7 @@ public class AccionSemantica3 extends AccionSemantica{
     //Anotacion /#@0 /#@1
     @Override
     public Token ejecutar(AnalizadorLexico analizadorLexico, char c) {
-        analizadorLexico.consumir();
+        //analizadorLexico.consumir();
         String buffer = analizadorLexico.getBuffer();
         String anotacion = buffer.substring(0, 4);
         Token token = new Token(anotacion, ParserTokens.ANOTACION);
