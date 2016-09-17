@@ -1,0 +1,11 @@
+integer x, y;
+
+/# ID Invalido #/
+integer 123;
+{
+  a := _i1;
+  b := _i1;
+
+  /# ID Invalido #/
+  123 := _i1;
+}

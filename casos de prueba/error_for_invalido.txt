@@ -1,0 +1,7 @@
+integer i, x;
+{
+  /# Falta la condicion de corte #/
+  for (i := _i0; i += _i1) {
+    x += _i1;
+  }
+}

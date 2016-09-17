@@ -1,0 +1,7 @@
+integer x, y;
+{
+  if (x === y) {
+    print('x equal y');
+  }
+  endif;
+}

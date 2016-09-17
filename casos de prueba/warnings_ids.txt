@@ -1,0 +1,12 @@
+integer a, b;
+
+/# ID muy largo #/
+integer abcdefghijklmnopqrstuvwxyz;
+
+{
+  a := _i1;
+  b := _i1;
+
+  /# ID muy largo #/
+  abcdefghijklmnopqrstuvwxyz := a + b;
+}

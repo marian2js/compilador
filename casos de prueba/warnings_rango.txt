@@ -1,0 +1,15 @@
+integer x, y;
+float s, t, w, z;
+{
+  /# Integers fuera de rango #/
+  x := _i50000;
+  y := _i-50000;
+
+  /# Floats fuera de rango #/
+  s := _f5.E50;
+  t := _f-5.E50;
+
+  /# Floats muy chicos (se consideran como cero) #/
+  w := _f5.E-50;
+  w := _f-5.E-50;
+}
