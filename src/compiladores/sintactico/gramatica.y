@@ -10,10 +10,11 @@ import java.io.File;
 %left '*'
 %left '/'
 
-%start programa
+%start inicio_programa
 
 /* Gramatica */
 %%
+inicio_programa: ID programa;
 programa: grupo_declaraciones bloque_de_sentencias;
 grupo_declaraciones:
                     declaracion';'
@@ -38,6 +39,8 @@ columna:
         | columna';' fila;
 fila:
      CTE_FLOAT
+     | CTE_ENTERA
+     | fila ',' CTE_ENTERA
      | fila',' CTE_FLOAT;
 declaracion_allow:
                   ALLOW tipo TO tipo;
