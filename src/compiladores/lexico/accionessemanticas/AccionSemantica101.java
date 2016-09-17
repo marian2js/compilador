@@ -27,22 +27,22 @@ public class AccionSemantica101 extends AccionSemantica {
         }
 
         // Limites
-        if (Math.pow(n, e) < -Math.pow(3.40282347, 38)) {
+        if (n * Math.pow(10, e) < -3.40282347 * Math.pow(10, 38)) {
             n = -3.40282347f;
             e = 38;
             Warning w = new Warning("Float fuera de rango. Transformado al mínimo.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
-        } else if (Math.pow(n, e) < 0 && Math.pow(n, e) > -Math.pow(1.17549435, -38)) {
+        } else if (n * Math.pow(10, e) < 0 && n * Math.pow(10, e) > -1.17549435 * Math.pow(10, -38)) {
             n = 0;
             e = 1;
             Warning w = new Warning("Float demasiado chico. Transformado a cero.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
-        } else if (Math.pow(n, e) > Math.pow(3.40282347, 38)) {
+        } else if (n * Math.pow(10, e) > 3.40282347 * Math.pow(10, 38)) {
             n = 3.40282347f;
             e = 38;
             Warning w = new Warning("Float fuera de rango. Transformado al máximo.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
-        } else if (Math.pow(n, e) > 0 && Math.pow(n, e) < Math.pow(1.17549435, -38)) {
+        } else if (n * Math.pow(10, e) > 0 && n * Math.pow(10, e) < 1.17549435 * Math.pow(10, -38)) {
             n = 0;
             e = 1;
             Warning w = new Warning("Float demasiado chico. Transformado a cero.", analizadorLexico.getLinea(), "Lexico");
