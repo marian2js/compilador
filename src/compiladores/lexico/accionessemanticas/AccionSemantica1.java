@@ -22,7 +22,7 @@ public class AccionSemantica1 extends AccionSemantica {
         if (buffer.length() > 20) {
             Warning w = new Warning("String truncado a 20 caracteres", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
-            buffer = buffer.substring(20);
+            buffer = buffer.substring(0, 20);
         }
         Token token = analizadorLexico.getTablaSimbolos().get(buffer);
         if (token != null) {
