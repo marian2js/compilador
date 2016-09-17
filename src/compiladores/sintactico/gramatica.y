@@ -53,6 +53,7 @@ termino:
         | factor;
 factor:
        ID
+       |ID '['expresion_entera']''['expresion_entera']'
        | CTE_ENTERA;
        | CTE_FLOAT;
 
