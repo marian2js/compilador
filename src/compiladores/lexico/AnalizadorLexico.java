@@ -612,8 +612,8 @@ public class AnalizadorLexico {
         matEstados[17][15] = FINAL;
         matEstados[17][16] = FINAL;
         matEstados[17][17] = FINAL;
-        matEstados[17][18] = FINAL;
-        matEstados[17][19] = FINAL;
+        matEstados[17][18] = 17;
+        matEstados[17][19] = 17;
         matEstados[17][20] = FINAL;
         matEstados[17][21] = FINAL;
         matEstados[17][22] = 17;
@@ -1192,8 +1192,8 @@ public class AnalizadorLexico {
         accionesSemanticas[17][15] = accionSemantica1;
         accionesSemanticas[17][16] = accionSemantica1;
         accionesSemanticas[17][17] = accionSemantica1;
-        accionesSemanticas[17][18] = accionSemantica1;
-        accionesSemanticas[17][19] = accionSemantica1;
+        accionesSemanticas[17][18] = accionSemantica0;
+        accionesSemanticas[17][19] = accionSemantica0;
         accionesSemanticas[17][20] = accionSemantica1;
         accionesSemanticas[17][21] = accionSemantica1;
         accionesSemanticas[17][22] = accionSemantica0;
