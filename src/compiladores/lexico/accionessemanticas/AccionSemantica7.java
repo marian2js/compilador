@@ -6,7 +6,7 @@ import compiladores.logger.Logger;
 import compiladores.logger.Warning;
 import compiladores.sintactico.ParserTokens;
 
-public class AccionSemantica100 extends AccionSemantica {
+public class AccionSemantica7 extends AccionSemantica {
     // Integers
     
     @Override

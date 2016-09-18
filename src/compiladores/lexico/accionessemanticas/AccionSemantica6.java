@@ -3,7 +3,7 @@ package compiladores.lexico.accionessemanticas;
 import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
 
-public class AccionSemantica41 extends AccionSemantica {
+public class AccionSemantica6 extends AccionSemantica {
 
     //No consume el ultimo, simbolos simples
     

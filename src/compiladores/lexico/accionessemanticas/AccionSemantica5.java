@@ -4,7 +4,7 @@ import compiladores.Token;
 import compiladores.lexico.AnalizadorLexico;
 import compiladores.sintactico.ParserTokens;
 
-public class AccionSemantica40 extends AccionSemantica {
+public class AccionSemantica5 extends AccionSemantica {
 
     // Consume el ultimo
     
