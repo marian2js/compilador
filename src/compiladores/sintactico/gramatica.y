@@ -102,8 +102,8 @@ grupo_sentencias:
                   | sentencia grupo_sentencias;
 sentencia:
            asignacion';'
-           | bloque_if';' {Logger.getLog().addMensaje(new Info("Bloque 'if' detectado", yylval.ival, "Sintactico"));}
-           | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", yylval.ival, "Sintactico"));}
+           | bloque_if';' {Logger.getLog().addMensaje(new Info("Bloque 'if' detectado", $1.ival, "Sintactico"));}
+           | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", $1.ival, "Sintactico"));}
            | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
             ID ASIGNACION expresion {Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
@@ -148,7 +148,7 @@ bloque_print:
               PRINT'('CADENA')'
               | PRINT CADENA')' {Error e = new Error("Falta (",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
               | PRINT'('CADENA {Error e = new Error("Falta )",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
-              | PRINT'('error')' {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
+              | PRINT'('error')' {Error e = new Error("Falta cadena a imprimir",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 %%
 
 /* Parser.java */
