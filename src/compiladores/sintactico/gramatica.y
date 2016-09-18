@@ -102,8 +102,8 @@ grupo_sentencias:
                   | sentencia grupo_sentencias;
 sentencia:
            asignacion';'
-           | bloque_if';' {Logger.getLog().addMensaje(new Info("Bloque 'if' detectado", yylval.ival, "Sintactico"));}
-           | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", yylval.ival, "Sintactico"));}
+           | bloque_if';' {Logger.getLog().addMensaje(new Info("Bloque 'if' detectado", $1.ival, "Sintactico"));}
+           | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", $1.ival, "Sintactico"));}
            | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
             ID ASIGNACION expresion {Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
