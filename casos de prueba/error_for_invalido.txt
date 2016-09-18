@@ -1,3 +1,4 @@
+programa
 integer i, x;
 {
   /# Falta la condicion de corte #/

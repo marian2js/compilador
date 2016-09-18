@@ -1,3 +1,4 @@
+programa
 integer a, b;
 
 /# ID muy largo #/

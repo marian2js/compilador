@@ -1,3 +1,4 @@
+programa
 integer x, y;
 {
   if (x === y) {

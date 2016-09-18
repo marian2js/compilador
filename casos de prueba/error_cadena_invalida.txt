@@ -1,3 +1,4 @@
+programa
 integer i, x;
 {
   /# La comilla nunca se cierra, el salto de linea se considera como un error de caracter invalido #/
