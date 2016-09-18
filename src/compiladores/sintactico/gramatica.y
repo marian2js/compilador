@@ -2,6 +2,7 @@
 import compiladores.lexico.*;
 import compiladores.*;
 import compiladores.logger.Logger;
+import compiladores.logger.Info;
 import compiladores.logger.Error;
 import java.io.File;
 %}
@@ -22,9 +23,9 @@ grupo_declaraciones:
                     declaracion';'
                     | declaracion';'grupo_declaraciones;
 declaracion:
-            tipo lista_de_variables
-            | declaracion_matrix
-            | declaracion_allow;
+            tipo lista_de_variables {Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
+            | declaracion_matrix {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", yylval.ival, "Sintactico"));}
+            | declaracion_allow; {Logger.getLog().addMensaje(new Info("Declaración de tipo allow detectada", yylval.ival, "Sintactico"));}
             | error lista_de_variables {Error e = new Error("Error de tipo invalido",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | tipo error; {Error e = new Error("Falta declarar variables",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
 lista_de_variables:
@@ -101,14 +102,14 @@ grupo_sentencias:
                   | sentencia grupo_sentencias;
 sentencia:
            asignacion';'
-           | bloque_if';'
-           | bloque_for
-           | bloque_print';';
+           | bloque_if';' {Logger.getLog().addMensaje(new Info("Bloque 'if' detectado", yylval.ival, "Sintactico"));}
+           | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", yylval.ival, "Sintactico"));}
+           | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
-            ID ASIGNACION expresion
-            | ID MASIGUAL expresion
-            | ID '['expresion_entera']''['expresion_entera']' ASIGNACION expresion
-            | ID '['expresion_entera']''['expresion_entera']' MASIGUAL expresion;
+            ID ASIGNACION expresion {Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
+            | ID MASIGUAL expresion {Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
+            | ID '['expresion_entera']''['expresion_entera']' ASIGNACION expresion {Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
+            | ID '['expresion_entera']''['expresion_entera']' MASIGUAL expresion; {Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
             | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | error MASIGUAL expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
