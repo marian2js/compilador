@@ -1,5 +1,6 @@
 %{
 import compiladores.lexico.*;
+import compiladores.logger.*;
 import compiladores.*;
 import java.io.File;
 %}
@@ -23,9 +24,12 @@ declaracion:
             tipo lista_de_variables
             | declaracion_matrix
             | declaracion_allow;
+            | error lista_de_variables {compiladores.logger.Error e = new compiladores.logger.Error("Error de tipo invalido",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+            | tipo error; {compiladores.logger.Error e = new compiladores.logger.Error("Falta declarar variables",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
 lista_de_variables:
                    ID
-                   | ID','lista_de_variables;
+                   | ID ',' lista_de_variables
+                   | ID ',' error {compiladores.logger.Error e = new compiladores.logger.Error("Falta declarar variables luego de ,",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 tipo:
      INTEGER
      | FLOAT;
@@ -44,31 +48,47 @@ fila:
      | fila',' CTE_FLOAT;
 declaracion_allow:
                   ALLOW tipo TO tipo;
-
 expresion:
           expresion '+' termino
           | expresion '-' termino
           | termino
-          | '('expresion')';
+          | '('expresion')'
+          | expresion '+' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+          | expresion '-' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+          |'+' termino {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+          |'-' termino {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
+
 termino:
         termino '*' factor
         | termino '/' factor
-        | factor;
+        | factor
+        | termino '*' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+        | termino '/' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+        |'*' factor {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+        |'/' factor {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};;
 factor:
        ID
        |ID '['expresion_entera']''['expresion_entera']'
-       | CTE_ENTERA;
+       | CTE_ENTERA
        | CTE_FLOAT;
 
 expresion_entera:
                   expresion_entera '+' termino_entero
                   | expresion_entera '-' termino_entero
                   | termino_entero
-                  | '('expresion_entera')';
+                  | '('expresion_entera')'
+                  | expresion_entera '+' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                  | expresion_entera '-' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                  |'+' termino_entero {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                  |'-' termino_entero {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 termino_entero:
                 termino_entero '*' factor_entero
                 | termino_entero '/' factor_entero
-                | factor_entero;
+                | factor_entero
+                | termino_entero '*' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                | termino_entero '/' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador derecho",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                |'*' factor_entero {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                |'/' factor_entero {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 factor_entero:
                ID
                | CTE_ENTERA;
@@ -88,27 +108,45 @@ asignacion:
             | ID MASIGUAL expresion
             | ID '['expresion_entera']''['expresion_entera']' ASIGNACION expresion
             | ID '['expresion_entera']''['expresion_entera']' MASIGUAL expresion;
+            | error ASIGNACION expresion {compiladores.logger.Error e = new compiladores.logger.Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+            | error MASIGUAL expresion {compiladores.logger.Error e = new compiladores.logger.Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+            | ID error expresion {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+            | ID ASIGNACION {compiladores.logger.Error e = new compiladores.logger.Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+            | ID MASIGUAL {compiladores.logger.Error e = new compiladores.logger.Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 asignacion_for:
                 ID ASIGNACION expresion_entera;
-
+                | error ASIGNACION expresion {compiladores.logger.Error e = new compiladores.logger.Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                | ID error expresion_entera {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                | ID ASIGNACION {compiladores.logger.Error e = new compiladores.logger.Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 bloque_if:
-           IF'('condicion')' bloque_de_sentencias ENDIF
-           | IF'('condicion')' bloque_de_sentencias ELSE bloque_de_sentencias ENDIF;
+           condicion_if cuerpo_if;
+condicion_if:
+              IF '('condicion')'
+              |IF error {compiladores.logger.Error e = new compiladores.logger.Error("Falta condicion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
+cuerpo_if: bloque_de_sentencias ENDIF
+           | bloque_de_sentencias ELSE bloque_de_sentencias ENDIF;
 condicion:
-           expresion comparador expresion;
+           expresion comparador expresion
+           | comparador expresion {compiladores.logger.Error e = new compiladores.logger.Error("Falta termino izquierdo en la comparacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+           | expresion comparador {compiladores.logger.Error e = new compiladores.logger.Error("Falta termino derecho en la comparacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 
 comparador:
             '='
             | '<'
             | '>'
             | COMPARADOR;
-
 bloque_for:
             FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' bloque_de_sentencias;
 actualizacion_de_vble_control:
-                               ID MASIGUAL factor_entero;
+                               ID MASIGUAL factor_entero
+                               | error MASIGUAL factor_entero {compiladores.logger.Error e = new compiladores.logger.Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                               | ID error factor_entero {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+                               | ID MASIGUAL {compiladores.logger.Error e = new compiladores.logger.Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 bloque_print:
-              PRINT'('CADENA')';
+              PRINT'('CADENA')'
+              | PRINT CADENA')' {compiladores.logger.Error e = new compiladores.logger.Error("Falta (",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+              | PRINT'('CADENA {compiladores.logger.Error e = new compiladores.logger.Error("Falta )",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);}
+              | PRINT'('error')' {compiladores.logger.Error e = new compiladores.logger.Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger log = Logger.getLog();log.addMensaje(e);};
 %%
 
 /* Parser.java */
@@ -126,7 +164,7 @@ private int yylex() {
     }
     int val = token.getValue();
     yylval = new ParserVal(token.getLexema());
-    //yylval.ival = analizadorLexico.getLinea();
+    yylval.ival = analizadorLexico.getLinea();
     System.out.println("=== Value: " + val + " ===");
     System.out.println("=== Lexema: " + token.getLexema() + " ===");
     return val;

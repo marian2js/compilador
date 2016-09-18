@@ -1257,7 +1257,7 @@ public class AnalizadorLexico {
             case ",": return 14; case ";": return 15; case "'": return 17; case "\t": return 21;
             case ".": return 16; case "\n": return 20; case " ": return 21; case "!": return 9;
             case "#" : return 5; case "{" : return 12; case "}": return 13; case "[": return 28;
-            case "]": return 29;
+            case "]": return 29; case "\r" : return 20;
 
             default: return DEFAULT_CHAR;
         }
