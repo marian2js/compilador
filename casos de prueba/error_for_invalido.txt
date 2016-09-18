@@ -1,8 +1,8 @@
 programa
 integer i, x;
 {
-  /# Falta la condicion de corte #/
-  for (i := _i0; i += _i1) {
+  /# Falta el incremento #/
+  for (i := _i0; i < _i100; i +=) {
     x += _i1;
   }
 }

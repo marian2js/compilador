@@ -1,8 +1,9 @@
 programa
 integer x, y;
 {
-  /# Falta el endif #/
-  if (x == y) {
+  /# Falta codicion #/
+  if {
     print('x equal y');
   }
+  endif;
 }
