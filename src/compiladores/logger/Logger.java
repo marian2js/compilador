@@ -6,6 +6,8 @@
 package compiladores.logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -27,6 +29,20 @@ public class Logger {
 
     public void addMensaje (Mensaje e){
         this.mensajes.add(e);
+
+        // Ordena los mensajes por numero de linea
+        Collections.sort(this.mensajes, new Comparator<Mensaje>() {
+            @Override
+            public int compare(Mensaje m1, Mensaje m2)
+            {
+                if (m1.getLinea() > m2.getLinea()) {
+                    return 1;
+                } else if (m1.getLinea() < m2.getLinea()) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
     }
 
     public ArrayList<Mensaje> getMensajes() {
