@@ -56,6 +56,8 @@ public class AccionSemantica8 extends AccionSemantica {
             val += "E" + Double.toString(e);
         }
         
-        return new Token("_f" + val, ParserTokens.CTE_FLOAT);
+        Token token = new Token("_f" + val, ParserTokens.CTE_FLOAT);
+        token.set("numero", n * Math.pow(10, e));
+        return token;
     }
 }
