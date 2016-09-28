@@ -1,26 +1,33 @@
 package compiladores;
 
+import java.util.HashMap;
+
 public class Token {
-    protected String lexema;
-    protected int value;
-    private boolean reservada;
-    
+    private HashMap<String, Object> atributos = new HashMap<>();
+
     public Token(String lexema, int value) {
-        this.lexema = lexema;
-        this.value = value;
-        this.reservada = false;
+        this.atributos.put("lexema", lexema);
+        this.atributos.put("value", value);
     }
 
     public boolean esReservada(){
-        return this.reservada;
-    };
+        return false;
+    }
 
     public String getLexema() {
-        return lexema;
+        return (String)this.atributos.get("lexema");
     }
 
     public int getValue() {
-        return value;
+        return (int)this.atributos.get("value");
+    }
+
+    public Object get(String key) {
+        return this.atributos.get(key);
+    }
+
+    public void set(String key, Object value) {
+        this.atributos.put(key, value);
     }
 
 }
