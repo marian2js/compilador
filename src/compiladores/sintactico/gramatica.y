@@ -5,7 +5,6 @@ import compiladores.logger.Logger;
 import compiladores.logger.Info;
 import compiladores.logger.Error;
 import java.io.File;
-import java.util.ArrayList;
 %}
 
 %token ID CTE_ENTERA CTE_FLOAT IF ELSE ENDIF FOR PRINT INTEGER FLOAT MATRIX CADENA ANOTACION ALLOW TO ASIGNACION MASIGUAL COMPARADOR
@@ -24,15 +23,15 @@ grupo_declaraciones:
                     declaracion';'
                     | declaracion';'grupo_declaraciones;
 declaracion:
-            tipo lista_de_variables {setTipo($1, $2); Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
+            tipo lista_de_variables {ParserHelper.setTipo($1, $2); Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
             | declaracion_matrix {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", yylval.ival, "Sintactico"));}
             | declaracion_allow; {Logger.getLog().addMensaje(new Info("Declaración de tipo allow detectada", yylval.ival, "Sintactico"));}
             | error lista_de_variables {Error e = new Error("Error de tipo invalido",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | tipo error; {Error e = new Error("Falta declarar variables",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
 
 lista_de_variables:
-                   ID {$$.obj = cargarListaVariables($1, null);}
-                   | ID ',' lista_de_variables {$$.obj = cargarListaVariables($1, $3);}
+                   ID {$$.obj = ParserHelper.cargarListaVariables($1, null);}
+                   | ID ',' lista_de_variables {$$.obj = ParserHelper.cargarListaVariables($1, $3);}
                    | ID ',' error {Error e = new Error("Falta declarar variables luego de ,",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 tipo:
      INTEGER
@@ -178,18 +177,4 @@ private int yylex() {
 
 private void yyerror(String error) {
     System.out.println("Error: " + error);
-}
-
-private void setTipo(ParserVal tipo, ParserVal tokens) {
-    for (ParserVal token : ((ArrayList<ParserVal>) tokens.obj)) {
-        ((Token) token.obj).set("tipo", ((Token) tipo.obj).getLexema());
-    }
-}
-
-private ArrayList<ParserVal> cargarListaVariables(ParserVal var, ParserVal tokens) {
-    if (tokens == null) {
-        tokens = new ParserVal(new ArrayList<Token>());
-    }
-    ((ArrayList<ParserVal>) tokens.obj).add(var);
-    return (ArrayList<ParserVal>)tokens.obj;
 }
