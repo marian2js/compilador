@@ -22,7 +22,8 @@ import javax.swing.JFileChooser;
  * @author marian2js
  */
 public class CompiladorGUI extends javax.swing.JFrame {
-
+    
+    private String defaultFolderPath = System.getProperty("user.home");
     /**
      * Creates new form CompiladorGUI
      */
@@ -93,9 +94,10 @@ public class CompiladorGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser(defaultFolderPath);
         int val = fileChooser.showDialog(this, "Abrir");
         if (val == JFileChooser.APPROVE_OPTION) {
+        defaultFolderPath = fileChooser.getCurrentDirectory().getAbsolutePath();
         File file = fileChooser.getSelectedFile();
         try {
             FileReader fileReader = new FileReader(file.getAbsolutePath());
