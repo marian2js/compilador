@@ -39,7 +39,9 @@ tipo:
 
 declaracion_matrix:
                     tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ANOTACION
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ANOTACION;
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ANOTACION
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']';
 inicializacion:
                '{' columna '}';
 columna:
