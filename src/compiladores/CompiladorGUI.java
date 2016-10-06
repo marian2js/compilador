@@ -128,6 +128,17 @@ public class CompiladorGUI extends javax.swing.JFrame {
                 jTextArea2.append(m.getLevel() + "::[" + m.getTipo() + "] - Linea " + m.getLinea() + ": " + m.getMensaje() + "\n");
             }
             
+            // Imprimir tabla de simbolos
+            jTextArea2.append("\n\nTabla de Simbolos:\n\n");
+            TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+            for (Token token : ts.getTokens()) {
+                jTextArea2.append("Token: " + '"' + token.getLexema() + '"');
+                if (token.esReservada()) {
+                    jTextArea2.append(" (Palabra reservada)");    
+                }
+                jTextArea2.append("\n");
+            }
+            
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(CompiladorGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

@@ -166,3 +166,11 @@ private int yylex() {
 private void yyerror(String error) {
     System.out.println("Error: " + error);
 }
+
+public AnalizadorLexico getAnalizadorLexico() {
+    return analizadorLexico;
+}
+
+public void setAnalizadorLexico(AnalizadorLexico analizadorLexico) {
+    this.analizadorLexico = analizadorLexico;
+}

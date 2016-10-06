@@ -26,4 +26,12 @@ public class TablaSimbolos {
     public void addSimbolo(Token t) {
         tokens.add(t);
     }
+
+    public ArrayList<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(ArrayList<Token> tokens) {
+        this.tokens = tokens;
+    }
 }

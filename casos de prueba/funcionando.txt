@@ -1,5 +1,5 @@
 programa
-integer x, y;
+integer i, x, y;
 float w, z;
 {
   /# Asignaciones #/
