@@ -110,7 +110,11 @@ condicion_if:
               IF '('condicion')'
               |IF error {Error e = new Error("Falta condicion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 cuerpo_if: bloque_de_sentencias ENDIF
-           | bloque_de_sentencias ELSE bloque_de_sentencias ENDIF;
+           | sentencia ENDIF
+           | bloque_de_sentencias ELSE bloque_de_sentencias ENDIF
+           | sentencia ELSE sentencia ENDIF
+           | bloque_de_sentencias ELSE sentencia ENDIF
+           | sentencia ELSE bloque_de_sentencias ENDIF;
 condicion:
            expresion comparador expresion
            | comparador expresion {Error e = new Error("Falta termino izquierdo en la comparacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
@@ -122,9 +126,8 @@ comparador:
             | '>'
             | COMPARADOR;
 bloque_for:
-            FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' bloque_de_sentencias;
-
-
+            FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' bloque_de_sentencias
+            FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' sentencia;
 actualizacion_de_vble_control:
                                ID MASIGUAL factor
                                | error MASIGUAL factor {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
