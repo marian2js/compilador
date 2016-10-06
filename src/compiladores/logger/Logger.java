@@ -35,6 +35,28 @@ public class Logger {
             @Override
             public int compare(Mensaje m1, Mensaje m2)
             {
+                // Ordenar por nivel
+                if (m1.getLevel().equals(Mensaje.INFO_LEVEL) && !m2.getLevel().equals(Mensaje.INFO_LEVEL)) {
+                    return -1;
+                }
+                if (!m1.getLevel().equals(Mensaje.INFO_LEVEL) && m2.getLevel().equals(Mensaje.INFO_LEVEL)) {
+                    return 1;
+                }
+                if (m1.getLevel().equals(Mensaje.WARNING_LEVEL) && m2.getLevel().equals(Mensaje.ERROR_LEVEL)) {
+                    return -1;
+                }
+                if (m1.getLevel().equals(Mensaje.ERROR_LEVEL) && m2.getLevel().equals(Mensaje.WARNING_LEVEL)) {
+                    return 1;
+                }
+
+                // Ordenar por lexico y sintactico
+                if (m1.getTipo().equals("Lexico") && m2.getTipo().equals("Sintactico")) {
+                    return -1;
+                }
+                if (m1.getTipo().equals("Sintactico") && m2.getTipo().equals("Lexico")) {
+                    return 1;
+                }
+
                 if (m1.getLinea() > m2.getLinea()) {
                     return 1;
                 } else if (m1.getLinea() < m2.getLinea()) {
