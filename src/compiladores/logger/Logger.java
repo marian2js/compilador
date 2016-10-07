@@ -74,4 +74,24 @@ public class Logger {
     public void borrarMensajes() {
         mensajes.clear();
     }
+
+    public int contarErrores() {
+        int c = 0;
+        for (Mensaje m : mensajes) {
+            if (m.getLevel() == Mensaje.ERROR_LEVEL) {
+                c++;
+            }
+        }
+        return c;
+    }
+
+    public int contarWarnings() {
+        int c = 0;
+        for (Mensaje m : mensajes) {
+            if (m.getLevel() == Mensaje.WARNING_LEVEL) {
+                c++;
+            }
+        }
+        return c;
+    }
 }

@@ -128,8 +128,28 @@ public class CompiladorGUI extends javax.swing.JFrame {
                 jTextArea2.append(m.getLevel() + "::[" + m.getTipo() + "] - Linea " + m.getLinea() + ": " + m.getMensaje() + "\n");
             }
             
+            String resultado = "";
+            int errores  = Logger.getLog().contarErrores();
+            int warnings  = Logger.getLog().contarWarnings();
+            if (errores > 0) {
+                if (errores == 1) {
+                    resultado = "Se encontro un error.";    
+                } else {
+                 resultado = "Se encontraron " + errores + " errores.";   
+                }
+            } else if (warnings > 0) {
+                if (warnings == 1) {
+                    resultado = "No hubo errores, pero se encontro un warning.";    
+                } else {
+                 resultado = "No hubo errores, pero se encontraron " + warnings + " warnings.";
+                }
+            } else {
+                resultado = "El programa se ejecuto correctamente.";
+            }
+            jTextArea2.append("\n\nResultado de la ejecución: \n" + resultado + " \n\n");
+            
             // Imprimir tabla de simbolos
-            jTextArea2.append("\n\nTabla de Simbolos:\n\n");
+            jTextArea2.append("Tabla de Simbolos:\n\n");
             TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
             for (Token token : ts.getTokens()) {
                 if (!token.esReservada()) {
