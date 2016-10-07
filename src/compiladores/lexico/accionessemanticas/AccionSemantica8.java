@@ -58,6 +58,7 @@ public class AccionSemantica8 extends AccionSemantica {
         
         Token token = new Token("_f" + val, ParserTokens.CTE_FLOAT);
         token.set("numero", n * Math.pow(10, e));
+        analizadorLexico.getTablaSimbolos().addSimbolo(token);
         return token;
     }
 }
