@@ -25,6 +25,7 @@ public class AccionSemantica7 extends AccionSemantica {
         }
         Token token =  new Token("_i" + Double.toString(n), ParserTokens.CTE_ENTERA); //Integer
         token.set("numero", n);
+        token.set("tipostr", "Constante Entera");
         analizadorLexico.getTablaSimbolos().addSimbolo(token);
         return token;
     }
