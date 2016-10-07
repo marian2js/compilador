@@ -126,14 +126,8 @@ comparador:
             | '>'
             | COMPARADOR;
 bloque_for:
-            FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' bloque_de_sentencias
-            | FOR'('asignacion_for';'condicion';'actualizacion_de_vble_control')' sentencia;
-actualizacion_de_vble_control:
-                               ID MASIGUAL factor
-                               | error MASIGUAL factor {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
-                               | ID error factor {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
-                               | ID MASIGUAL {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
-
+            FOR'('asignacion_for';'condicion';'asignacion')' bloque_de_sentencias
+            | FOR'('asignacion_for';'condicion';'asignacion')' sentencia;
 
 
 bloque_print:
