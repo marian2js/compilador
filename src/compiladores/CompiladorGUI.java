@@ -132,11 +132,9 @@ public class CompiladorGUI extends javax.swing.JFrame {
             jTextArea2.append("\n\nTabla de Simbolos:\n\n");
             TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
             for (Token token : ts.getTokens()) {
-                jTextArea2.append("Token: " + '"' + token.getLexema() + '"');
-                if (token.esReservada()) {
-                    jTextArea2.append(" (Palabra reservada)");    
+                if (!token.esReservada()) {
+                    jTextArea2.append("Token: " + '"' + token.getLexema() + "\"\n");
                 }
-                jTextArea2.append("\n");
             }
             
         } catch (FileNotFoundException ex) {
