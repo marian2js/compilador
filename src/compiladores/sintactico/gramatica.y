@@ -23,7 +23,7 @@ grupo_declaraciones:
                     declaracion';'
                     | declaracion';'grupo_declaraciones;
 declaracion:
-            tipo lista_de_variables {ParserHelper.setTipo($1, $2); Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
+            tipo lista_de_variables {ParserHelper.cargarVars(this, $1, $2); Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
             | declaracion_matrix {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", yylval.ival, "Sintactico"));}
             | declaracion_allow; {Logger.getLog().addMensaje(new Info("Declaración de tipo allow detectada", yylval.ival, "Sintactico"));}
             | error lista_de_variables {Error e = new Error("Error de tipo invalido",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
@@ -38,10 +38,10 @@ tipo:
      | FLOAT;
 
 declaracion_matrix:
-                    tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ANOTACION {setearMatrix($3,$1,$5,$8,$11);}
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion  {setearMatrix($3,$1,$5,$8);}
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ANOTACION {setearMatrix($3,$1,$5,$8);}
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' {setearMatrix($3,$1,$5,$8);}
+                    tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ANOTACION {ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$11);}
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion  {ParserHelper.cargarMatriz(this,$3,$1,$5,$8);}
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ANOTACION {ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$10);}
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' {ParserHelper.cargarMatriz(this,$3,$1,$5,$8);}
 ;
 inicializacion:
                '{' columna '}';
@@ -170,19 +170,6 @@ public AnalizadorLexico getAnalizadorLexico() {
 
 public void setAnalizadorLexico(AnalizadorLexico analizadorLexico) {
     this.analizadorLexico = analizadorLexico;
-}
-
-private void setearMatrix(ParserVal matriz, ParserVal tipo, ParserVal filas, ParserVal columnas, ParserVal anotacion){
-    ((Token)matriz.obj).set("tipo",((Token)tipo.obj).getLexema());
-    ((Token)matriz.obj).set("filas",((Token)filas.obj).get("numero"));
-    ((Token)matriz.obj).set("columnas",((Token)columnas.obj).get("numero"));
-    if(anotacion != null){
-     ((Token)matriz.obj).set("anotacion",((Token)anotacion.obj).getLexema());
-    }
-}
-
-private void setearMatrix(ParserVal matriz, ParserVal tipo, ParserVal filas, ParserVal columnas){
-	setearMatrix(matriz,tipo,filas,columnas,null);
 }
 
 
