@@ -29,7 +29,6 @@ public class AccionSemantica1 extends AccionSemantica {
             return token;
         }
         token = new Token(buffer, ParserTokens.ID);
-        analizadorLexico.getTablaSimbolos().addSimbolo(token);
         token.set("tipostr", "Identificador");
         return token;
     }
