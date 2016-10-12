@@ -1,13 +1,32 @@
 package compiladores.sintactico;
 
+import compiladores.TablaSimbolos;
 import compiladores.Token;
 import java.util.ArrayList;
 
 class ParserHelper {
 
-    static void setTipo(ParserVal tipo, ParserVal tokens) {
-        for (ParserVal token : ((ArrayList<ParserVal>) tokens.obj)) {
-            ((Token) token.obj).set("tipo", ((Token) tipo.obj).getLexema());
+    static void cargarVars(Parser parser, ParserVal tipo, ParserVal tokens) {
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        for (ParserVal tokenVal : ((ArrayList<ParserVal>) tokens.obj)) {
+            Token token = ((Token) tokenVal.obj);
+            token.set("tipo", ((Token) tipo.obj).getLexema());
+            token.set("lexema", "var@" + token.getLexema());
+            Token tokenTabla = ts.get(token.getLexema());
+            if (tokenTabla == null) {
+                ts.addSimbolo(token);
+            }
+        }
+    }
+
+    static void cargarMatriz(Parser parser, ParserVal tipo, ParserVal tokenVal) {
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        Token token = ((Token) tokenVal.obj);
+        token.set("tipo", ((Token) tipo.obj).getLexema());
+        token.set("lexema", "mat@" + token.getLexema());
+        Token tokenTabla = ts.get(token.getLexema());
+        if (tokenTabla == null) {
+            ts.addSimbolo(token);
         }
     }
 
