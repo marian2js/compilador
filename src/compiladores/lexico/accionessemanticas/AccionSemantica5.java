@@ -21,6 +21,10 @@ public class AccionSemantica5 extends AccionSemantica {
 
         }
         else if (c == '\'') {
+            Token token = analizadorLexico.getTablaSimbolos().get(buffer);
+            if (token != null) {
+                return token;
+            }
             simbolo = new Token(buffer, ParserTokens.CADENA); //Cadena
             simbolo.set("tipostr", "Constante de caracteres");
             analizadorLexico.getTablaSimbolos().addSimbolo(simbolo);

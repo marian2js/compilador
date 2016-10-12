@@ -23,7 +23,11 @@ public class AccionSemantica7 extends AccionSemantica {
             Warning w = new Warning("Integer fuera de rango. Transformado al máximo.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
         }
-        Token token =  new Token("_i" + Double.toString(n), ParserTokens.CTE_ENTERA); //Integer
+        Token token = analizadorLexico.getTablaSimbolos().get(buffer);
+        if (token != null) {
+            return token;
+        }
+        token =  new Token("_i" + Double.toString(n), ParserTokens.CTE_ENTERA); //Integer
         token.set("numero", n);
         token.set("tipostr", "Constante Entera");
         analizadorLexico.getTablaSimbolos().addSimbolo(token);

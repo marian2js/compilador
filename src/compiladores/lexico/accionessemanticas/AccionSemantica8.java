@@ -55,8 +55,11 @@ public class AccionSemantica8 extends AccionSemantica {
         if (e != 1) {
             val += "E" + Double.toString(e);
         }
-        
-        Token token = new Token("_f" + val, ParserTokens.CTE_FLOAT);
+        Token token = analizadorLexico.getTablaSimbolos().get(buffer);
+        if (token != null) {
+            return token;
+        }
+        token = new Token("_f" + val, ParserTokens.CTE_FLOAT);
         token.set("numero", n * Math.pow(10, e));
         token.set("tipostr", "Constante Flotante");
         analizadorLexico.getTablaSimbolos().addSimbolo(token);
