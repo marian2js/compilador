@@ -12,6 +12,7 @@ class ParserHelper {
             Token token = ((Token) tokenVal.obj);
             token.set("tipo", ((Token) tipo.obj).getLexema());
             token.set("lexema", "var@" + token.getLexema());
+            token.set("uso", "Variable");
             Token tokenTabla = ts.get(token.getLexema());
             if (tokenTabla == null) {
                 ts.addSimbolo(token);
@@ -26,6 +27,7 @@ class ParserHelper {
         token.set("lexema", "mat@" + token.getLexema());
         token.set("filas",((Token)filas.obj).get("numero"));
         token.set("columnas",((Token)columnas.obj).get("numero"));
+        token.set("uso", "Nombre de arreglo");
         if(anotacion != null){
             token.set("anotacion",((Token)anotacion.obj).getLexema());
         }
@@ -45,6 +47,13 @@ class ParserHelper {
         }
         ((ArrayList<ParserVal>) tokens.obj).add(var);
         return (ArrayList<ParserVal>)tokens.obj;
+    }
+    
+    public static void setNombrePrograma(Parser parser, ParserVal nombre) {
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        Token token = (Token) nombre.obj;
+        token.set("uso", "Nombre del programa");
+        ts.addSimbolo(token);
     }
 
 }

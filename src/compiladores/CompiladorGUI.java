@@ -153,7 +153,11 @@ public class CompiladorGUI extends javax.swing.JFrame {
             TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
             for (Token token : ts.getTokens()) {
                 if (!token.esReservada()) {
-                    jTextArea2.append("Token::[" + token.get("tipostr") + "] - " + '"' + token.getLexema() + "\"\n");
+                    if (token.get("tipostr").equals("Identificador")) {
+                        jTextArea2.append("Token::[" + token.get("tipostr") + "] - " + '"' + token.getLexema() + '"' + " Uso:: " + token.get("uso") + "\n");
+                    } else {
+                        jTextArea2.append("Token::[" + token.get("tipostr") + "] - " + '"' + token.getLexema() + "\"\n");
+                    }
                 }
             }
             

@@ -17,7 +17,7 @@ import java.io.File;
 
 /* Gramatica */
 %%
-inicio_programa: ID programa;
+inicio_programa: ID programa; {ParserHelper.setNombrePrograma(this, $1);}
 programa: grupo_declaraciones bloque_de_sentencias;
 grupo_declaraciones:
                     declaracion';'
