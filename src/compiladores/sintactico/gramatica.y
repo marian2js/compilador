@@ -22,6 +22,7 @@ programa: grupo_declaraciones bloque_de_sentencias;
 grupo_declaraciones:
                     declaracion';'
                     | declaracion';'grupo_declaraciones
+                    | declaracion_matrix
                     | declaracion_matrix grupo_declaraciones;
 declaracion:
             tipo lista_de_variables {ParserHelper.cargarVars(this, $1, $2); Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
