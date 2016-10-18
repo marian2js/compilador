@@ -55,7 +55,7 @@ public class AccionSemantica8 extends AccionSemantica {
         if (e != 1) {
             val += "E" + Double.toString(e);
         }
-        Token token = analizadorLexico.getTablaSimbolos().get(buffer);
+        Token token = analizadorLexico.getTablaSimbolos().get("_f" + val);
         if (token != null) {
             return token;
         }
