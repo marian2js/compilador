@@ -26,7 +26,7 @@ grupo_declaraciones:
                     | declaracion_matrix grupo_declaraciones;
 declaracion:
             tipo lista_de_variables {ParserHelper.cargarVars(this, $1, $2); Logger.getLog().addMensaje(new Info("Lista de declaraciones de variables detectada", yylval.ival, "Sintactico"));}
-            | declaracion_allow; {Logger.getLog().addMensaje(new Info("Declaración de tipo allow detectada", yylval.ival, "Sintactico"));}
+            | declaracion_allow {Logger.getLog().addMensaje(new Info("Declaración de tipo allow detectada", yylval.ival, "Sintactico"));}
             | error lista_de_variables {Error e = new Error("Error de tipo invalido",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | tipo error; {Error e = new Error("Falta declarar variables",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
 
@@ -39,10 +39,10 @@ tipo:
      | FLOAT;
 
 declaracion_matrix:
-                    tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ';' ANOTACION {ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$12);}
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ';' {ParserHelper.cargarMatriz(this,$3,$1,$5,$8);}
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ';' ANOTACION {ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$11);}
-                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ';' {ParserHelper.cargarMatriz(this,$3,$1,$5,$8);}
+                    tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ';' ANOTACION {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$12);}
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' inicializacion ';' {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));ParserHelper.cargarMatriz(this,$3,$1,$5,$8);}
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ';' ANOTACION {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$11);}
+                    | tipo MATRIX ID '['CTE_ENTERA']''['CTE_ENTERA']' ';' {Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));ParserHelper.cargarMatriz(this,$3,$1,$5,$8);}
 ;
 inicializacion:
                '{' columna '}';
