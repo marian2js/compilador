@@ -1,7 +1,6 @@
 programa
 integer matrix x[_i1][_i1];
 integer matrix y[_i1][_i1]; /#@0 Matriz 1
-
 integer matrix z[_i2][_i2] {_i0, _i1, _i2; _i3, _i4, _i5; _i6, _i7, _i8}; /#@1 Matriz 2
 
 {
