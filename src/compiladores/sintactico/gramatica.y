@@ -134,7 +134,7 @@ bloque_for:
 
 
 bloque_print:
-              PRINT'('CADENA')'
+              PRINT'('CADENA')' {$$.obj = new Terceto("print",(Objeto)$3.obj, null);}
               | PRINT CADENA')' {Error e = new Error("Falta (",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
               | PRINT'('CADENA {Error e = new Error("Falta )",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
               | PRINT'('error')' {Error e = new Error("Falta cadena a imprimir",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
