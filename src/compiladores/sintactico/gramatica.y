@@ -58,8 +58,8 @@ fila:
 declaracion_allow:
                   ALLOW tipo TO tipo;
 expresion:
-          expresion '+' termino
-          | expresion '-' termino
+          expresion '+' termino {$$.obj = new Terceto("+", (Objeto) $1.obj, (Objeto) $3.obj);}
+          | expresion '-' termino {$$.obj = new Terceto("-", (Objeto) $1.obj, (Objeto) $3.obj);}
           | termino
           | expresion '+' {Error e = new Error("Falta operador derecho",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
           | expresion '-' {Error e = new Error("Falta operador derecho",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
@@ -67,8 +67,8 @@ expresion:
           |'-' termino {Error e = new Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 termino:
-        termino '*' factor
-        | termino '/' factor
+        termino '*' factor {$$.obj = new Terceto("*", (Objeto) $1.obj, (Objeto) $3.obj);}
+        | termino '/' factor {$$.obj = new Terceto("/", (Objeto) $1.obj, (Objeto) $3.obj);}
         | factor
         | termino '*' {Error e = new Error("Falta operador derecho",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
         | termino '/' {Error e = new Error("Falta operador derecho",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
