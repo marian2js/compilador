@@ -1,11 +1,14 @@
 package compiladores;
 
+import compiladores.sintactico.Parser;
+
 public class Terceto extends Objeto {
 
     public Terceto(String operacion, Objeto operando1, Objeto operando2) {
         this.atributos.put("operacion", operacion);
         this.atributos.put("operando1", operando1);
         this.atributos.put("operando2", operando2);
+        Parser.tercetos.add(this);
     }
 
     public String getOperacion() {

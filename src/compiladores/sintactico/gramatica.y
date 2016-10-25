@@ -5,6 +5,7 @@ import compiladores.logger.Logger;
 import compiladores.logger.Info;
 import compiladores.logger.Error;
 import java.io.File;
+import java.util.ArrayList;
 %}
 
 %token ID CTE_ENTERA CTE_FLOAT IF ELSE ENDIF FOR PRINT INTEGER FLOAT MATRIX CADENA ANOTACION ALLOW TO ASIGNACION MASIGUAL COMPARADOR
@@ -141,6 +142,7 @@ bloque_print:
 
 /* Parser.java */
 private AnalizadorLexico analizadorLexico;
+public static ArrayList<Terceto> tercetos = new ArrayList<>();
 
 public Parser(File file) {
     analizadorLexico = new AnalizadorLexico(file);
