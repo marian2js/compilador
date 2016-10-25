@@ -108,16 +108,21 @@ asignacion_for:
                 | ID ASIGNACION {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 bloque_if:
-           condicion_if cuerpo_if;
+           condicion_if cuerpo_if {ParserHelper.agregarBF((Terceto) $1.obj);};
 condicion_if:
               IF '('condicion')'
               |IF error {Error e = new Error("Falta condicion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
-cuerpo_if: bloque_de_sentencias ENDIF
-           | sentencia ENDIF
-           | bloque_de_sentencias ELSE bloque_de_sentencias ENDIF
-           | sentencia ELSE sentencia ENDIF
-           | bloque_de_sentencias ELSE sentencia ENDIF
-           | sentencia ELSE bloque_de_sentencias ENDIF;
+
+cuerpo_if: bloque_de_sentencias ENDIF {ParserHelper.eliminarSalto();};
+           | sentencia ENDIF {ParserHelper.eliminarSalto();};
+           | bloque_de_sentencias ELSE bloque_de_sentencias ENDIF {ParserHelper.eliminarSalto();
+                                                                   ParserHelper.agregarBI((Terceto) $1.obj);};
+           | sentencia ELSE sentencia ENDIF {ParserHelper.eliminarSalto();
+                                             ParserHelper.agregarBI((Terceto) $1.obj);};
+           | bloque_de_sentencias ELSE sentencia ENDIF {ParserHelper.eliminarSalto();
+                                                        ParserHelper.agregarBI((Terceto) $1.obj);};
+           | sentencia ELSE bloque_de_sentencias ENDIF; {ParserHelper.eliminarSalto();
+                                                        ParserHelper.agregarBI((Terceto) $1.obj);};
 condicion:
            expresion comparador expresion
            | comparador expresion {Error e = new Error("Falta termino izquierdo en la comparacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
@@ -143,6 +148,7 @@ bloque_print:
 /* Parser.java */
 private AnalizadorLexico analizadorLexico;
 public static ArrayList<Terceto> tercetos = new ArrayList<>();
+public static ArrayList<Terceto> saltos = new ArrayList<>();
 
 public Parser(File file) {
     analizadorLexico = new AnalizadorLexico(file);

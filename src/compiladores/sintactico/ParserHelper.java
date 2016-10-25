@@ -1,6 +1,7 @@
 package compiladores.sintactico;
 
 import compiladores.TablaSimbolos;
+import compiladores.Terceto;
 import compiladores.Token;
 import java.util.ArrayList;
 
@@ -54,6 +55,20 @@ class ParserHelper {
         Token token = (Token) nombre.obj;
         token.set("uso", "Nombre del programa");
         ts.addSimbolo(token);
+    }
+
+    public static void agregarBF(Terceto terceto) {
+        Terceto bf = new Terceto("BF", terceto, null);
+        Parser.saltos.add(bf);
+    }
+
+    public static void agregarBI(Terceto terceto) {
+        Terceto bi = new Terceto("BI", terceto, null);
+        Parser.saltos.add(bi);
+    }
+
+    public static void eliminarSalto() {
+        Parser.saltos.remove(Parser.saltos.size() - 1);
     }
 
 }
