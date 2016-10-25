@@ -3,6 +3,9 @@ package compiladores.sintactico;
 import compiladores.TablaSimbolos;
 import compiladores.Terceto;
 import compiladores.Token;
+import compiladores.logger.Logger;
+import compiladores.logger.Error;
+
 import java.util.ArrayList;
 
 class ParserHelper {
@@ -55,6 +58,17 @@ class ParserHelper {
         Token token = (Token) nombre.obj;
         token.set("uso", "Nombre del programa");
         ts.addSimbolo(token);
+    }
+
+    public static void validarIndices(ParserVal filas, ParserVal columnas) {
+        Token f = (Token) filas.obj;
+        Token c = (Token) columnas.obj;
+        if (f.getValue() != ParserTokens.CTE_ENTERA) {
+            Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", filas.ival, "Semantico"));
+        }
+        if (c.getValue() != ParserTokens.CTE_ENTERA) {
+            Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", columnas.ival, "Semantico"));
+        }
     }
 
     public static void agregarBF(Terceto terceto) {
