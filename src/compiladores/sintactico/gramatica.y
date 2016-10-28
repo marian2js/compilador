@@ -113,29 +113,36 @@ asignacion:
             | ID MASIGUAL {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 asignacion_for:
-                ID ASIGNACION expresion;
+                ID ASIGNACION expresion
                 | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID ASIGNACION {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 bloque_if:
-           condicion_if cuerpo_if {ParserHelper.agregarBF((Terceto) $1.obj);};
+           condicion_if cuerpo_if ENDIF
+          |condicion_if cuerpo_if_else ELSE cuerpo_else ENDIF
+	//TODO AGREGAR ERRORES
+	//TODO tampoco esta tirando error cuando no se cierra la llave del bloque de sentencias y aparece el ENDIF
+;
 condicion_if:
-              IF '('condicion')'
+              IF '('condicion')' {$$.obj = new Terceto("BF",(Objeto)$3.obj,null);
+				saltos.add((Terceto)$$.obj);}
               |IF error {Error e = new Error("Falta condicion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
-cuerpo_if: bloque_de_sentencias ENDIF {ParserHelper.eliminarSalto();};
-           | sentencia ENDIF {ParserHelper.eliminarSalto();};
-           | bloque_de_sentencias ELSE bloque_de_sentencias ENDIF {ParserHelper.eliminarSalto();
-                                                                   ParserHelper.agregarBI((Terceto) $1.obj);};
-           | sentencia ELSE sentencia ENDIF {ParserHelper.eliminarSalto();
-                                             ParserHelper.agregarBI((Terceto) $1.obj);};
-           | bloque_de_sentencias ELSE sentencia ENDIF {ParserHelper.eliminarSalto();
-                                                        ParserHelper.agregarBI((Terceto) $1.obj);};
-           | sentencia ELSE bloque_de_sentencias ENDIF; {ParserHelper.eliminarSalto();
-                                                        ParserHelper.agregarBI((Terceto) $1.obj);};
+cuerpo_if: bloque_de_sentencias {ParserHelper.completarBF();}
+           | sentencia {ParserHelper.completarBF();}
+;
+cuerpo_if_else: bloque_de_sentencias {ParserHelper.agregarBI();ParserHelper.completarBF();}
+           | sentencia {ParserHelper.agregarBI();ParserHelper.completarBF();}
+;
+
+cuerpo_else: bloque_de_sentencias {ParserHelper.completarBI();}
+           | sentencia {ParserHelper.completarBI();}
+;
+
+
 condicion:
-           expresion comparador expresion
+           expresion comparador expresion {$$.obj = new Terceto(((Objeto)$2.obj).getLexema(),(Objeto)$1.obj,(Objeto)$3.obj);}
            | comparador expresion {Error e = new Error("Falta termino izquierdo en la comparacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
            | expresion comparador {Error e = new Error("Falta termino derecho en la comparacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
@@ -158,11 +165,13 @@ bloque_print:
 
 /* Parser.java */
 private AnalizadorLexico analizadorLexico;
-public static ArrayList<Terceto> tercetos = new ArrayList<>();
-public static ArrayList<Terceto> saltos = new ArrayList<>();
+public static ArrayList<Terceto> tercetos;
+public static ArrayList<Terceto> saltos;
 
 public Parser(File file) {
     analizadorLexico = new AnalizadorLexico(file);
+    tercetos = new ArrayList<>();
+    saltos = new ArrayList<>();
     yydebug = true;
 }
 

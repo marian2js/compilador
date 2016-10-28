@@ -76,9 +76,23 @@ class ParserHelper {
         Parser.saltos.add(bf);
     }
 
-    public static void agregarBI(Terceto terceto) {
-        Terceto bi = new Terceto("BI", terceto, null);
+    public static void completarBF() {
+	Terceto bf = Parser.saltos.get(Parser.saltos.size()-1);
+	Parser.saltos.remove(Parser.saltos.size() - 1);
+        Terceto tFinal = new Terceto("BFF", null, null);
+        bf.setOperando2(tFinal);
+    }
+
+    public static void agregarBI() {
+        Terceto bi = new Terceto("BI", null, null);
         Parser.saltos.add(bi);
+    }
+
+    public static void completarBI() {
+	Terceto bf = Parser.saltos.get(Parser.saltos.size()-1);
+	Parser.saltos.remove(Parser.saltos.size() - 1);
+        Terceto tFinal = new Terceto("BIF", null, null);
+        bf.setOperando2(tFinal);
     }
 
     public static void eliminarSalto() {

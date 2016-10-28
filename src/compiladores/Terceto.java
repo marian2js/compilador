@@ -22,4 +22,8 @@ public class Terceto extends Objeto {
     public Objeto getOperando2() {
         return (Objeto)this.atributos.get("operando2");
     }
+    
+    public void setOperando2(Objeto operando2) {
+        this.atributos.put("operando2",operando2);
+    }
 }
