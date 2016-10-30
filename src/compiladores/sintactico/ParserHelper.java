@@ -123,9 +123,17 @@ class ParserHelper {
         Token variable = ((Token) id.obj);
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         String var = "var@"+variable.getLexema();
-        String mat = "mat@"+variable.getLexema();
-        if ((ts.get(var) == null) && (ts.get(mat) == null)) {
+        if (ts.get(var) == null) {
             Logger.getLog().addMensaje(new Error("Variable " + variable.getLexema() + " no declarada", linea, "Semantico"));
+        }
+    }
+
+    public static void checkMatDeclarada(Parser parser, ParserVal id, int linea) {
+        Token variable = ((Token) id.obj);
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        String mat = "mat@"+variable.getLexema();
+        if (ts.get(mat) == null) {
+            Logger.getLog().addMensaje(new Error("Matriz " + variable.getLexema() + " no declarada", linea, "Semantico"));
         }
     }
 

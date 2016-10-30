@@ -84,7 +84,7 @@ termino:
         |'/' factor {Error e = new Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};;
 factor:
        ID {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);}
-       |ID '['expresion']''['expresion']' {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($3, $6);}
+       |ID '['expresion']''['expresion']' {ParserHelper.checkMatDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($3, $6);}
        | CTE_ENTERA
        | CTE_FLOAT;
 
@@ -100,10 +100,10 @@ sentencia:
            | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
             ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
-            | ID MASIGUAL expresion {$$.obj = new Terceto("Masigual", (Objeto)$1.obj, (Objeto)$3.obj);Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
-            | ID '['expresion']''['expresion']' ASIGNACION expresion {Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
+            | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto("Masigual", (Objeto)$1.obj, (Objeto)$3.obj);Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
+            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkMatDeclarada(this, $1, yylval.ival);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
                                                                       ParserHelper.validarIndices($3, $6);}
-            | ID '['expresion']''['expresion']' MASIGUAL expresion; {$$.obj = new Terceto("Masigual", (Objeto)$1.obj, (Objeto)$9.obj);
+            | ID '['expresion']''['expresion']' MASIGUAL expresion; {ParserHelper.checkMatDeclarada(this, $1, yylval.ival);$$.obj = new Terceto("Masigual", (Objeto)$1.obj, (Objeto)$9.obj);
                                                                      Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
                                                                      ParserHelper.validarIndices($3, $6);}
             | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
