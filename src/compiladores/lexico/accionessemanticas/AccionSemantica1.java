@@ -24,8 +24,11 @@ public class AccionSemantica1 extends AccionSemantica {
             Logger.getLog().addMensaje(w);
             buffer = buffer.substring(0, 20);
         }
-        Token token = analizadorLexico.getTablaSimbolos().get(buffer);
+        Token token = analizadorLexico.getTablaSimbolos().get("var@"+buffer);
         if (token != null) {
+            return token;
+        } else if (analizadorLexico.getTablaSimbolos().get("mat@"+buffer) != null) {
+            token = analizadorLexico.getTablaSimbolos().get("mat@"+buffer);
             return token;
         }
         token = new Token(buffer, ParserTokens.ID);

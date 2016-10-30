@@ -14,11 +14,11 @@ class ParserHelper {
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         for (ParserVal tokenVal : ((ArrayList<ParserVal>) tokens.obj)) {
             Token token = ((Token) tokenVal.obj);
-            token.set("tipo", ((Token) tipo.obj).getLexema());
-            token.set("lexema", "var@" + token.getLexema());
-            token.set("uso", "Variable");
             Token tokenTabla = ts.get(token.getLexema());
             if (tokenTabla == null) {
+                token.set("tipo", ((Token) tipo.obj).getLexema());
+                token.set("lexema", "var@" + token.getLexema());
+                token.set("uso", "Variable");
                 ts.addSimbolo(token);
             }
         }
@@ -27,16 +27,16 @@ class ParserHelper {
     public static void cargarMatriz(Parser parser,ParserVal matriz, ParserVal tipo, ParserVal filas, ParserVal columnas,ParserVal anotacion) {
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         Token token = ((Token) matriz.obj);
-        token.set("tipo", ((Token) tipo.obj).getLexema());
-        token.set("lexema", "mat@" + token.getLexema());
-        token.set("filas",((Token)filas.obj).get("numero"));
-        token.set("columnas",((Token)columnas.obj).get("numero"));
-        token.set("uso", "Nombre de arreglo");
-        if(anotacion != null){
-            token.set("anotacion",((Token)anotacion.obj).getLexema());
-        }
         Token tokenTabla = ts.get(token.getLexema());
         if (tokenTabla == null) {
+            token.set("tipo", ((Token) tipo.obj).getLexema());
+            token.set("lexema", "mat@" + token.getLexema());
+            token.set("filas",((Token)filas.obj).get("numero"));
+            token.set("columnas",((Token)columnas.obj).get("numero"));
+            token.set("uso", "Nombre de arreglo");
+            if(anotacion != null){
+                token.set("anotacion",((Token)anotacion.obj).getLexema());
+            }
             ts.addSimbolo(token);
         }
     }
