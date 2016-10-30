@@ -99,4 +99,34 @@ class ParserHelper {
         Parser.saltos.remove(Parser.saltos.size() - 1);
     }
 
+    public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        for (ParserVal variableVal : ((ArrayList<ParserVal>) ids.obj)) {
+            Token variable = ((Token) variableVal.obj);
+            String var = "var@"+variable.getLexema();
+            if (ts.get(var) != null) {
+                Logger.getLog().addMensaje(new Error("Variable " + variable.getLexema() + " ya declarada", linea, "Semantico"));
+            }
+        }
+    }
+
+    public static void checkMatRedeclarada(Parser parser, ParserVal id, int linea) {
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        Token variable = ((Token) id.obj);
+        String mat = "mat@"+variable.getLexema();
+        if (ts.get(mat) != null) {
+            Logger.getLog().addMensaje(new Error("Matriz " + variable.getLexema() + " ya declarada", linea, "Semantico"));
+        }
+    }
+
+    public static void checkVarDeclarada(Parser parser, ParserVal id, int linea) {
+        Token variable = ((Token) id.obj);
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        String var = "var@"+variable.getLexema();
+        String mat = "mat@"+variable.getLexema();
+        if ((ts.get(var) == null) && (ts.get(mat) == null)) {
+            Logger.getLog().addMensaje(new Error("Variable " + variable.getLexema() + " no declarada", linea, "Semantico"));
+        }
+    }
+
 }
