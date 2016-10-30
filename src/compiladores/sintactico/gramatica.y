@@ -84,7 +84,7 @@ termino:
         |'/' factor {Error e = new Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};;
 factor:
        ID {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);}
-       |ID '['expresion']''['expresion']' {ParserHelper.checkMatDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($3, $6);}
+       |ID '['expresion']''['expresion']' {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($3, $6);}
        | CTE_ENTERA
        | CTE_FLOAT;
 
@@ -99,11 +99,11 @@ sentencia:
            | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", $1.ival, "Sintactico"));}
            | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
-            ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
-            | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto("Masigual", (Objeto)$1.obj, (Objeto)$3.obj);Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
-            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkMatDeclarada(this, $1, yylval.ival);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
+            ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new Terceto(((Objeto)$2.obj).getLexema(), (Objeto)$1.obj, (Objeto)$3.obj);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
+            | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$2.obj).getLexema(), (Objeto)$1.obj, (Objeto)$3.obj);Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
+            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$8.obj).getLexema(), (Objeto)$1.obj, (Objeto)$9.obj);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
                                                                       ParserHelper.validarIndices($3, $6);}
-            | ID '['expresion']''['expresion']' MASIGUAL expresion; {ParserHelper.checkMatDeclarada(this, $1, yylval.ival);$$.obj = new Terceto("Masigual", (Objeto)$1.obj, (Objeto)$9.obj);
+            | ID '['expresion']''['expresion']' MASIGUAL expresion; {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$8.obj).getLexema(), (Objeto)$1.obj, (Objeto)$9.obj);
                                                                      Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
                                                                      ParserHelper.validarIndices($3, $6);}
             | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
@@ -113,7 +113,7 @@ asignacion:
             | ID MASIGUAL {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 asignacion_for:
-                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);}
+                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new Terceto(((Objeto)$2.obj).getLexema(), (Objeto)$1.obj, (Objeto)$3.obj);}
                 | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID ASIGNACION {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
@@ -152,12 +152,12 @@ comparador:
             | '>'
             | COMPARADOR;
 bloque_for:
-            FOR'('asignacion_for';'condicion';'asignacion')' bloque_de_sentencias
-            | FOR'('asignacion_for';'condicion';'asignacion')' sentencia;
+            FOR'('asignacion_for';'condicion';'asignacion')' bloque_de_sentencias {ParserHelper.checkTipoVarAsignacion(this, $7, yylval.ival);}
+            | FOR'('asignacion_for';'condicion';'asignacion')' sentencia {ParserHelper.checkTipoVarAsignacion(this, $7, yylval.ival);};
 
 
 bloque_print:
-              PRINT'('CADENA')' {$$.obj = new Terceto("print",(Objeto)$3.obj, null);}
+              PRINT'('CADENA')' {$$.obj = new Terceto(((Objeto)$1.obj).getLexema(),(Objeto)$3.obj, null);}
               | PRINT CADENA')' {Error e = new Error("Falta (",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
               | PRINT'('CADENA {Error e = new Error("Falta )",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
               | PRINT'('error')' {Error e = new Error("Falta cadena a imprimir",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};

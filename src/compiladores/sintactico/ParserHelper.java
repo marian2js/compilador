@@ -1,5 +1,6 @@
 package compiladores.sintactico;
 
+import compiladores.Objeto;
 import compiladores.TablaSimbolos;
 import compiladores.Terceto;
 import compiladores.Token;
@@ -103,8 +104,7 @@ class ParserHelper {
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         for (ParserVal variableVal : ((ArrayList<ParserVal>) ids.obj)) {
             Token variable = ((Token) variableVal.obj);
-            String var = "var@"+variable.getLexema();
-            if (ts.get(var) != null) {
+            if (ts.get(variable.getLexema()) != null) {
                 Logger.getLog().addMensaje(new Error("Variable " + variable.getLexema() + " ya declarada", linea, "Semantico"));
             }
         }
@@ -113,8 +113,7 @@ class ParserHelper {
     public static void checkMatRedeclarada(Parser parser, ParserVal id, int linea) {
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         Token variable = ((Token) id.obj);
-        String mat = "mat@"+variable.getLexema();
-        if (ts.get(mat) != null) {
+        if (ts.get(variable.getLexema()) != null) {
             Logger.getLog().addMensaje(new Error("Matriz " + variable.getLexema() + " ya declarada", linea, "Semantico"));
         }
     }
@@ -122,18 +121,19 @@ class ParserHelper {
     public static void checkVarDeclarada(Parser parser, ParserVal id, int linea) {
         Token variable = ((Token) id.obj);
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
-        String var = "var@"+variable.getLexema();
-        if (ts.get(var) == null) {
+        if (ts.get(variable.getLexema()) == null) {
             Logger.getLog().addMensaje(new Error("Variable " + variable.getLexema() + " no declarada", linea, "Semantico"));
         }
     }
 
-    public static void checkMatDeclarada(Parser parser, ParserVal id, int linea) {
-        Token variable = ((Token) id.obj);
+    public static void checkTipoVarAsignacion(Parser parser,ParserVal terceto, int linea) {
+        Terceto t = ((Terceto) terceto.obj);
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
-        String mat = "mat@"+variable.getLexema();
-        if (ts.get(mat) == null) {
-            Logger.getLog().addMensaje(new Error("Matriz " + variable.getLexema() + " no declarada", linea, "Semantico"));
+        Token operando = (Token)t.getOperando1();
+        if (operando.get("tipo") != null) {
+            if(!operando.get("tipo").toString().equals("integer")) {
+                Logger.getLog().addMensaje(new Error("Tipo incorrecto en limite de sentencia for", linea, "Semantico"));
+            }
         }
     }
 
