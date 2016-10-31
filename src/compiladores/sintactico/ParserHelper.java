@@ -86,6 +86,7 @@ class ParserHelper {
 
     public static void agregarBI() {
         Terceto bi = new Terceto("BI", null, null);
+        completarBF();
         Parser.saltos.add(bi);
     }
 

@@ -132,8 +132,8 @@ condicion_if:
 cuerpo_if: bloque_de_sentencias {ParserHelper.completarBF();}
            | sentencia {ParserHelper.completarBF();}
 ;
-cuerpo_if_else: bloque_de_sentencias {ParserHelper.agregarBI();ParserHelper.completarBF();}
-           | sentencia {ParserHelper.agregarBI();ParserHelper.completarBF();}
+cuerpo_if_else: bloque_de_sentencias {ParserHelper.agregarBI();/*agregarBI tambien completa BF*/}
+           | sentencia {ParserHelper.agregarBI();/*agregarBI tambien completa BF*/}
 ;
 
 cuerpo_else: bloque_de_sentencias {ParserHelper.completarBI();}
