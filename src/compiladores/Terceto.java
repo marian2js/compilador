@@ -2,7 +2,7 @@ package compiladores;
 
 import compiladores.sintactico.Parser;
 
-public class Terceto extends Objeto {
+public abstract class Terceto extends Objeto {
 
     public Terceto(String operacion, Objeto operando1, Objeto operando2) {
         this.atributos.put("operacion", operacion);
@@ -39,4 +39,6 @@ public class Terceto extends Objeto {
             return "float";
         }
     }
+
+    public abstract String getAssembler();
 }
