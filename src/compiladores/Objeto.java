@@ -16,4 +16,6 @@ public abstract class Objeto {
     public void set(String key, Object value) {
         this.atributos.put(key, value);
     }
+
+    public abstract String getTipo();
 }

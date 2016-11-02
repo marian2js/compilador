@@ -15,4 +15,12 @@ public class Token extends Objeto {
         return (int)this.atributos.get("value");
     }
 
+    @Override
+    public String getTipo() {
+        if (this.get("tipo") != null) {
+            return this.get("tipo").toString();
+        } else {
+            return "";
+        }
+    }
 }

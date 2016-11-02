@@ -26,4 +26,17 @@ public class Terceto extends Objeto {
     public void setOperando2(Objeto operando2) {
         this.atributos.put("operando2",operando2);
     }
+
+    @Override
+    public String getTipo() {
+        String tipoOp1 = this.getOperando1().getTipo();
+        String tipoOp2 = this.getOperando2().getTipo();
+        if (tipoOp2 == null) {
+            return tipoOp1;
+        } else if (tipoOp1.equals("integer") && tipoOp2.equals("integer")) {
+            return "integer";
+        } else {
+            return "float";
+        }
+    }
 }
