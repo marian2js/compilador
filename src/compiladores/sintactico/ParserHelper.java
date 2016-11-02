@@ -2,7 +2,7 @@ package compiladores.sintactico;
 
 import compiladores.Objeto;
 import compiladores.TablaSimbolos;
-import compiladores.Terceto;
+import compiladores.tercetos.Terceto;
 import compiladores.Token;
 import compiladores.logger.Logger;
 import compiladores.logger.Error;

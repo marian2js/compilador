@@ -1,7 +1,6 @@
 package compiladores.tercetos;
 
 import compiladores.Objeto;
-import compiladores.Terceto;
 
 public class TercetoPrint extends Terceto {
 
