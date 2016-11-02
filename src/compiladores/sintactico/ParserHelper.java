@@ -103,7 +103,7 @@ class ParserHelper {
 
     public static Terceto crearTercetoMatrix(Objeto id,Objeto fila, Objeto columna){
         //calcular posicion (i)*(#columnas)+(j)*T
-        Terceto muli = new Terceto("*",fila,(Objeto)id.get("columnas"));//cambiar tipos y de filas y columnas a token
+        Terceto muli = new Terceto("*",fila,(Objeto)id.get("columnas"));
         Terceto mulj = new Terceto("*",columna,(Objeto)id.get("tipo"));
         Terceto pos = new Terceto ("+",muli,mulj);               
         //generar terceto matrix
