@@ -30,10 +30,10 @@ class ParserHelper {
         Token token = ((Token) matriz.obj);
         Token tokenTabla = ts.get(token.getLexema());
         if (tokenTabla == null) {
-            token.set("tipo", ((Token) tipo.obj).getLexema());
+            token.set("tipo", (Token)tipo.obj);
             token.set("lexema", "mat@" + token.getLexema());
-            token.set("filas",((Token)filas.obj).get("numero"));
-            token.set("columnas",((Token)columnas.obj).get("numero"));
+            token.set("filas",(Token)filas.obj);
+            token.set("columnas",(Token)columnas.obj);
             token.set("uso", "Nombre de arreglo");
             if(anotacion != null){
                 token.set("anotacion",((Token)anotacion.obj).getLexema());
@@ -101,6 +101,15 @@ class ParserHelper {
         Parser.saltos.remove(Parser.saltos.size() - 1);
     }
 
+    public static Terceto crearTercetoMatrix(Objeto id,Objeto fila, Objeto columna){
+        //calcular posicion (i)*(#columnas)+(j)*T
+        Terceto muli = new Terceto("*",fila,(Objeto)id.get("columnas"));//cambiar tipos y de filas y columnas a token
+        Terceto mulj = new Terceto("*",columna,(Objeto)id.get("tipo"));
+        Terceto pos = new Terceto ("+",muli,mulj);               
+        //generar terceto matrix
+        Terceto matrix = new Terceto("matrix",id,pos);
+        return matrix;
+    }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         for (ParserVal variableVal : ((ArrayList<ParserVal>) ids.obj)) {
