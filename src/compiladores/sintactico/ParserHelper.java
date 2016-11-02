@@ -136,13 +136,17 @@ class ParserHelper {
         }
     }
 
-    public static void checkTipoVarAsignacion(Parser parser,ParserVal terceto, int linea) {
-        Terceto t = ((Terceto) terceto.obj);
-        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
-        Token operando = (Token)t.getOperando1();
-        if (operando.get("tipo") != null) {
-            if(!operando.get("tipo").toString().equals("integer")) {
-                Logger.getLog().addMensaje(new Error("Tipo incorrecto en limite de sentencia for", linea, "Semantico"));
+    public static void checkTipoVarAsignacion(Parser parser,ParserVal objeto, int linea) {
+        Objeto t = ((Objeto) objeto.obj);
+        if(!t.getTipo().equals("integer")) {
+            Logger.getLog().addMensaje(new Error("Tipo incorrecto en limite de sentencia for", linea, "Semantico"));
+        }
+    }
+
+    public static void checkAllowAsignacion(Parser parser, ParserVal terminoizq, ParserVal terminoder, int linea){
+        if (((Token) terminoizq.obj).getTipo().equals("integer") && ((Objeto) terminoder.obj).getTipo().equals("float")) {
+            if (!parser.conversionAllowPermitida()) {
+                Logger.getLog().addMensaje(new Error("Asignacion no permitida", linea, "Semantico"));
             }
         }
     }

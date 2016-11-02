@@ -49,11 +49,17 @@ public class Logger {
                     return 1;
                 }
 
-                // Ordenar por lexico y sintactico
-                if (m1.getTipo().equals("Lexico") && m2.getTipo().equals("Sintactico")) {
+                // Ordenar por lexico, sintactico y semantico
+                if (m1.getTipo().equals("Lexico") && m2.getTipo().equals("Sintactico") || m2.getTipo().equals("Semantico")) {
                     return -1;
                 }
                 if (m1.getTipo().equals("Sintactico") && m2.getTipo().equals("Lexico")) {
+                    return 1;
+                }
+                if (m1.getTipo().equals("Sintactico") && m2.getTipo().equals("Semantico")) {
+                    return -1;
+                }
+                if (m1.getTipo().equals("Semantico") && m2.getTipo().equals("Lexico") || m2.getTipo().equals("Sintactico")) {
                     return 1;
                 }
 
