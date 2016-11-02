@@ -4,6 +4,7 @@ import compiladores.*;
 import compiladores.logger.Logger;
 import compiladores.logger.Info;
 import compiladores.logger.Error;
+import compiladores.tercetos.Terceto;
 import java.io.File;
 import java.util.ArrayList;
 %}

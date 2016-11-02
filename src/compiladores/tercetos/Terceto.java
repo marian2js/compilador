@@ -1,8 +1,9 @@
-package compiladores;
+package compiladores.tercetos;
 
+import compiladores.Objeto;
 import compiladores.sintactico.Parser;
 
-public abstract class Terceto extends Objeto {
+public class Terceto extends Objeto {
 
     public Terceto(String operacion, Objeto operando1, Objeto operando2) {
         this.atributos.put("operacion", operacion);
@@ -40,5 +41,7 @@ public abstract class Terceto extends Objeto {
         }
     }
 
-    public abstract String getAssembler();
+    public String getAssembler() {
+        return "";
+    };
 }
