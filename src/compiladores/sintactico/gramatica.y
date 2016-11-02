@@ -152,9 +152,19 @@ comparador:
             | '>'
             | COMPARADOR;
 bloque_for:
-            FOR'('asignacion_for';'condicion';'asignacion')' bloque_de_sentencias {ParserHelper.checkTipoVarAsignacion(this, $7, yylval.ival);}
-            | FOR'('asignacion_for';'condicion';'asignacion')' sentencia {ParserHelper.checkTipoVarAsignacion(this, $7, yylval.ival);};
+            FOR'('asignacion_for';'condicion_for';'asignacion')' cuerpo_for {ParserHelper.checkTipoVarAsignacion(this, $7, yylval.ival);
+                                                                             ParserHelper.completarBI();}
+;
 
+condicion_for:
+               condicion {$$.obj = new Terceto("BF", (Objeto)$1.obj, null);
+                          saltos.add((Terceto)$$.obj);}
+;
+
+cuerpo_for:
+            bloque_de_sentencias {ParserHelper.agregarBI();}
+            | sentencia {ParserHelper.agregarBI();}
+;
 
 bloque_print:
               PRINT'('CADENA')' {$$.obj = new Terceto(((Objeto)$1.obj).getLexema(),(Objeto)$3.obj, null);}
