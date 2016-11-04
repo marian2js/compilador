@@ -23,4 +23,9 @@ public class Token extends Objeto {
             return "";
         }
     }
+
+    @Override
+    public String getValor() {
+        return "_"+getLexema();
+    }
 }

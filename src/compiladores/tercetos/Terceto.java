@@ -44,4 +44,9 @@ public class Terceto extends Objeto {
     public String getAssembler() {
         return "";
     };
+
+    @Override
+    public String getValor() {
+        return "";
+    }
 }
