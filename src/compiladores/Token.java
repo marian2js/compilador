@@ -1,5 +1,7 @@
 package compiladores;
 
+import compiladores.sintactico.ParserTokens;
+
 public class Token extends Objeto {
 
     public Token(String lexema, int value) {
@@ -26,6 +28,10 @@ public class Token extends Objeto {
 
     @Override
     public String getValor() {
-        return "_"+getLexema();
+        if (this.getValue() == ParserTokens.ID) {
+            return "_"+getLexema();
+        } else {
+            return getLexema();
+        }
     }
 }
