@@ -4,7 +4,7 @@ import compiladores.*;
 import compiladores.logger.Logger;
 import compiladores.logger.Info;
 import compiladores.logger.Error;
-import compiladores.tercetos.Terceto;
+import compiladores.tercetos.*;
 import java.io.File;
 import java.util.ArrayList;
 %}
@@ -67,7 +67,7 @@ fila:
 declaracion_allow:
                   ALLOW tipo TO tipo; {this.setAllow($2, $4);}
 expresion:
-          expresion '+' termino {$$.obj = new Terceto("+", (Objeto) $1.obj, (Objeto) $3.obj);}
+          expresion '+' termino {$$.obj = new TercetoSuma((Objeto) $1.obj, (Objeto) $3.obj);}
           | expresion '-' termino {$$.obj = new Terceto("-", (Objeto) $1.obj, (Objeto) $3.obj);}
           | termino
           | expresion '+' {Error e = new Error("Falta operador derecho",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}

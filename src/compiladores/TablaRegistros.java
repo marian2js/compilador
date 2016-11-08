@@ -16,11 +16,20 @@ public class TablaRegistros {
         public String nombre;
         public Boolean ocupado;
     }
+    private static TablaRegistros instance;
     private ArrayList<Registro> registros = new ArrayList<>();
     
-    public TablaRegistros(){
+    private TablaRegistros() {
         
     }
+
+    public static TablaRegistros getInstance() {
+        if (instance == null) {
+            instance = new TablaRegistros();
+        }
+        return instance;
+    }
+
     public String getRegistro(){
         return "EBX";
     }
