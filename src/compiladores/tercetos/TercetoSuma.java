@@ -10,10 +10,9 @@ public class TercetoSuma  extends Terceto {
 
     @Override
     public String getAssembler() {
-        String registro = TablaRegistros.getInstance().getRegistro();
-        String codigo = "MOV " + registro + ", " + getOperando1().getValor() + "\n" +
-                        "ADD " + registro + ", " + getOperando2().getValor();
-        this.set("registro", registro);
+        String codigo = "MOV BX, " + getOperando1().getValor() + "\n" +
+                        "ADD BX, " + getOperando2().getValor() + "\n" +
+                        "MOV " + this.getValor() + ", BX";
         return codigo;
     }
 }

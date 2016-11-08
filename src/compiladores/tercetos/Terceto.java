@@ -4,6 +4,7 @@ import compiladores.Objeto;
 import compiladores.sintactico.Parser;
 
 public class Terceto extends Objeto {
+    private static int auxId = 0;
 
     public Terceto(String operacion, Objeto operando1, Objeto operando2) {
         this.atributos.put("operacion", operacion);
@@ -47,6 +48,12 @@ public class Terceto extends Objeto {
 
     @Override
     public String getValor() {
-        return (String) this.atributos.get("registro");
+        String aux = (String) this.atributos.get("aux");
+        if (aux == null) {
+            aux = "@aux" + auxId;
+            this.atributos.put("aux", aux);
+            auxId++;
+        }
+        return aux;
     }
 }
