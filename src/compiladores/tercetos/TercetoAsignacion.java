@@ -9,7 +9,7 @@ public class TercetoAsignacion extends Terceto {
 
     @Override
     public String getAssembler() {
-        String codigo = "MOV BX, " + this.getValor() + "\n" +
+        String codigo = "MOV BX, " + getOperando2().getValor() + "\n" +
                         "MOV " + getOperando1().getValor() + ", BX\n";
         return codigo;
     }
