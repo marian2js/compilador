@@ -27,6 +27,7 @@ public class AccionSemantica5 extends AccionSemantica {
             }
             simbolo = new Token(buffer, ParserTokens.CADENA); //Cadena
             simbolo.set("tipostr", "Constante de caracteres");
+            simbolo.set("ID",(new Integer(analizadorLexico.getLinea())));
             analizadorLexico.getTablaSimbolos().addSimbolo(simbolo);
             return simbolo;
         }
