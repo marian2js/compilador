@@ -10,7 +10,7 @@ public class TercetoPrint extends Terceto {
     }
 
     public String getAssembler() {
-        String idCadena = (String) getOperando1().get("ID");
+        String idCadena = ((Integer) getOperando1().get("ID")).toString();
         return "invoke MessageBox, NULL, addr " + idCadena + ", addr " + idCadena + ", MB_OK\n";
     }
 }
