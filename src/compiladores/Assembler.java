@@ -41,7 +41,7 @@ public class Assembler {
         for(Token token : ts.getTokens()){
             switch (token.getValue()){
                 case ParserTokens.CADENA :
-                    declaracion += token.get("ID")+ " DB \"" + token.getLexema() + "\", 0\n";
+                    declaracion += token.get("ID")+ " DB " + token.getLexema() + ", 0\n";
                     break;
                 case ParserTokens.FLOAT :
                     declaracion +="";
