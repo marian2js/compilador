@@ -12,7 +12,7 @@ public class TercetoSuma  extends Terceto {
     public String getAssembler() {
         String codigo = "MOV BX, " + getOperando1().getValor() + "\n" +
                         "ADD BX, " + getOperando2().getValor() + "\n" +
-                        "MOV " + this.getValor() + ", BX";
+                        "MOV " + this.getValor() + ", BX" + "\n";
         return codigo;
     }
 }
