@@ -14,12 +14,15 @@ import java.util.ArrayList;
  * @author luksbelt
  */
 public class Assembler {
+    public static String listaAuxiliares = "";
     
     public String generarAssembler(ArrayList<Terceto> tercetos,TablaSimbolos ts){
         String assembler ="";
+        String instrucciones = this.generarInstrucciones(tercetos);
         assembler += this.generarEncabezado();
         assembler += this.generarDeclaraciones(ts);
-        assembler += this.generarInstrucciones(tercetos);
+        assembler += listaAuxiliares;
+        assembler += instrucciones;
         
         return assembler;
     }
