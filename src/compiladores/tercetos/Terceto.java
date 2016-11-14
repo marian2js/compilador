@@ -5,7 +5,7 @@ import compiladores.Objeto;
 import compiladores.sintactico.Parser;
 
 public class Terceto extends Objeto {
-    private static int auxId = 0;
+    public static int auxId = 0;
 
     public Terceto(String operacion, Objeto operando1, Objeto operando2) {
         this.atributos.put("operacion", operacion);
