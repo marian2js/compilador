@@ -43,16 +43,16 @@ tipo:
 declaracion_matrix:
                       tipo MATRIX ID '['expresion']''['expresion']' inicializacion ';' ANOTACION {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
                                                                                                   ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$12);
-                                                                                                  ParserHelper.validarIndices($5, $8);}
+                                                                                                  ParserHelper.validarIndices($3, $5, $8);}
                     | tipo MATRIX ID '['expresion']''['expresion']' inicializacion ';' {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
                                                                                         ParserHelper.cargarMatriz(this,$3,$1,$5,$8);
-                                                                                        ParserHelper.validarIndices($5, $8);}
+                                                                                        ParserHelper.validarIndices($3, $5, $8);}
                     | tipo MATRIX ID '['expresion']''['expresion']' ';' ANOTACION {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
                                                                                    ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$11);
-                                                                                   ParserHelper.validarIndices($5, $8);}
+                                                                                   ParserHelper.validarIndices($3, $5, $8);}
                     | tipo MATRIX ID '['expresion']''['expresion']' ';' {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
                                                                          ParserHelper.cargarMatriz(this,$3,$1,$5,$8);
-                                                                         ParserHelper.validarIndices($5, $8);}
+                                                                         ParserHelper.validarIndices($3, $5, $8);}
 ;
 inicializacion:
                '{' columna '}';
@@ -84,8 +84,8 @@ termino:
         |'*' factor {Error e = new Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
         |'/' factor {Error e = new Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};;
 factor:
-       ID {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);}
-       |ID '['expresion']''['expresion']' {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($3, $6); $$.obj = ParserHelper.crearTercetoMatrix((Objeto)$1.obj,(Objeto)$3.obj,(Objeto)$6.obj);}
+       ID {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($1, null, null);}
+       |ID '['expresion']''['expresion']' {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($1, $3, $6); $$.obj = ParserHelper.crearTercetoMatrix((Objeto)$1.obj,(Objeto)$3.obj,(Objeto)$6.obj);}
        | CTE_ENTERA
        | CTE_FLOAT;
 
@@ -100,13 +100,15 @@ sentencia:
            | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", $1.ival, "Sintactico"));}
            | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
-            ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));}
-            | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$2.obj).getLexema(), (Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));}
+            ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
+                                                                    ParserHelper.validarIndices($1, null, null);}
+            | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$2.obj).getLexema(), (Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
+                                                                    ParserHelper.validarIndices($1 ,null, null);}
             | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoAsignacion(ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
-                                                                      ParserHelper.validarIndices($3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
+                                                                      ParserHelper.validarIndices($1, $3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
             | ID '['expresion']''['expresion']' MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$8.obj).getLexema(),ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);
                                                                      Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
-                                                                     ParserHelper.validarIndices($3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
+                                                                     ParserHelper.validarIndices($1, $3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
             | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | error MASIGUAL expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
             | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
