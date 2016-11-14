@@ -1,5 +1,6 @@
 package compiladores.tercetos;
 
+import compiladores.Assembler;
 import compiladores.Objeto;
 import compiladores.sintactico.Parser;
 
@@ -53,6 +54,8 @@ public class Terceto extends Objeto {
             aux = "@aux" + auxId;
             this.atributos.put("aux", aux);
             auxId++;
+            String tipo = this.getTipo().equals("integer") ? "DW" : "DD";
+            Assembler.listaAuxiliares += aux + " " + tipo + " ?\n";
         }
         return aux;
     }

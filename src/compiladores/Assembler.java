@@ -14,12 +14,15 @@ import java.util.ArrayList;
  * @author luksbelt
  */
 public class Assembler {
+    public static String listaAuxiliares = "";
     
     public String generarAssembler(ArrayList<Terceto> tercetos,TablaSimbolos ts){
         String assembler ="";
+        String instrucciones = this.generarInstrucciones(tercetos);
         assembler += this.generarEncabezado();
         assembler += this.generarDeclaraciones(ts);
-        assembler += this.generarInstrucciones(tercetos);
+        assembler += listaAuxiliares;
+        assembler += instrucciones;
         
         return assembler;
     }
@@ -45,7 +48,7 @@ public class Assembler {
                     declaracion += token.get("ID")+ " DB " + token.getLexema() + ", 0\n";
                     break;
                 case ParserTokens.CTE_FLOAT :
-                    declaracion += token.getValor()+" DD "+ token.get("numero")+"\n";
+                    declaracion += token.getValor()+" DD "+ token.get("numero") +"\n";
                     break;
                 case ParserTokens.CTE_ENTERA :
                     declaracion += token.getValor() +" DW "+ token.get("numero")+"\n";

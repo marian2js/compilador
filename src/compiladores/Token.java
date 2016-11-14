@@ -3,6 +3,7 @@ package compiladores;
 import compiladores.sintactico.ParserTokens;
 
 public class Token extends Objeto {
+    private static int cteId = 0;
 
     public Token(String lexema, int value) {
         this.atributos.put("lexema", lexema);
@@ -28,10 +29,20 @@ public class Token extends Objeto {
 
     @Override
     public String getValor() {
-        if (this.getValue() == ParserTokens.ID) {
-            return "_"+getLexema();
-        } else {
-            return getLexema();
+        switch (this.getValue()) {
+            case ParserTokens.ID:
+                return "_" + getLexema();
+            case ParserTokens.CTE_ENTERA:
+            case ParserTokens.CTE_FLOAT:
+                String cte = (String) this.atributos.get("cte");
+                if (cte == null) {
+                    cte = "_cte" + cteId;
+                    this.atributos.put("cte", cte);
+                    cteId++;
+                }
+                return cte;
+            default:
+                return getLexema();
         }
     }
 }
