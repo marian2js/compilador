@@ -45,10 +45,10 @@ public class Assembler {
                     declaracion += token.get("ID")+ " DB " + token.getLexema() + ", 0\n";
                     break;
                 case ParserTokens.CTE_FLOAT :
-                    declaracion += token.getLexema()+" DD "+ token.get("numero")+"\n";
+                    declaracion += token.getValor()+" DD "+ token.get("numero") +"\n";
                     break;
                 case ParserTokens.CTE_ENTERA :
-                    declaracion += token.getLexema() +" DW "+ token.get("numero")+"\n";
+                    declaracion += token.getValor() +" DW "+ token.get("numero")+"\n";
                     break;
                 case ParserTokens.ID :
                     if("integer".equals(token.getTipo())){
