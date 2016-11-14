@@ -39,20 +39,31 @@ public class Assembler {
     private String generarDeclaraciones(TablaSimbolos ts){
         String declaracion = ".data\n";
         for(Token token : ts.getTokens()){
+            if(!token.esReservada()){
             switch (token.getValue()){
                 case ParserTokens.CADENA :
                     declaracion += token.get("ID")+ " DB " + token.getLexema() + ", 0\n";
                     break;
-                case ParserTokens.FLOAT :
-                    declaracion +="";
+                case ParserTokens.CTE_FLOAT :
+                    declaracion += token.getLexema()+" DD "+ token.get("numero")+"\n";
                     break;
-                case ParserTokens.INTEGER :
-                    declaracion += "";
+                case ParserTokens.CTE_ENTERA :
+                    declaracion += token.getLexema() +" DW "+ token.get("numero")+"\n";
+                    break;
+                case ParserTokens.ID :
+                    if("integer".equals(token.getTipo())){
+                        declaracion += token.getValor();
+                        declaracion+=" DW ?\n";
+                    }
+                    else if ("float".equals(token.getTipo())){
+                        declaracion += token.getValor();
+                        declaracion+=" DD ?\n";
+                    }
                     break;
                 default:
                     declaracion += "";
             }
-                    
+          }     
         }
                
         return declaracion;
