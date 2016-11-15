@@ -7,6 +7,7 @@ import compiladores.Token;
 import compiladores.logger.Logger;
 import compiladores.logger.Error;
 import compiladores.tercetos.TercetoBF;
+import compiladores.tercetos.TercetoBI;
 
 import java.util.ArrayList;
 
@@ -97,7 +98,7 @@ class ParserHelper {
     }
 
     public static void agregarBI() {
-        Terceto bi = new Terceto("BI", null, null);
+        Terceto bi = new TercetoBI("BI", null, null);
         completarBF();
         Parser.saltos.add(bi);
     }
@@ -105,8 +106,11 @@ class ParserHelper {
     public static void completarBI() {
 	Terceto bf = Parser.saltos.get(Parser.saltos.size()-1);
 	Parser.saltos.remove(Parser.saltos.size() - 1);
-        Terceto tFinal = new Terceto("BIF", null, null);
-        bf.setOperando2(tFinal);
+        Terceto tFinal = new TercetoBI("BIF", null, null);
+        String label = Integer.toString(Parser.tercetos.size());
+        Token tklabel = new Token(label,0);
+        tFinal.setOperando1(tklabel);
+        bf.setOperando1(tFinal);
     }
 
     public static void eliminarSalto() {
