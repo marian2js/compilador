@@ -41,7 +41,7 @@ public class TercetoBF extends Terceto{
                 salto = "JE";
                 break;
             }
-        bf = salto+" _labelBF"+((Terceto)getOperando2()).getOperando1().getValor()+":\n";//ver el get tipo y la generacion de variables
+        bf = salto+" _labelBF"+((Terceto)getOperando2()).getOperando1().getValor()+"\n";//ver el get tipo y la generacion de variables
         }
         else{
             bf = "_labelBF"+getOperando1().getValor()+":\n";

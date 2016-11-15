@@ -19,7 +19,8 @@ public class TercetoComparacion extends Terceto{
     
     public String getAssembler(){
         String comparacion = "";
-        comparacion += "CMP "+getOperando1().getValor()+","+getOperando2().getValor()+"\n";
+        comparacion += "MOV CX, " +getOperando1().getValor()+"\n";
+        comparacion += "CMP CX,"+getOperando2().getValor()+"\n";
         
         
         return comparacion;
