@@ -23,7 +23,12 @@ public class Assembler {
         assembler += this.generarDeclaraciones(ts);
         assembler += listaAuxiliares;
         assembler += instrucciones;
-        
+
+        // Reinicia los valores
+        listaAuxiliares = "";
+        Terceto.auxId = 0;
+        Token.cteId = 0;
+
         return assembler;
     }
     

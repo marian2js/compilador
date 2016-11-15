@@ -62,15 +62,23 @@ class ParserHelper {
         ts.addSimbolo(token);
     }
 
-    public static void validarIndices(ParserVal filas, ParserVal columnas) {
-        Token f = (Token) filas.obj;
-        Token c = (Token) columnas.obj;
-        if (f.getValue() != ParserTokens.CTE_ENTERA) {
-            Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", filas.ival, "Semantico"));
+    public static void validarIndices(ParserVal var, ParserVal filas, ParserVal columnas) {
+        Token id = (Token) var.obj;
+        if (id.getLexema() != null && id.getLexema().contains("mat@")){
+            if (filas != null && columnas != null){
+                Token f = (Token) filas.obj;
+                Token c = (Token) columnas.obj;
+                if (f.getValue() != ParserTokens.CTE_ENTERA) {
+                    Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", filas.ival, "Semantico"));
+                }
+                if (c.getValue() != ParserTokens.CTE_ENTERA) {
+                    Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", columnas.ival, "Semantico"));
+                }
+            } else {
+                Logger.getLog().addMensaje(new Error("No hay limites declarados en la matriz", var.ival, "Semantico"));
+            }
         }
-        if (c.getValue() != ParserTokens.CTE_ENTERA) {
-            Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", columnas.ival, "Semantico"));
-        }
+
     }
 
     public static void agregarBF(Terceto terceto) {

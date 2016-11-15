@@ -3,7 +3,7 @@ package compiladores;
 import compiladores.sintactico.ParserTokens;
 
 public class Token extends Objeto {
-    private static int cteId = 0;
+    public static int cteId = 0;
 
     public Token(String lexema, int value) {
         this.atributos.put("lexema", lexema);
