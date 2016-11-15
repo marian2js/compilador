@@ -126,7 +126,7 @@ bloque_if:
 	//TODO tampoco esta tirando error cuando no se cierra la llave del bloque de sentencias y aparece el ENDIF
 ;
 condicion_if:
-              IF '('condicion')' {$$.obj = new Terceto("BF",(Objeto)$3.obj,null);
+              IF '('condicion')' {$$.obj = new TercetoBF("BF",(Objeto)$3.obj,null);
 				saltos.add((Terceto)$$.obj);}
               |IF error {Error e = new Error("Falta condicion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
@@ -143,7 +143,7 @@ cuerpo_else: bloque_de_sentencias {ParserHelper.completarBI();}
 
 
 condicion:
-           expresion comparador expresion {$$.obj = new Terceto(((Objeto)$2.obj).getLexema(),(Objeto)$1.obj,(Objeto)$3.obj);}
+           expresion comparador expresion {$$.obj = new TercetoComparacion(((Objeto)$2.obj).getLexema(),(Objeto)$1.obj,(Objeto)$3.obj);}
            | comparador expresion {Error e = new Error("Falta termino izquierdo en la comparacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
            | expresion comparador {Error e = new Error("Falta termino derecho en la comparacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
