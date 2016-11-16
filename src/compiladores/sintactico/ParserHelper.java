@@ -176,7 +176,7 @@ class ParserHelper {
     }
 
     public static void checkAllowAsignacion(Parser parser, ParserVal terminoizq, ParserVal terminoder, int linea){
-        if (((Token) terminoizq.obj).getTipo().equals("integer") && ((Objeto) terminoder.obj).getTipo().equals("float")) {
+        if (!((Token) terminoizq.obj).getTipo().equals("float") && !((Objeto) terminoder.obj).getTipo().equals("integer")) {
             if (!parser.conversionAllowPermitida()) {
                 Logger.getLog().addMensaje(new Error("Asignacion no permitida", linea, "Semantico"));
             }
