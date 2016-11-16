@@ -56,7 +56,7 @@ public class Assembler {
                     declaracion += token.getValor()+" DD "+ token.get("numero") +"\n";
                     break;
                 case ParserTokens.CTE_ENTERA :
-                    declaracion += token.getValor() +" DW "+ token.get("numero")+"\n";
+                    declaracion += token.getValor() +" DW "+ token.get("numero").toString().replace(".0", "") + "\n";
                     break;
                 case ParserTokens.ID :
                     if("integer".equals(token.getTipo())){
