@@ -116,7 +116,7 @@ asignacion:
             | ID MASIGUAL {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 asignacion_for:
-                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival);}
+                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival);ParserHelper.agregarBIF();}
                 | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID ASIGNACION {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
@@ -156,7 +156,7 @@ comparador:
             | COMPARADOR;
 bloque_for:
             FOR'('asignacion_for';'condicion_for';'asignacion')' cuerpo_for {ParserHelper.checkTipoVarAsignacion(this, $7, yylval.ival);
-                                                                             ParserHelper.completarBI();}
+                                                                             }
 ;
 
 condicion_for:
@@ -165,8 +165,8 @@ condicion_for:
 ;
 
 cuerpo_for:
-            bloque_de_sentencias {ParserHelper.agregarBI();}
-            | sentencia {ParserHelper.agregarBI();}
+            bloque_de_sentencias {ParserHelper.completarBIF();/*Tambien completa BF*/}
+            | sentencia {ParserHelper.completarBIF();}
 ;
 
 bloque_print:

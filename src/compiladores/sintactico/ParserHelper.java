@@ -112,6 +112,22 @@ class ParserHelper {
         tFinal.setOperando1(tklabel);
         bf.setOperando1(tFinal);
     }
+    
+    public static void agregarBIF(){//Para sentencia FOR
+        Terceto tFinal = new TercetoBI("BIF", null, null);
+        String label = Integer.toString(Parser.tercetos.size());
+        Token tklabel = new Token(label,0);
+        tFinal.setOperando1(tklabel);
+        Parser.saltos.add(tFinal);
+    }
+    
+    public static void completarBIF(){
+        Terceto bi = new TercetoBI("BI",null, null); 
+        completarBF();
+        Terceto bif = Parser.saltos.get(Parser.saltos.size()-1);
+        Parser.saltos.remove(Parser.saltos.size() - 1);
+        bi.setOperando1(bif);
+    }
 
     public static void eliminarSalto() {
         Parser.saltos.remove(Parser.saltos.size() - 1);
