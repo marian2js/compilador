@@ -2,12 +2,10 @@ package compiladores.sintactico;
 
 import compiladores.Objeto;
 import compiladores.TablaSimbolos;
-import compiladores.tercetos.Terceto;
+import compiladores.tercetos.*;
 import compiladores.Token;
 import compiladores.logger.Logger;
 import compiladores.logger.Error;
-import compiladores.tercetos.TercetoBF;
-import compiladores.tercetos.TercetoBI;
 
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ class ParserHelper {
         Token token = ((Token) matriz.obj);
         Token tokenTabla = ts.get(token.getLexema());
         if (tokenTabla == null) {
-            token.set("tipo", (Token)tipo.obj);
+            token.set("tipo", ((Token) tipo.obj).getLexema());
             token.set("lexema", "mat@" + token.getLexema());
             token.set("filas",(Token)filas.obj);
             token.set("columnas",(Token)columnas.obj);
@@ -135,11 +133,11 @@ class ParserHelper {
 
     public static Terceto crearTercetoMatrix(Objeto id,Objeto fila, Objeto columna){
         //calcular posicion (i)*(#columnas)+(j)*T
-        Terceto muli = new Terceto("*",fila,(Objeto)id.get("columnas"));
-        Terceto mulj = new Terceto("*",columna,(Objeto)id.get("tipo"));
-        Terceto pos = new Terceto ("+",muli,mulj);               
+        Terceto muli = new TercetoMultiplicacion(fila, (Objeto)id.get("columnas"));
+        Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("filas"));
+        Terceto pos = new TercetoSuma(muli, mulj);
         //generar terceto matrix
-        Terceto matrix = new Terceto("matrix",id,pos);
+        Terceto matrix = new TercetoMatrix(id, pos);
         return matrix;
     }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
