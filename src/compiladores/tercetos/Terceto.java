@@ -11,6 +11,7 @@ public class Terceto extends Objeto {
         this.atributos.put("operacion", operacion);
         this.atributos.put("operando1", operando1);
         this.atributos.put("operando2", operando2);
+        this.crearConversiones();
         Parser.tercetos.add(this);
     }
 
@@ -44,6 +45,16 @@ public class Terceto extends Objeto {
             return "integer";
         } else {
             return "float";
+        }
+    }
+
+    public void crearConversiones() {
+        if (getOperando1() != null && getOperando2() != null){
+            if (getOperando1().getTipo().equals("float") && getOperando2().getTipo().equals("integer")) {
+                this.setOperando2(new TercetoIntToFloat("itof", getOperando2(), null));
+            } else if (getOperando1().getTipo().equals("integer") && getOperando2().getTipo().equals("float") && !getOperacion().equals(":=")) {
+                this.setOperando1(new TercetoIntToFloat("itof", getOperando1(), null));
+            }
         }
     }
 
