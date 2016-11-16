@@ -14,6 +14,6 @@ public class TercetoMasIgual extends Terceto {
                    "ADD BX, " + getOperando1().getValor() + "\n" +
                    "MOV " + getOperando1().getValor() + ", BX\n";
         }
-
+        return "";
     }
 }

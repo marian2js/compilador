@@ -116,7 +116,7 @@ asignacion:
             | ID MASIGUAL {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 asignacion_for:
-                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new Terceto(((Objeto)$2.obj).getLexema(), (Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival);}
+                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival);}
                 | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID ASIGNACION {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
@@ -160,7 +160,7 @@ bloque_for:
 ;
 
 condicion_for:
-               condicion {$$.obj = new Terceto("BF", (Objeto)$1.obj, null);
+               condicion {$$.obj = new TercetoBF("BF", (Objeto)$1.obj, null);
                           saltos.add((Terceto)$$.obj);}
 ;
 
