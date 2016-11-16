@@ -15,7 +15,7 @@ public class AccionSemantica8 extends AccionSemantica {
         buffer = buffer.substring(2);
         int indexOfE = buffer.indexOf("E");
         float n;
-        double e = 1;
+        double e = 0;
 
         if (indexOfE != -1) {
             // Floats con exponente
@@ -34,7 +34,7 @@ public class AccionSemantica8 extends AccionSemantica {
             Logger.getLog().addMensaje(w);
         } else if (n * Math.pow(10, e) < 0 && n * Math.pow(10, e) > -1.17549435 * Math.pow(10, -38)) {
             n = 0;
-            e = 1;
+            e = 0;
             Warning w = new Warning("Float demasiado chico. Transformado a cero.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
         } else if (n * Math.pow(10, e) > 3.40282347 * Math.pow(10, 38)) {
@@ -44,15 +44,15 @@ public class AccionSemantica8 extends AccionSemantica {
             Logger.getLog().addMensaje(w);
         } else if (n * Math.pow(10, e) > 0 && n * Math.pow(10, e) < 1.17549435 * Math.pow(10, -38)) {
             n = 0;
-            e = 1;
+            e = 0;
             Warning w = new Warning("Float demasiado chico. Transformado a cero.", analizadorLexico.getLinea(), "Lexico");
             Logger.getLog().addMensaje(w);
         }
         
         String val = Float.toString(n);
 
-        // Si el exponente es distinto a 1, lo incluimos
-        if (e != 1) {
+        // Si el exponente es distinto a 0, lo incluimos
+        if (e != 0) {
             val += "E" + Double.toString(e);
         }
         Token token = analizadorLexico.getTablaSimbolos().get("_f" + val);
