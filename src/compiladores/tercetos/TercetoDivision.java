@@ -10,8 +10,10 @@ public class TercetoDivision extends Terceto {
     @Override
     public String getAssembler() {
         if (this.getTipo().equals("integer")) {
-            return "MOV AX, " + getOperando1().getValor() + "\n" +
-                   "DIV AX, " + getOperando2().getValor() + "\n" +
+            return "MOV DX, 0\n" +
+                   "MOV AX, " + getOperando1().getValor() + "\n" +
+                   "CWD\n" +
+                   "IDIV " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", AX" + "\n";
         }
         return "FLD " + getOperando1().getValor() + "\n" +

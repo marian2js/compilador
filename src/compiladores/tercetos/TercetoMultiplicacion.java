@@ -10,8 +10,9 @@ public class TercetoMultiplicacion extends Terceto {
     @Override
     public String getAssembler() {
         if (this.getTipo().equals("integer")) {
-            return "MOV AX, " + getOperando1().getValor() + "\n" +
-                   "MUL AX, " + getOperando2().getValor() + "\n" +
+            return "MOV DX, 0\n" +
+                   "MOV AX, " + getOperando1().getValor() + "\n" +
+                   "IMUL AX, " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", AX" + "\n";
         }
         return "FLD " + getOperando1().getValor() + "\n" +
