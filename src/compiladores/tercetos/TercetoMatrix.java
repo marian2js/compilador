@@ -6,12 +6,10 @@ import compiladores.Token;
 
 public class TercetoMatrix extends Terceto {
     public static int indexId = 0;
-    private Double offset;
     private int index;
 
-    public TercetoMatrix(Objeto operando1, Double offset) {
-        super("matrix", operando1, null);
-        this.offset = offset;
+    public TercetoMatrix(Objeto operando1, Objeto operando2) {
+        super("matrix", operando1, operando2);
         index = indexId;
         indexId++;
     }
@@ -19,13 +17,13 @@ public class TercetoMatrix extends Terceto {
     @Override
     public String getAssembler() {
         return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-               "ADD CX, " + offset.toString().replace(".0", "") + "\n" +
-               "MOV @index" + index + ", ECX\n";
+               "ADD CX, " + getOperando2().getValor() + "\n";// +
+               //"MOV @index" + index + ", ECX\n";
     }
 
     @Override
     public String getValor() {
-        return "sword ptr[@index" + index + "]";
+        return "sword ptr[ECX]";
     }
 
     @Override

@@ -85,7 +85,7 @@ termino:
         |'/' factor {Error e = new Error("Falta operador izquierdo",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};;
 factor:
        ID {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($1, null, null);}
-       |ID '['expresion']''['expresion']' {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($1, $3, $6); $$.obj = ParserHelper.crearTercetoMatrix((Objeto)$1.obj,(Objeto)$3.obj,(Objeto)$6.obj);}
+       |ID '['expresion']''['expresion']' {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); ParserHelper.validarIndices($1, $3, $6); $$.obj = ParserHelper.crearTercetoMatrix(this, (Objeto)$1.obj,(Objeto)$3.obj,(Objeto)$6.obj);}
        | CTE_ENTERA
        | CTE_FLOAT;
 
@@ -104,9 +104,9 @@ asignacion:
                                                                     ParserHelper.validarIndices($1, null, null);}
             | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoMasIgual((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
                                                                     ParserHelper.validarIndices($1 ,null, null);}
-            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoAsignacion(ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
+            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoAsignacion(ParserHelper.crearTercetoMatrix(this, (Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
                                                                       ParserHelper.validarIndices($1, $3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
-            | ID '['expresion']''['expresion']' MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$8.obj).getLexema(),ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);
+            | ID '['expresion']''['expresion']' MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$8.obj).getLexema(),ParserHelper.crearTercetoMatrix(this, (Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);
                                                                      Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
                                                                      ParserHelper.validarIndices($1, $3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
             | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}

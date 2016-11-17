@@ -131,18 +131,22 @@ class ParserHelper {
         Parser.saltos.remove(Parser.saltos.size() - 1);
     }
 
-    public static Terceto crearTercetoMatrix(Objeto id,Objeto fila, Objeto columna){
+    public static Terceto crearTercetoMatrix(Parser parser, Objeto id,Objeto fila, Objeto columna) {
+        Token cte1 = getTokenCte(parser, 1);
+        Token cte2 = getTokenCte(parser, 16);
+
         //calcular posicion (i)*(#columnas)+(j)*T
-//        Terceto muli = new TercetoMultiplicacion(fila, (Objeto)id.get("filas"));
-//        Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
-//        Terceto pos = new TercetoSuma(muli, mulj);
-//        Terceto mem = new TercetoMultiplicacion(pos;
-        Double posFila = (Double)fila.get("numero") * (Double)((Objeto)id.get("filas")).get("numero");
-        Double pos = posFila + (Double)columna.get("numero");
-        Double offset = pos * 16;
+        Terceto columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
+        Terceto muli = new TercetoMultiplicacion(fila, columnas);
+        //Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
+        Terceto pos = new TercetoSuma(muli, columna);
+        Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
+        /*Double pos = ((Double)fila.get("numero") - 0) * ((Double)((Objeto)id.get("columnas")).get("numero") - 0 + 1)
+                + (Double)columna.get("numero") - 0;
+        Double offset = pos * 16;*/
 
         //generar terceto matrix
-        Terceto matrix = new TercetoMatrix(id, offset);
+        Terceto matrix = new TercetoMatrix(id, pos2);
         return matrix;
     }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
@@ -184,6 +188,21 @@ class ParserHelper {
                 Logger.getLog().addMensaje(new Error("Asignacion no permitida", linea, "Semantico"));
             }
         }
+    }
+
+    private static Token getTokenCte(Parser parser, int val) {
+        TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
+        String valStr = "_i" + val;
+        Token token = ts.get(valStr);
+        if (token != null) {
+            return token;
+        }
+        token = new Token(valStr, ParserTokens.CTE_ENTERA);
+        token.set("numero", val);
+        token.set("tipo", "integer");
+        token.set("tipostr", "Constante Entera");
+        ts.addSimbolo(token);
+        return token;
     }
 
 }
