@@ -124,6 +124,8 @@ asignacion_for:
 bloque_if:
            condicion_if cuerpo_if ENDIF
           |condicion_if cuerpo_if_else ELSE cuerpo_else ENDIF
+          |condicion_if error{Error e = new Error("Falta palabra reservada ENDIF",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
+          |condicion_if cuerpo_if_else ELSE error{Error e = new Error("Falta palabra reservada ENDIF",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
 	//TODO AGREGAR ERRORES
 	//TODO tampoco esta tirando error cuando no se cierra la llave del bloque de sentencias y aparece el ENDIF
 ;
