@@ -134,10 +134,16 @@ class ParserHelper {
     public static Terceto crearTercetoMatrix(Parser parser, Objeto id,Objeto fila, Objeto columna) {
         Token cte1 = getTokenCte(parser, 1);
         Token cte2 = getTokenCte(parser, 16);
+        Terceto muli;
 
         //calcular posicion (i)*(#columnas)+(j)*T
-        Terceto columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
-        Terceto muli = new TercetoMultiplicacion(fila, columnas);
+        if (id.get("anotacion") != null && ((Token)id.get("anotacion")).getLexema().equals("/#@1")) {
+            Terceto posfila = new TercetoResta(fila, cte1);
+            muli = new TercetoMultiplicacion(posfila, (Objeto)id.get("columnas"));
+        } else {
+            Terceto columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
+            muli = new TercetoMultiplicacion(fila, columnas);
+        }
         //Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
         Terceto pos = new TercetoSuma(muli, columna);
         Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
