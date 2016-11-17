@@ -25,7 +25,7 @@ class ParserHelper {
         }
     }
 
-    public static void cargarMatriz(Parser parser,ParserVal matriz, ParserVal tipo, ParserVal filas, ParserVal columnas,ParserVal anotacion) {
+    public static void cargarMatriz(Parser parser,ParserVal matriz, ParserVal tipo, ParserVal filas, ParserVal columnas, ParserVal inicializacion, ParserVal anotacion) {
         TablaSimbolos ts = parser.getAnalizadorLexico().getTablaSimbolos();
         Token token = ((Token) matriz.obj);
         Token tokenTabla = ts.get(token.getLexema());
@@ -38,11 +38,14 @@ class ParserHelper {
             if(anotacion != null){
                 token.set("anotacion",((Token)anotacion.obj).getLexema());
             }
+            if (inicializacion != null) {
+                token.set("inicializacion", inicializacion.obj);
+            }
             ts.addSimbolo(token);
         }
     }
    public static void cargarMatriz(Parser parser,ParserVal matriz, ParserVal tipo, ParserVal filas, ParserVal columnas){
-	cargarMatriz(parser,matriz,tipo,filas,columnas,null);
+	cargarMatriz(parser,matriz,tipo,filas,columnas,null, null);
     }
 
 
