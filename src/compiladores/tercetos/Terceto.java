@@ -38,6 +38,9 @@ public class Terceto extends Objeto {
     @Override
     public String getTipo() {
         String tipoOp1 = this.getOperando1().getTipo();
+        if (getOperando2() == null) {
+            return tipoOp1;
+        }
         String tipoOp2 = this.getOperando2().getTipo();
         if (tipoOp2 == null) {
             return tipoOp1;
@@ -54,6 +57,14 @@ public class Terceto extends Objeto {
                 this.setOperando2(new TercetoIntToFloat("itof", getOperando2(), null));
             } else if (getOperando1().getTipo().equals("integer") && getOperando2().getTipo().equals("float") && !getOperacion().equals(":=")) {
                 this.setOperando1(new TercetoIntToFloat("itof", getOperando1(), null));
+            }
+        }
+        if (getOperacion().equals(":=")) {
+            if (getOperando1().getTipo().equals("integer")) {
+                if (getOperando2().getTipo().equals("float") && Parser.allowFloatToInt) {
+                    Terceto t = new TercetoFloatToInt("ftoi", getOperando2(), null);
+                    this.setOperando2(t);
+                }
             }
         }
     }

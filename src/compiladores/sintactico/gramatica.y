@@ -100,11 +100,11 @@ sentencia:
            | bloque_for {Logger.getLog().addMensaje(new Info("Bloque 'for' detectado", $1.ival, "Sintactico"));}
            | bloque_print';'; {Logger.getLog().addMensaje(new Info("Bloque 'print' detectado",yylval.ival,"Sintactico"));}
 asignacion:
-            ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj, this); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
+            ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
                                                                     ParserHelper.validarIndices($1, null, null);}
             | ID MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoMasIgual((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
                                                                     ParserHelper.validarIndices($1 ,null, null);}
-            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoAsignacion(ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj, this);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
+            | ID '['expresion']''['expresion']' ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new TercetoAsignacion(ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);Logger.getLog().addMensaje(new Info("Asignacion detectada", yylval.ival, "Sintactico"));
                                                                       ParserHelper.validarIndices($1, $3, $6); ParserHelper.checkAllowAsignacion(this, $1, $9, yylval.ival);}
             | ID '['expresion']''['expresion']' MASIGUAL expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival);$$.obj = new Terceto(((Objeto)$8.obj).getLexema(),ParserHelper.crearTercetoMatrix((Objeto)$1.obj, (Objeto)$3.obj, (Objeto)$6.obj),(Objeto)$9.obj);
                                                                      Logger.getLog().addMensaje(new Info("Asignacion más-igual detectada", yylval.ival, "Sintactico"));
@@ -116,7 +116,7 @@ asignacion:
             | ID MASIGUAL {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
 
 asignacion_for:
-                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj, this); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival);ParserHelper.agregarBIF();}
+                ID ASIGNACION expresion {ParserHelper.checkVarDeclarada(this, $1, yylval.ival); $$.obj = new TercetoAsignacion((Objeto)$1.obj, (Objeto)$3.obj); ParserHelper.checkAllowAsignacion(this, $1, $3, yylval.ival);ParserHelper.agregarBIF();}
                 | error ASIGNACION expresion {Error e = new Error("Falta variable a izquierda de la asigancion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID error expresion {Error e = new Error("Falta operador de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);}
                 | ID ASIGNACION {Error e = new Error("Falta termino derecho de la asignacion",yylval.ival,"Sintactico");Logger.getLog().addMensaje(e);};
@@ -180,7 +180,7 @@ bloque_print:
 private AnalizadorLexico analizadorLexico;
 public static ArrayList<Terceto> tercetos;
 public static ArrayList<Terceto> saltos;
-private boolean allowFloatToInt = false;
+public static boolean allowFloatToInt = false;
 
 public Parser(File file) {
     analizadorLexico = new AnalizadorLexico(file);
