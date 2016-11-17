@@ -134,9 +134,19 @@ class ParserHelper {
     public static Terceto crearTercetoMatrix(Parser parser, Objeto id,Objeto fila, Objeto columna) {
         Token cte1 = getTokenCte(parser, 1);
         Token cte2 = getTokenCte(parser, 16);
-
+        Terceto matrix = null;
+        Terceto columnas = null;
         //calcular posicion (i)*(#columnas)+(j)*T
-        Terceto columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
+        if((Objeto)id.get("columnas") == null){//la variable no existe
+            Token token =  new Token("_i-err" , ParserTokens.CTE_ENTERA); //Utilizo una constante error
+            token.set("numero", Double.MIN_VALUE);
+            token.set("tipostr", "Constante Entera");
+            token.set("tipo", "integer");
+            columnas = new TercetoSuma((Objeto)token, cte1);
+        }
+        else{
+            columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
+        }
         Terceto muli = new TercetoMultiplicacion(fila, columnas);
         //Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
         Terceto pos = new TercetoSuma(muli, columna);
@@ -146,7 +156,7 @@ class ParserHelper {
         Double offset = pos * 16;*/
 
         //generar terceto matrix
-        Terceto matrix = new TercetoMatrix(id, pos2);
+        matrix = new TercetoMatrix(id, pos2);
         return matrix;
     }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
