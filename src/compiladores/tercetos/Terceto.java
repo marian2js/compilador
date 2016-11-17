@@ -13,6 +13,7 @@ public class Terceto extends Objeto {
         this.atributos.put("operando2", operando2);
         this.crearConversiones();
         Parser.tercetos.add(this);
+        this.atributos.put("pos", Integer.toString(Parser.tercetos.size()));
     }
 
     public String getOperacion() {
@@ -71,6 +72,10 @@ public class Terceto extends Objeto {
 
     public String getAssembler() {
         return "";
+    }
+    
+    public String getLexema(){
+        return (String)"["+this.atributos.get("pos")+"]";
     }
 
     @Override

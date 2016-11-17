@@ -8,6 +8,7 @@ package compiladores;
 import compiladores.logger.Logger;
 import compiladores.logger.Mensaje;
 import compiladores.sintactico.Parser;
+import compiladores.tercetos.Terceto;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -139,6 +140,7 @@ public class CompiladorGUI extends javax.swing.JFrame {
             
             ArrayList<Mensaje> mensajes = Logger.getLog().getMensajes();
             for (Mensaje m : mensajes) {
+                if( m.getLevel().equals(Mensaje.ERROR_LEVEL) || m.getLevel().equals(Mensaje.WARNING_LEVEL))
                 jTextArea2.append(m.getLevel() + "::[" + m.getTipo() + "] - Linea " + m.getLinea() + ": " + m.getMensaje() + "\n");
             }
             
@@ -174,6 +176,13 @@ public class CompiladorGUI extends javax.swing.JFrame {
                     }
                 }
             }
+            jTextArea2.append("\nLista de Tercetos:\n");
+            for(Terceto terceto : Parser.tercetos){
+                jTextArea2.append(terceto.getLexema()+" ("+terceto.getOperacion()+","+
+                (terceto.getOperando1()!=null ?  terceto.getOperando1().getLexema(): "-" )+","+
+                (terceto.getOperando2()!=null ?  terceto.getOperando2().getLexema(): "-" )+")\n");
+            }
+            
             
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(CompiladorGUI.class.getName()).log(Level.SEVERE, null, ex);
