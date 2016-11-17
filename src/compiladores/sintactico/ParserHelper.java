@@ -133,11 +133,16 @@ class ParserHelper {
 
     public static Terceto crearTercetoMatrix(Objeto id,Objeto fila, Objeto columna){
         //calcular posicion (i)*(#columnas)+(j)*T
-        Terceto muli = new TercetoMultiplicacion(fila, (Objeto)id.get("columnas"));
-        Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("filas"));
-        Terceto pos = new TercetoSuma(muli, mulj);
+//        Terceto muli = new TercetoMultiplicacion(fila, (Objeto)id.get("filas"));
+//        Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
+//        Terceto pos = new TercetoSuma(muli, mulj);
+//        Terceto mem = new TercetoMultiplicacion(pos;
+        Double posFila = (Double)fila.get("numero") * (Double)((Objeto)id.get("filas")).get("numero");
+        Double pos = posFila + (Double)columna.get("numero");
+        Double offset = pos * 16;
+
         //generar terceto matrix
-        Terceto matrix = new TercetoMatrix(id, pos);
+        Terceto matrix = new TercetoMatrix(id, offset);
         return matrix;
     }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {

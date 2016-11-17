@@ -5,15 +5,17 @@ import compiladores.Objeto;
 import compiladores.Token;
 
 public class TercetoMatrix extends Terceto {
+    private Double offset;
 
-    public TercetoMatrix(Objeto operando1, Objeto operando2) {
-        super("matrix", operando1, operando2);
+    public TercetoMatrix(Objeto operando1, Double offset) {
+        super("matrix", operando1, null);
+        this.offset = offset;
     }
 
     @Override
     public String getAssembler() {
         return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-               "ADD CX, " + getOperando2().getValor() + "\n";
+               "ADD CX, " + offset.toString().replace(".0", "") + "\n";
     }
 
     @Override
