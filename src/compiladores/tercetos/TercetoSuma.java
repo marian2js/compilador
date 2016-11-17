@@ -9,13 +9,18 @@ public class TercetoSuma  extends Terceto {
 
     @Override
     public String getAssembler() {
+        String asm = "";
         if (this.getTipo().equals("integer")) {
-            return "MOV BX, " + getOperando1().getValor() + "\n" +
+            asm += getOperando1().getAssemblerInit() +
+                   "MOV BX, " + getOperando1().getValor() + "\n" +
+                   getOperando2().getAssemblerInit() +
                    "ADD BX, " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", BX" + "\n";
+        } else {
+            asm += "FLD " + getOperando1().getValor() + "\n" +
+                   "FADD " + getOperando2().getValor() + "\n" +
+                   "FSTP " + this.getValor() + "\n";
         }
-        return "FLD " + getOperando1().getValor() + "\n" +
-               "FADD " + getOperando2().getValor() + "\n" +
-               "FSTP " + this.getValor() + "\n";
+        return asm;
     }
 }

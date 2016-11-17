@@ -20,4 +20,6 @@ public abstract class Objeto {
     public abstract String getTipo();
     
     public abstract String getValor(); //Valor si es token o Variable si es terceto
+
+    public abstract String getAssemblerInit();
 }

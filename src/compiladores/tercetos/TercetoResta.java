@@ -10,7 +10,9 @@ public class TercetoResta extends Terceto {
     @Override
     public String getAssembler() {
         if (this.getTipo().equals("integer")) {
-            return "MOV BX, " + getOperando1().getValor() + "\n" +
+            return getOperando1().getAssemblerInit() +
+                   "MOV BX, " + getOperando1().getValor() + "\n" +
+                   getOperando2().getAssemblerInit() +
                    "SUB BX, " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", BX" + "\n";
         }

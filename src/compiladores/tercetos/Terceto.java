@@ -85,4 +85,9 @@ public class Terceto extends Objeto {
         }
         return aux;
     }
+
+    @Override
+    public String getAssemblerInit() {
+        return "";
+    }
 }

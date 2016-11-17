@@ -61,13 +61,25 @@ public class Assembler {
                     declaracion += token.getValor() +" DW "+ token.get("numero").toString().replace(".0", "") + "\n";
                     break;
                 case ParserTokens.ID :
-                    if("integer".equals(token.getTipo())){
+                    if (token.get("filas") != null && token.get("columnas") != null) {
+                        declaracion += token.getValor() + getTipoId(token);
+                        double lim = 0;
+                        double nroFilas = (Double)((Token)token.get("filas")).get("numero");
+                        double nroCols = (Double)((Token)token.get("columnas")).get("numero");
+                        if (token.get("anotacion") != null && token.get("anotacion").equals("/#@1")) {
+                            lim = nroFilas * nroCols;
+                        } else {
+                            lim = (nroFilas + 1) * (nroCols + 1);
+                        }
+                        declaracion += Double.toString(lim).replace(".0", "") + " DUP";
+                        if (token.get("inicializacion") != null) {
+                            declaracion += "(?)\n"; //TODO agregar inicializacion
+                        } else {
+                            declaracion += "(?)\n";
+                        }
+                    } else {
                         declaracion += token.getValor();
-                        declaracion+=" DW ?\n";
-                    }
-                    else if ("float".equals(token.getTipo())){
-                        declaracion += token.getValor();
-                        declaracion+=" DD ?\n";
+                        declaracion += getTipoId(token) + "?\n";
                     }
                     break;
                 default:
@@ -78,6 +90,14 @@ public class Assembler {
                
         return declaracion;
     }
+
+    public String getTipoId(Token token) {
+        if ("integer".equals(token.getTipo())) {
+            return " DW ";
+        } else
+            return " DD ";
+    }
+
 
     private String generarLabelDivCero() {
         return "_label_div_cero:\n" +
