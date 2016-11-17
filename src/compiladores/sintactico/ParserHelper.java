@@ -136,18 +136,25 @@ class ParserHelper {
         Token cte2 = getTokenCte(parser, 16);
         Terceto muli;
         Terceto matrix = null;
-
+        Terceto columnas = null;
+        if((Objeto)id.get("columnas") == null){//la variable no existe
+            Token token =  new Token("_i-err" , ParserTokens.CTE_ENTERA); //Utilizo una constante error
+            token.set("numero", Double.MIN_VALUE);
+            token.set("tipostr", "Constante Entera");
+            token.set("tipo", "integer");
+            columnas = new TercetoSuma((Objeto)token, cte1);
+        }
+        else{
+            columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
+        }
         //calcular posicion (i)*(#columnas)+(j)*T
         if (id.get("anotacion") != null && ((Token)id.get("anotacion")).getLexema().equals("/#@1")) {
             Terceto posfila = new TercetoResta(fila, cte1);
             muli = new TercetoMultiplicacion(posfila, (Objeto)id.get("columnas"));
         } else {
-            Terceto columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
             muli = new TercetoMultiplicacion(fila, columnas);
         }
-        else{
-            columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
-        }
+
         //Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
         Terceto pos = new TercetoSuma(muli, columna);
         Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
