@@ -148,7 +148,7 @@ class ParserHelper {
             columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
         }
         //calcular posicion (i)*(#columnas)+(j)*T
-        if (id.get("anotacion") != null && ((Token)id.get("anotacion")).getLexema().equals("/#@1")) {
+        if (id.get("anotacion") != null && id.get("anotacion").toString().equals("/#@1")) {
             Terceto posfila = new TercetoResta(fila, cte1);
             muli = new TercetoMultiplicacion(posfila, (Objeto)id.get("columnas"));
         } else {
