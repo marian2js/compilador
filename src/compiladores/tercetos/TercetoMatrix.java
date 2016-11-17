@@ -10,13 +10,24 @@ public class TercetoMatrix extends Terceto {
 
     @Override
     public String getAssembler() {
-        return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+        if(getOperando1().getTipo().equals("integer")){
+            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
                "ADD CX, " + getOperando2().getValor() + "\n";
+        }
+        else{
+            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+               "ADD ECX, " + getOperando2().getValor() + "\n";
+        }
     }
 
     @Override
     public String getValor() {
-        return "sword ptr[ECX]";
+        if(getOperando1().getTipo().equals("integer")){
+            return "sword ptr[ECX]";
+        }
+        else{
+            return "real4 ptr[ECX]";
+        }
     }
 
     @Override
