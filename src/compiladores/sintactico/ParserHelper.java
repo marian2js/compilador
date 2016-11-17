@@ -65,12 +65,12 @@ class ParserHelper {
         Token id = (Token) var.obj;
         if (id.getLexema() != null && id.getLexema().contains("mat@")){
             if (filas != null && columnas != null){
-                Token f = (Token) filas.obj;
-                Token c = (Token) columnas.obj;
-                if (f.getValue() != ParserTokens.CTE_ENTERA) {
+                Objeto f = (Objeto) filas.obj;
+                Objeto c = (Objeto) columnas.obj;
+                if (!f.getTipo().equals("integer")) {
                     Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", filas.ival, "Semantico"));
                 }
-                if (c.getValue() != ParserTokens.CTE_ENTERA) {
+                if (!c.getTipo().equals("integer")) {
                     Logger.getLog().addMensaje(new Error("Tipo de subindice invalido", columnas.ival, "Semantico"));
                 }
             } else {
@@ -133,7 +133,7 @@ class ParserHelper {
 
     public static Terceto crearTercetoMatrix(Parser parser, Objeto id,Objeto fila, Objeto columna) {
         Token cte1 = getTokenCte(parser, 1);
-        Token cte2 = getTokenCte(parser, 16);
+        //Token cte2 = getTokenCte(parser, 16);
         Terceto muli;
         Terceto matrix = null;
         Terceto columnas = null;
@@ -148,7 +148,7 @@ class ParserHelper {
             columnas = new TercetoSuma((Objeto)id.get("columnas"), cte1);
         }
         //calcular posicion (i)*(#columnas)+(j)*T
-        if (id.get("anotacion") != null && ((Token)id.get("anotacion")).getLexema().equals("/#@1")) {
+        if (id.get("anotacion") != null && id.get("anotacion").toString().equals("/#@1")) {
             Terceto posfila = new TercetoResta(fila, cte1);
             muli = new TercetoMultiplicacion(posfila, (Objeto)id.get("columnas"));
         } else {
@@ -157,13 +157,13 @@ class ParserHelper {
 
         //Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
         Terceto pos = new TercetoSuma(muli, columna);
-        Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
+        //Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
         /*Double pos = ((Double)fila.get("numero") - 0) * ((Double)((Objeto)id.get("columnas")).get("numero") - 0 + 1)
                 + (Double)columna.get("numero") - 0;
         Double offset = pos * 16;*/
 
         //generar terceto matrix
-        matrix = new TercetoMatrix(id, pos2);
+        matrix = new TercetoMatrix(id, pos);
         return matrix;
     }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
