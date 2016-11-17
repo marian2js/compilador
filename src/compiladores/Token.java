@@ -45,4 +45,8 @@ public class Token extends Objeto {
                 return getLexema();
         }
     }
+
+    public String getAssemblerInit() {
+        return "";
+    }
 }

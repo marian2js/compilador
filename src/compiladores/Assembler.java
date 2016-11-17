@@ -69,7 +69,7 @@ public class Assembler {
                         if (token.get("anotacion") != null && token.get("anotacion").equals("/#@1")) {
                             lim = nroFilas * nroCols;
                         } else {
-                            lim = (nroFilas + 1) * (nroCols - 1);
+                            lim = (nroFilas + 1) * (nroCols + 1);
                         }
                         declaracion += Double.toString(lim).replace(".0", "") + " DUP";
                         if (token.get("inicializacion") != null) {
