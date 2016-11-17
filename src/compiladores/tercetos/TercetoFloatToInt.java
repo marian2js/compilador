@@ -1,7 +1,6 @@
 package compiladores.tercetos;
 
 import compiladores.Objeto;
-import compiladores.sintactico.Parser;
 
 public class TercetoFloatToInt extends Terceto{
 
@@ -17,6 +16,11 @@ public class TercetoFloatToInt extends Terceto{
     @Override
     public String getAssembler() {
         return "FLD " + this.getOperando1().getValor() + "\n" +
-               "FISTP " + this.getValor() + "\n";
+               "FIST " + this.getValor() + "\n" +
+               "FILD " + this.getValor() + "\n" +
+               "FCOMP\n" +
+               "FSTSW AX\n" +
+               "SAHF\n" +
+               "JNE _label_perdida_conversion\n";
     }
 }

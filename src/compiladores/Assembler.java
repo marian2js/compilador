@@ -46,6 +46,8 @@ public class Assembler {
     
     private String generarDeclaraciones(TablaSimbolos ts){
         String declaracion = ".data\n";
+        declaracion += "_errDivCero DB 'Error: Division por cero', 0\n";
+        declaracion += "_errPerdidaConv DB 'Error: Perdida en conversion', 0\n";
         for(Token token : ts.getTokens()){
             if(!token.esReservada()){
             switch (token.getValue()){
@@ -76,10 +78,24 @@ public class Assembler {
                
         return declaracion;
     }
+
+    private String generarLabelDivCero() {
+        return "_label_div_cero:\n" +
+                "invoke MessageBox, NULL, addr _errDivCero, addr _errDivCero, MB_OK\n" +
+                "invoke ExitProcess, 0\n";
+    }
+
+    private String generarLabelPerdidaConv() {
+        return "_label_perdida_conversion:\n" +
+                "invoke MessageBox, NULL, addr _errPerdidaConv, addr _errPerdidaConv, MB_OK\n" +
+                "invoke ExitProcess, 0\n";
+    }
     
     public String generarInstrucciones(ArrayList<Terceto> tercetos){
         String instrucciones = "";
         instrucciones += ".code\n";
+        instrucciones += generarLabelDivCero();
+        instrucciones += generarLabelPerdidaConv();
         instrucciones += "start:\n";
         for(Terceto terceto : tercetos){
             instrucciones += terceto.getAssembler();
