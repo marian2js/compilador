@@ -94,7 +94,7 @@ public class Assembler {
                         if ("integer".equals(token.getTipo())) {
                             declaracion += "_lim" + token.getValor() + " DW " + Double.toString(lim*2).replace(".0", "") + "\n" ;
                         } else {
-                            declaracion += "_lim" + token.getValor() + " DD " + Double.toString(lim * 4).replace(".0", "") + "\n";
+                            declaracion += "_lim" + token.getValor() + " DW " + Double.toString(lim * 4).replace(".0", "") + "\n";
                         }
                     } else {
                         declaracion += token.getValor();

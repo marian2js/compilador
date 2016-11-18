@@ -14,32 +14,28 @@ public class TercetoMatrix extends Terceto {
 
     @Override
     public String getAssembler() {
+        String code = "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+                "MOV BX, " + getOperando2().getValor() + "\n" +
+                "CMP BX, _lim" + getOperando1().getValor() + "\n" +
+                "JG _label_error_indice\n";
+        if (getOperando1().get("anotacion") != null && getOperando1().get("anotacion").equals("/#@1")) {
+            code += "MOV BX, " + fila.getValor() + "\n" +
+                    "CMP BX, 0\n" +
+                    "JLE _label_error_indice\n" +
+                    "MOV BX, " + columna.getValor() + "\n" +
+                    "CMP BX, 0\n" +
+                    "JLE _label_error_indice\n";
+        }
+        code += "ADD CX, " + getOperando2().getValor() + "\n";
         if(getOperando1().getTipo().equals("integer")){
-            String code = "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-                    "MOV BX, " + getOperando2().getValor() + "\n" +
-                    "CMP BX, _lim" + getOperando1().getValor() + "\n" +
-                    "JG _label_error_indice\n";
-            if (getOperando1().get("anotacion") != null && getOperando1().get("anotacion").equals("/#@1")) {
-                code += "MOV BX, " + fila.getValor() + "\n" +
-                        "CMP BX, 0\n" +
-                        "JLE _label_error_indice\n" +
-                        "MOV BX, " + columna.getValor() + "\n" +
-                        "CMP BX, 0\n" +
-                        "JLE _label_error_indice\n";
-            }
-               code += "ADD CX, " + getOperando2().getValor() + "\n";
-            return code;
+            code+= "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+                    "ADD CX, " + getOperando2().getValor() + "\n";
         }
         else{
-            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-                    "FLD " + getOperando2().getValor() + "\n" +
-                    "FLD _lim" + getOperando1().getValor() + "\n" +
-                    "FCOMP\n" +
-                    "FSTSW AX\n" +
-                    "SAHF\n" +
-                    "JG _label_error_indice\n" +
-               "ADD CX, " + getOperando2().getValor() + "\n";
+            code+= "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+                    "ADD CX, " + getOperando2().getValor() + "\n";
         }
+        return code;
     }
 
     @Override
@@ -59,13 +55,6 @@ public class TercetoMatrix extends Terceto {
 
     @Override
     public String getAssemblerInit() {
-        if(getOperando1().getTipo().equals("integer")){
-            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-                    "ADD CX, " + getOperando2().getValor() + "\n";
-        }
-        else{
-            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-                    "ADD CX, " + getOperando2().getValor() + "\n";
-        }
+        return this.getAssembler();
     }
 }
