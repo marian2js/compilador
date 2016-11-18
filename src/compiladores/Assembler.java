@@ -48,6 +48,7 @@ public class Assembler {
         String declaracion = ".data\n";
         declaracion += "_errDivCero DB 'Error: Division por cero', 0\n";
         declaracion += "_errPerdidaConv DB 'Error: Perdida en conversion', 0\n";
+        declaracion += "_errIndiceInv DB 'Error: Acceso a indice fuera de rango', 0\n";
         for(Token token : ts.getTokens()){
             if(!token.esReservada()){
             switch (token.getValue()){
@@ -64,6 +65,7 @@ public class Assembler {
                     if (token.get("filas") != null && token.get("columnas") != null) {
                         declaracion += token.getValor() + getTipoId(token);
                         double lim = 0;
+                        double liminf = 0;
                         double nroFilas = (Double)((Token)token.get("filas")).get("numero");
                         double nroCols = (Double)((Token)token.get("columnas")).get("numero");
                         if (token.get("anotacion") != null && token.get("anotacion").equals("/#@1")) {
@@ -88,6 +90,11 @@ public class Assembler {
                             declaracion += "\n";
                         } else {
                             declaracion += Double.toString(lim).replace(".0", "") + " DUP(?)\n";
+                        }
+                        if ("integer".equals(token.getTipo())) {
+                            declaracion += "_lim" + token.getValor() + " DW " + Double.toString(lim*2).replace(".0", "") + "\n" ;
+                        } else {
+                            declaracion += "_lim" + token.getValor() + " DD " + Double.toString(lim * 4).replace(".0", "") + "\n";
                         }
                     } else {
                         declaracion += token.getValor();
@@ -122,12 +129,19 @@ public class Assembler {
                 "invoke MessageBox, NULL, addr _errPerdidaConv, addr _errPerdidaConv, MB_OK\n" +
                 "invoke ExitProcess, 0\n";
     }
-    
+
+    private String generarLabelErrorIndice() {
+        return "_label_error_indice:\n" +
+                "invoke MessageBox, NULL, addr _errIndiceInv, addr _errIndiceInv, MB_OK\n" +
+                "invoke ExitProcess, 0\n";
+    }
+
     public String generarInstrucciones(ArrayList<Terceto> tercetos){
         String instrucciones = "";
         instrucciones += ".code\n";
         instrucciones += generarLabelDivCero();
         instrucciones += generarLabelPerdidaConv();
+        instrucciones += generarLabelErrorIndice();
         instrucciones += "start:\n";
         for(Terceto terceto : tercetos){
             instrucciones += terceto.getAssembler();

@@ -32,8 +32,8 @@ class ParserHelper {
         if (tokenTabla == null) {
             token.set("tipo", ((Token) tipo.obj).getLexema());
             token.set("lexema", "mat@" + token.getLexema());
-            token.set("filas",(Token)filas.obj);
-            token.set("columnas",(Token)columnas.obj);
+            token.set("filas",filas.obj);
+            token.set("columnas",columnas.obj);
             token.set("uso", "Nombre de arreglo");
             if(anotacion != null){
                 token.set("anotacion",((Token)anotacion.obj).getLexema());
@@ -175,7 +175,7 @@ class ParserHelper {
         Double offset = pos * 16;*/
 
         //generar terceto matrix
-        matrix = new TercetoMatrix(id, pos2);
+        matrix = new TercetoMatrix(id, pos2, fila, columna);
         return matrix;
     }
     public static void checkVarRedeclarada(Parser parser, ParserVal ids, int linea) {
