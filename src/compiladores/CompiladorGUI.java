@@ -9,11 +9,17 @@ import compiladores.logger.Logger;
 import compiladores.logger.Mensaje;
 import compiladores.sintactico.Parser;
 import compiladores.tercetos.Terceto;
+import java.awt.FileDialog;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import javax.swing.JFileChooser;
@@ -195,11 +201,23 @@ public class CompiladorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        FileDialog fd=new FileDialog(this,"Save Dialog",FileDialog.SAVE);
+        fd.setDirectory(defaultFolderPath);
+        fd.setVisible(true);
+        String path=fd.getDirectory();
+        String filename = fd.getFile();
         Assembler assembler = new Assembler();
         String resultado = assembler.generarAssembler(parser.tercetos, parser.getAnalizadorLexico().getTablaSimbolos());
         jTextArea2.setText(resultado);
-        
+        try{
+        FileOutputStream fos=new FileOutputStream(path+filename+".asm");
+        Writer out = new BufferedWriter(new OutputStreamWriter(fos));
+        out.write(resultado);
+        out.close();
+        }
+        catch (Exception ex) {
+            java.util.logging.Logger.getLogger(CompiladorGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }        
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
