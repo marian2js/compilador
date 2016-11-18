@@ -42,28 +42,28 @@ tipo:
 
 declaracion_matrix:
                       tipo MATRIX ID '['expresion']''['expresion']' inicializacion ';' ANOTACION {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
-                                                                                                  ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$12);
+                                                                                                  ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$10,$12);
                                                                                                   ParserHelper.validarIndices($3, $5, $8);}
                     | tipo MATRIX ID '['expresion']''['expresion']' inicializacion ';' {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
-                                                                                        ParserHelper.cargarMatriz(this,$3,$1,$5,$8);
+                                                                                        ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$10,null);
                                                                                         ParserHelper.validarIndices($3, $5, $8);}
                     | tipo MATRIX ID '['expresion']''['expresion']' ';' ANOTACION {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
-                                                                                   ParserHelper.cargarMatriz(this,$3,$1,$5,$8,$11);
+                                                                                   ParserHelper.cargarMatriz(this,$3,$1,$5,$8,null,$11);
                                                                                    ParserHelper.validarIndices($3, $5, $8);}
                     | tipo MATRIX ID '['expresion']''['expresion']' ';' {ParserHelper.checkMatRedeclarada(this, $3, yylval.ival); Logger.getLog().addMensaje(new Info("Declaración de matriz detectada", $1.ival, "Sintactico"));
                                                                          ParserHelper.cargarMatriz(this,$3,$1,$5,$8);
                                                                          ParserHelper.validarIndices($3, $5, $8);}
 ;
 inicializacion:
-               '{' columna '}';
+               '{' columna '}'; { $$.obj = $2.obj; }
 columna:
-        fila
-        | columna';' fila;
+        fila { ArrayList<Token> tokens = new ArrayList<>(); tokens.addAll((ArrayList<Token>)$1.obj); $$.obj = tokens; }
+        | columna';' fila; { ArrayList<Token> tokens = new ArrayList<>(); tokens.addAll((ArrayList<Token>)$1.obj); tokens.addAll((ArrayList<Token>)$3.obj); $$.obj = tokens; }
 fila:
-     CTE_FLOAT
-     | CTE_ENTERA
-     | fila ',' CTE_ENTERA
-     | fila',' CTE_FLOAT;
+     CTE_FLOAT { ArrayList<Token> tokens = new ArrayList<>(); tokens.add((Token)$1.obj); $$.obj = tokens; }
+     | CTE_ENTERA { ArrayList<Token> tokens = new ArrayList<>(); tokens.add((Token)$1.obj); $$.obj = tokens; }
+     | fila ',' CTE_ENTERA { ArrayList<Token> tokens = (ArrayList<Token>)$$.obj; tokens.add((Token)$3.obj); }
+     | fila',' CTE_FLOAT; { ArrayList<Token> tokens = (ArrayList<Token>)$$.obj; tokens.add((Token)$3.obj); }
 declaracion_allow:
                   ALLOW tipo TO tipo; {this.setAllow($2, $4);}
 expresion:

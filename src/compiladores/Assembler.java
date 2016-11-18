@@ -71,11 +71,19 @@ public class Assembler {
                         } else {
                             lim = (nroFilas + 1) * (nroCols + 1);
                         }
-                        declaracion += Double.toString(lim).replace(".0", "") + " DUP";
                         if (token.get("inicializacion") != null) {
-                            declaracion += "(?)\n"; //TODO agregar inicializacion
+                            int i = 0;
+                            ArrayList<Token> tokens = (ArrayList<Token>) token.get("inicializacion");
+                            for (Token t : tokens) {
+                                declaracion += ("" + t.get("numero")).replace(".0", "");
+                                i++;
+                                if (i < tokens.size()) {
+                                    declaracion += ",";
+                                }
+                            }
+                            declaracion += "\n";
                         } else {
-                            declaracion += "(?)\n";
+                            declaracion += Double.toString(lim).replace(".0", "") + " DUP(?)\n";
                         }
                     } else {
                         declaracion += token.getValor();
