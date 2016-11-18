@@ -27,14 +27,13 @@ public class TercetoMatrix extends Terceto {
                 "CMP BX, 0\n" +
                 comp + " _label_error_indice\n";
         if(getOperando1().getTipo().equals("integer")){
-            code+= "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
                     "ADD CX, " + getOperando2().getValor() + "\n";
         }
         else{
-            code+= "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
                     "ADD CX, " + getOperando2().getValor() + "\n";
         }
-        return code;
     }
 
     @Override
