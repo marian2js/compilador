@@ -20,7 +20,9 @@ public class TercetoComparacion extends Terceto{
     public String getAssembler(){
         String comparacion = "";
         if (getOperando1().getTipo().equals("integer")) {
+            comparacion += getOperando1().getAssemblerInit();
             comparacion += "MOV BX, " +getOperando1().getValor()+"\n";
+            comparacion += getOperando2().getAssemblerInit();
             comparacion += "CMP BX,"+getOperando2().getValor()+"\n";
         } else {
             comparacion = "FLD " + getOperando1().getValor() + "\n";

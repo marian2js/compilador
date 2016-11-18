@@ -75,7 +75,11 @@ public class Assembler {
                             int i = 0;
                             ArrayList<Token> tokens = (ArrayList<Token>) token.get("inicializacion");
                             for (Token t : tokens) {
-                                declaracion += ("" + t.get("numero")).replace(".0", "");
+                                String num = "" + t.get("numero");
+                                if (token.getTipo().equals("integer")) {
+                                    num = num.replace(".0", "");
+                                }
+                                declaracion += num;
                                 i++;
                                 if (i < tokens.size()) {
                                     declaracion += ",";

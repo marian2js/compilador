@@ -136,11 +136,11 @@ class ParserHelper {
 
     public static Terceto crearTercetoMatrix(Parser parser, Objeto id,Objeto fila, Objeto columna) {
         Token cte1 = getTokenCte(parser, 1);
-        Token cte2 = getTokenCte(parser, 2);
         Terceto muli;
         Terceto matrix = null;
         Terceto columnas = null;
         Terceto pos = null;
+        Terceto pos2 = null;
         if((Objeto)id.get("columnas") == null){//la variable no existe
             Token token =  new Token("_i-err" , ParserTokens.CTE_ENTERA); //Utilizo una constante error
             token.set("numero", Double.MIN_VALUE);
@@ -162,9 +162,14 @@ class ParserHelper {
             pos = new TercetoSuma(muli, columna);
         }
 
-        //Terceto mulj = new TercetoMultiplicacion(columna, (Objeto)id.get("columnas"));
-        //Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
-        Terceto pos2 = new TercetoMultiplicacion(pos, cte2);
+        if (id.getTipo().equals("integer")) {
+            Token cte2 = getTokenCte(parser, 2);
+            pos2 = new TercetoMultiplicacion(pos, cte2);
+        } else {
+            Token cte2 = getTokenCte(parser, 4);
+            pos2 = new TercetoMultiplicacion(pos, cte2);
+        }
+
         /*Double pos = ((Double)fila.get("numero") - 0) * ((Double)((Objeto)id.get("columnas")).get("numero") - 0 + 1)
                 + (Double)columna.get("numero") - 0;
         Double offset = pos * 16;*/
