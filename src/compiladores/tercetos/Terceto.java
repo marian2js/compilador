@@ -53,6 +53,9 @@ public class Terceto extends Objeto {
     }
 
     public void crearConversiones() {
+        if (getOperacion().equals("matrix")) {
+            return;
+        }
         if (getOperando1() != null && getOperando2() != null){
             if (getOperando1().getTipo().equals("float") && getOperando2().getTipo().equals("integer")) {
                 this.setOperando2(new TercetoIntToFloat("itof", getOperando2(), null));

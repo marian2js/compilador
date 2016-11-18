@@ -16,7 +16,7 @@ public class TercetoMatrix extends Terceto {
         }
         else{
             return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-               "ADD ECX, " + getOperando2().getValor() + "\n";
+               "ADD CX, " + getOperando2().getValor() + "\n";
         }
     }
 
