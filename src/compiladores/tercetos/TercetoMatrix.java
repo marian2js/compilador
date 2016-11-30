@@ -16,24 +16,18 @@ public class TercetoMatrix extends Terceto {
     public String getAssembler() {
         boolean lim0 = getOperando1().get("anotacion") != null && getOperando1().get("anotacion").equals("/#@1");
         String comp = lim0 ? "JLE" : "JL";
-        String code =
-                "MOV BX, " + getOperando2().getValor() + "\n" +
-                "CMP BX, _lim" + getOperando1().getValor() + "\n" +
-                "JG _label_error_indice\n";
-        code += "MOV BX, " + fila.getValor() + "\n" +
-                "CMP BX, 0\n" +
+        return
+                "MOV CX, " + getOperando2().getValor() + "\n" +
+                "CMP CX, _lim" + getOperando1().getValor() + "\n" +
+                "JG _label_error_indice\n" +
+                "MOV CX, " + fila.getValor() + "\n" +
+                "CMP CX, 0\n" +
                 comp + " _label_error_indice\n" +
-                "MOV BX, " + columna.getValor() + "\n" +
-                "CMP BX, 0\n" +
-                comp + " _label_error_indice\n";
-        if(getOperando1().getTipo().equals("integer")){
-            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-                    "ADD CX, " + getOperando2().getValor() + "\n";
-        }
-        else{
-            return "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
-                    "ADD CX, " + getOperando2().getValor() + "\n";
-        }
+                "MOV CX, " + columna.getValor() + "\n" +
+                "CMP CX, 0\n" +
+                comp + " _label_error_indice\n" +
+                "MOV ECX, OFFSET " + getOperando1().getValor() + "\n" +
+                "ADD CX, " + getOperando2().getValor() + "\n";
     }
 
     @Override
