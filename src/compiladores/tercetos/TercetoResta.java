@@ -16,7 +16,9 @@ public class TercetoResta extends Terceto {
                    "SUB BX, " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", BX" + "\n";
         }
-        return "FLD " + getOperando1().getValor() + "\n" +
+        return getOperando1().getAssemblerInit() +
+               "FLD " + getOperando1().getValor() + "\n" +
+                getOperando2().getAssemblerInit() +
                "FSUB " + getOperando2().getValor() + "\n" +
                "FSTP " + this.getValor() + "\n";
     }

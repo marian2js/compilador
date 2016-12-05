@@ -25,7 +25,9 @@ public class TercetoComparacion extends Terceto{
             comparacion += getOperando2().getAssemblerInit();
             comparacion += "CMP BX,"+getOperando2().getValor()+"\n";
         } else {
-            comparacion = "FLD " + getOperando1().getValor() + "\n";
+            comparacion += getOperando1().getAssemblerInit();
+            comparacion += "FLD " + getOperando1().getValor() + "\n";
+            comparacion += getOperando2().getAssemblerInit();
             comparacion += "FCOM " + getOperando2().getValor() + "\n";
             comparacion += "FSTSW AX \n";
             comparacion += "SAHF \n";

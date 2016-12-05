@@ -22,11 +22,13 @@ public class TercetoDivision extends Terceto {
                    "IDIV " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", AX" + "\n";
         }
-        return "FLD " + getOperando2().getValor() + "\n" +
+        return getOperando2().getAssemblerInit() +
+               "FLD " + getOperando2().getValor() + "\n" +
                "FTST\n" +
                "FSTSW AX\n" +
                "SAHF\n" +
                "JE _label_div_cero\n" +
+                getOperando1().getAssemblerInit() +
                "FLD " + getOperando1().getValor() + "\n" +
                "FDIV ST, ST(1)\n" +
                "FSTP " + this.getValor() + "\n";

@@ -17,7 +17,9 @@ public class TercetoSuma  extends Terceto {
                    "ADD BX, " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", BX" + "\n";
         } else {
-            asm += "FLD " + getOperando1().getValor() + "\n" +
+            asm += getOperando1().getAssemblerInit() +
+                   "FLD " + getOperando1().getValor() + "\n" +
+                   getOperando2().getAssemblerInit() +
                    "FADD " + getOperando2().getValor() + "\n" +
                    "FSTP " + this.getValor() + "\n";
         }

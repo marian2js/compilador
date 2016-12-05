@@ -17,8 +17,11 @@ public class TercetoMasIgual extends Terceto {
                     getOperando1().getAssemblerInit() +
                    "MOV " + getOperando1().getValor() + ", BX\n";
         }
-        return "FLD " + getOperando2().getValor() + "\n" +
+        return getOperando2().getAssemblerInit() +
+               "FLD " + getOperando2().getValor() + "\n" +
+                getOperando1().getAssemblerInit() +
                "FADD " + getOperando1().getValor() + "\n" +
+                getOperando1().getAssemblerInit() +
                "FSTP " + getOperando1().getValor() + "\n";
     }
 }

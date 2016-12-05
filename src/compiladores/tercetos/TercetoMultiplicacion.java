@@ -17,7 +17,9 @@ public class TercetoMultiplicacion extends Terceto {
                    "IMUL AX, " + getOperando2().getValor() + "\n" +
                    "MOV " + this.getValor() + ", AX" + "\n";
         }
-        return "FLD " + getOperando1().getValor() + "\n" +
+        return getOperando1().getAssemblerInit() +
+               "FLD " + getOperando1().getValor() + "\n" +
+               getOperando2().getAssemblerInit() +
                "FMUL " + getOperando2().getValor() + "\n" +
                "FSTP " + this.getValor() + "\n";
     }
